@@ -1,0 +1,5430 @@
+{
+  "source": "data.geo.admin.ch STAC",
+  "collection_id": "ch.meteoschweiz.ogd-climate-scenarios-ch2025",
+  "station_count": 410,
+  "stations": [
+    {
+      "id": "TAE",
+      "value": "TAE",
+      "code": "tae",
+      "name": "Aadorf / Tänikon (TAE)",
+      "label": "Aadorf / Tänikon (TAE) · TAE",
+      "latitude": 47.48,
+      "longitude": 8.905,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ABE",
+      "value": "ABE",
+      "code": "abe",
+      "name": "Aarberg (ABE)",
+      "label": "Aarberg (ABE) · ABE",
+      "latitude": 47.058,
+      "longitude": 7.285,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "COM",
+      "value": "COM",
+      "code": "com",
+      "name": "Acquarossa / Comprovasco (COM)",
+      "label": "Acquarossa / Comprovasco (COM) · COM",
+      "latitude": 46.46,
+      "longitude": 8.935,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ABO",
+      "value": "ABO",
+      "code": "abo",
+      "name": "Adelboden (ABO)",
+      "label": "Adelboden (ABO) · ABO",
+      "latitude": 46.492,
+      "longitude": 7.561,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "AFT",
+      "value": "AFT",
+      "code": "aft",
+      "name": "Affeltrangen (AFT)",
+      "label": "Affeltrangen (AFT) · AFT",
+      "latitude": 47.537,
+      "longitude": 9.016,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AIE",
+      "value": "AIE",
+      "code": "aie",
+      "name": "Affoltern i. E. (AIE)",
+      "label": "Affoltern i. E. (AIE) · AIE",
+      "latitude": 47.063,
+      "longitude": 7.741,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AIG",
+      "value": "AIG",
+      "code": "aig",
+      "name": "Aigle (AIG)",
+      "label": "Aigle (AIG) · AIG",
+      "latitude": 46.327,
+      "longitude": 6.924,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "AIR",
+      "value": "AIR",
+      "code": "air",
+      "name": "Airolo (AIR)",
+      "label": "Airolo (AIR) · AIR",
+      "latitude": 46.526,
+      "longitude": 8.597,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ALW",
+      "value": "ALW",
+      "code": "alw",
+      "name": "Allenwinden, TG (ALW)",
+      "label": "Allenwinden, TG (ALW) · ALW",
+      "latitude": 47.387,
+      "longitude": 8.946,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "APT",
+      "value": "APT",
+      "code": "apt",
+      "name": "Alpthal (APT)",
+      "label": "Alpthal (APT) · APT",
+      "latitude": 47.06,
+      "longitude": 8.714,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ALT",
+      "value": "ALT",
+      "code": "alt",
+      "name": "Altdorf (ALT)",
+      "label": "Altdorf (ALT) · ALT",
+      "latitude": 46.887,
+      "longitude": 8.622,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ALM",
+      "value": "ALM",
+      "code": "alm",
+      "name": "Altmatt (ALM)",
+      "label": "Altmatt (ALM) · ALM",
+      "latitude": 47.131,
+      "longitude": 8.696,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ALS",
+      "value": "ALS",
+      "code": "als",
+      "name": "Altstätten, SG (ALS)",
+      "label": "Altstätten, SG (ALS) · ALS",
+      "latitude": 47.383,
+      "longitude": 9.557,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ALV",
+      "value": "ALV",
+      "code": "alv",
+      "name": "Alvaneu Dorf (ALV)",
+      "label": "Alvaneu Dorf (ALV) · ALV",
+      "latitude": 46.677,
+      "longitude": 9.647,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AMW",
+      "value": "AMW",
+      "code": "amw",
+      "name": "Amriswil (AMW)",
+      "label": "Amriswil (AMW) · AMW",
+      "latitude": 47.55,
+      "longitude": 9.322,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AND",
+      "value": "AND",
+      "code": "and",
+      "name": "Andeer (AND)",
+      "label": "Andeer (AND) · AND",
+      "latitude": 46.61,
+      "longitude": 9.432,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AFI",
+      "value": "AFI",
+      "code": "afi",
+      "name": "Andelfingen (AFI)",
+      "label": "Andelfingen (AFI) · AFI",
+      "latitude": 47.605,
+      "longitude": 8.67,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ANT",
+      "value": "ANT",
+      "code": "ant",
+      "name": "Andermatt (ANT)",
+      "label": "Andermatt (ANT) · ANT",
+      "latitude": 46.631,
+      "longitude": 8.581,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "tas",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "APP",
+      "value": "APP",
+      "code": "app",
+      "name": "Appenzell (APP)",
+      "label": "Appenzell (APP) · APP",
+      "latitude": 47.34,
+      "longitude": 9.397,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ARB",
+      "value": "ARB",
+      "code": "arb",
+      "name": "Arbon (ARB)",
+      "label": "Arbon (ARB) · ARB",
+      "latitude": 47.502,
+      "longitude": 9.436,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ARI",
+      "value": "ARI",
+      "code": "ari",
+      "name": "Arisdorf (ARI)",
+      "label": "Arisdorf (ARI) · ARI",
+      "latitude": 47.507,
+      "longitude": 7.775,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ARO",
+      "value": "ARO",
+      "code": "aro",
+      "name": "Arosa (ARO)",
+      "label": "Arosa (ARO) · ARO",
+      "latitude": 46.793,
+      "longitude": 9.679,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "AVE",
+      "value": "AVE",
+      "code": "ave",
+      "name": "Avenches (AVE)",
+      "label": "Avenches (AVE) · AVE",
+      "latitude": 46.878,
+      "longitude": 7.041,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AVB",
+      "value": "AVB",
+      "code": "avb",
+      "name": "Avers / Am Bach (AVB)",
+      "label": "Avers / Am Bach (AVB) · AVB",
+      "latitude": 46.453,
+      "longitude": 9.547,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "RAG",
+      "value": "RAG",
+      "code": "rag",
+      "name": "Bad Ragaz (RAG)",
+      "label": "Bad Ragaz (RAG) · RAG",
+      "latitude": 47.017,
+      "longitude": 9.503,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "BAT",
+      "value": "BAT",
+      "code": "bat",
+      "name": "Balsthal (BAT)",
+      "label": "Balsthal (BAT) · BAT",
+      "latitude": 47.32,
+      "longitude": 7.717,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BAW",
+      "value": "BAW",
+      "code": "baw",
+      "name": "Barmelweid (BAW)",
+      "label": "Barmelweid (BAW) · BAW",
+      "latitude": 47.421,
+      "longitude": 7.969,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BAS",
+      "value": "BAS",
+      "code": "bas",
+      "name": "Basel / Binningen (BAS)",
+      "label": "Basel / Binningen (BAS) · BAS",
+      "latitude": 47.541,
+      "longitude": 7.584,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "BAU",
+      "value": "BAU",
+      "code": "bau",
+      "name": "Baulmes (BAU)",
+      "label": "Baulmes (BAU) · BAU",
+      "latitude": 46.789,
+      "longitude": 6.523,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BAM",
+      "value": "BAM",
+      "code": "bam",
+      "name": "Bauma (BAM)",
+      "label": "Bauma (BAM) · BAM",
+      "latitude": 47.365,
+      "longitude": 8.906,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BEY",
+      "value": "BEY",
+      "code": "bey",
+      "name": "Bellelay (BEY)",
+      "label": "Bellelay (BEY) · BEY",
+      "latitude": 47.265,
+      "longitude": 7.169,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BLZ",
+      "value": "BLZ",
+      "code": "blz",
+      "name": "Bellinzona (BLZ)",
+      "label": "Bellinzona (BLZ) · BLZ",
+      "latitude": 46.19,
+      "longitude": 9.005,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BEP",
+      "value": "BEP",
+      "code": "bep",
+      "name": "Belp (BEP)",
+      "label": "Belp (BEP) · BEP",
+      "latitude": 46.906,
+      "longitude": 7.505,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DOB",
+      "value": "DOB",
+      "code": "dob",
+      "name": "Benken / Doggen (DOB)",
+      "label": "Benken / Doggen (DOB) · DOB",
+      "latitude": 47.189,
+      "longitude": 8.961,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LAT",
+      "value": "LAT",
+      "code": "lat",
+      "name": "Bergün / Latsch (LAT)",
+      "label": "Bergün / Latsch (LAT) · LAT",
+      "latitude": 46.627,
+      "longitude": 9.754,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BER",
+      "value": "BER",
+      "code": "ber",
+      "name": "Bern / Zollikofen (BER)",
+      "label": "Bern / Zollikofen (BER) · BER",
+      "latitude": 46.991,
+      "longitude": 7.464,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "BMU",
+      "value": "BMU",
+      "code": "bmu",
+      "name": "Beromünster (BMU)",
+      "label": "Beromünster (BMU) · BMU",
+      "latitude": 47.207,
+      "longitude": 8.194,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BEX",
+      "value": "BEX",
+      "code": "bex",
+      "name": "Bex (BEX)",
+      "label": "Bex (BEX) · BEX",
+      "latitude": 46.244,
+      "longitude": 6.995,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BEZ",
+      "value": "BEZ",
+      "code": "bez",
+      "name": "Beznau (BEZ)",
+      "label": "Beznau (BEZ) · BEZ",
+      "latitude": 47.557,
+      "longitude": 8.233,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIA",
+      "value": "BIA",
+      "code": "bia",
+      "name": "Biasca (BIA)",
+      "label": "Biasca (BIA) · BIA",
+      "latitude": 46.336,
+      "longitude": 8.978,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIN",
+      "value": "BIN",
+      "code": "bin",
+      "name": "Binn (BIN)",
+      "label": "Binn (BIN) · BIN",
+      "latitude": 46.368,
+      "longitude": 8.192,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIZ",
+      "value": "BIZ",
+      "code": "biz",
+      "name": "Bischofszell / Sitterdorf (BIZ)",
+      "label": "Bischofszell / Sitterdorf (BIZ) · BIZ",
+      "latitude": 47.509,
+      "longitude": 9.267,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIS",
+      "value": "BIS",
+      "code": "bis",
+      "name": "Bisisthal (BIS)",
+      "label": "Bisisthal (BIS) · BIS",
+      "latitude": 46.944,
+      "longitude": 8.831,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIV",
+      "value": "BIV",
+      "code": "biv",
+      "name": "Bivio (BIV)",
+      "label": "Bivio (BIV) · BIV",
+      "latitude": 46.462,
+      "longitude": 9.669,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIE",
+      "value": "BIE",
+      "code": "bie",
+      "name": "Bière (BIE)",
+      "label": "Bière (BIE) · BIE",
+      "latitude": 46.525,
+      "longitude": 6.342,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BLA",
+      "value": "BLA",
+      "code": "bla",
+      "name": "Blatten, Lötschental (BLA)",
+      "label": "Blatten, Lötschental (BLA) · BLA",
+      "latitude": 46.42,
+      "longitude": 7.823,
+      "available_variables": [
+        "pr",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "BLU",
+      "value": "BLU",
+      "code": "blu",
+      "name": "Blumenstein (BLU)",
+      "label": "Blumenstein (BLU) · BLU",
+      "latitude": 46.745,
+      "longitude": 7.521,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BOL",
+      "value": "BOL",
+      "code": "bol",
+      "name": "Boltigen (BOL)",
+      "label": "Boltigen (BOL) · BOL",
+      "latitude": 46.624,
+      "longitude": 7.384,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BOS",
+      "value": "BOS",
+      "code": "bos",
+      "name": "Bosco/Gurin (BOS)",
+      "label": "Bosco/Gurin (BOS) · BOS",
+      "latitude": 46.317,
+      "longitude": 8.489,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BOV",
+      "value": "BOV",
+      "code": "bov",
+      "name": "Boudevilliers (BOV)",
+      "label": "Boudevilliers (BOV) · BOV",
+      "latitude": 47.023,
+      "longitude": 6.887,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BSP",
+      "value": "BSP",
+      "code": "bsp",
+      "name": "Bourg-St-Pierre (BSP)",
+      "label": "Bourg-St-Pierre (BSP) · BSP",
+      "latitude": 45.946,
+      "longitude": 7.208,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRA",
+      "value": "BRA",
+      "code": "bra",
+      "name": "Braggio (BRA)",
+      "label": "Braggio (BRA) · BRA",
+      "latitude": 46.296,
+      "longitude": 9.125,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BNU",
+      "value": "BNU",
+      "code": "bnu",
+      "name": "Braunau (BNU)",
+      "label": "Braunau (BNU) · BNU",
+      "latitude": 47.522,
+      "longitude": 9.073,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRW",
+      "value": "BRW",
+      "code": "brw",
+      "name": "Braunwald (BRW)",
+      "label": "Braunwald (BRW) · BRW",
+      "latitude": 46.937,
+      "longitude": 8.988,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRZ",
+      "value": "BRZ",
+      "code": "brz",
+      "name": "Brienz (BRZ)",
+      "label": "Brienz (BRZ) · BRZ",
+      "latitude": 46.741,
+      "longitude": 8.061,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRI",
+      "value": "BRI",
+      "code": "bri",
+      "name": "Brig (BRI)",
+      "label": "Brig (BRI) · BRI",
+      "latitude": 46.312,
+      "longitude": 7.965,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BSG",
+      "value": "BSG",
+      "code": "bsg",
+      "name": "Brissago (BSG)",
+      "label": "Brissago (BSG) · BSG",
+      "latitude": 46.12,
+      "longitude": 8.709,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRT",
+      "value": "BRT",
+      "code": "brt",
+      "name": "Bristen (BRT)",
+      "label": "Bristen (BRT) · BRT",
+      "latitude": 46.768,
+      "longitude": 8.698,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRO",
+      "value": "BRO",
+      "code": "bro",
+      "name": "Broc (BRO)",
+      "label": "Broc (BRO) · BRO",
+      "latitude": 46.61,
+      "longitude": 7.108,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRP",
+      "value": "BRP",
+      "code": "brp",
+      "name": "Brusio (BRP)",
+      "label": "Brusio (BRP) · BRP",
+      "latitude": 46.264,
+      "longitude": 10.117,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BLS",
+      "value": "BLS",
+      "code": "bls",
+      "name": "Brülisau (BLS)",
+      "label": "Brülisau (BLS) · BLS",
+      "latitude": 47.294,
+      "longitude": 9.46,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BUC",
+      "value": "BUC",
+      "code": "buc",
+      "name": "Buch, SH (BUC)",
+      "label": "Buch, SH (BUC) · BUC",
+      "latitude": 47.717,
+      "longitude": 8.784,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BUS",
+      "value": "BUS",
+      "code": "bus",
+      "name": "Buchs / Aarau (BUS)",
+      "label": "Buchs / Aarau (BUS) · BUS",
+      "latitude": 47.384,
+      "longitude": 8.08,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "BUF",
+      "value": "BUF",
+      "code": "buf",
+      "name": "Buffalora (BUF)",
+      "label": "Buffalora (BUF) · BUF",
+      "latitude": 46.648,
+      "longitude": 10.267,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "FRE",
+      "value": "FRE",
+      "code": "fre",
+      "name": "Bullet / La Frétaz (FRE)",
+      "label": "Bullet / La Frétaz (FRE) · FRE",
+      "latitude": 46.841,
+      "longitude": 6.576,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "BUD",
+      "value": "BUD",
+      "code": "bud",
+      "name": "Burgdorf (BUD)",
+      "label": "Burgdorf (BUD) · BUD",
+      "latitude": 47.057,
+      "longitude": 7.599,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "UBB",
+      "value": "UBB",
+      "code": "ubb",
+      "name": "Bözberg (UBB)",
+      "label": "Bözberg (UBB) · UBB",
+      "latitude": 47.482,
+      "longitude": 8.132,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BUE",
+      "value": "BUE",
+      "code": "bue",
+      "name": "Bülach (BUE)",
+      "label": "Bülach (BUE) · BUE",
+      "latitude": 47.52,
+      "longitude": 8.528,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CMD",
+      "value": "CMD",
+      "code": "cmd",
+      "name": "Camedo (CMD)",
+      "label": "Camedo (CMD) · CMD",
+      "latitude": 46.155,
+      "longitude": 8.608,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CAC",
+      "value": "CAC",
+      "code": "cac",
+      "name": "Campocologno (CAC)",
+      "label": "Campocologno (CAC) · CAC",
+      "latitude": 46.238,
+      "longitude": 10.135,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CAV",
+      "value": "CAV",
+      "code": "cav",
+      "name": "Cavaglia (CAV)",
+      "label": "Cavaglia (CAV) · CAV",
+      "latitude": 46.368,
+      "longitude": 10.036,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CEV",
+      "value": "CEV",
+      "code": "cev",
+      "name": "Cevio (CEV)",
+      "label": "Cevio (CEV) · CEV",
+      "latitude": 46.32,
+      "longitude": 8.603,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CHZ",
+      "value": "CHZ",
+      "code": "chz",
+      "name": "Cham (CHZ)",
+      "label": "Cham (CHZ) · CHZ",
+      "latitude": 47.188,
+      "longitude": 8.465,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CNZ",
+      "value": "CNZ",
+      "code": "cnz",
+      "name": "Chanéaz (CNZ)",
+      "label": "Chanéaz (CNZ) · CNZ",
+      "latitude": 46.731,
+      "longitude": 6.745,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CHA",
+      "value": "CHA",
+      "code": "cha",
+      "name": "Chasseral (CHA)",
+      "label": "Chasseral (CHA) · CHA",
+      "latitude": 47.132,
+      "longitude": 7.054,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CHM",
+      "value": "CHM",
+      "code": "chm",
+      "name": "Chaumont (CHM)",
+      "label": "Chaumont (CHM) · CHM",
+      "latitude": 47.049,
+      "longitude": 6.979,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CHY",
+      "value": "CHY",
+      "code": "chy",
+      "name": "Chavornay (CHY)",
+      "label": "Chavornay (CHY) · CHY",
+      "latitude": 46.702,
+      "longitude": 6.548,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CHU",
+      "value": "CHU",
+      "code": "chu",
+      "name": "Chur (CHU)",
+      "label": "Chur (CHU) · CHU",
+      "latitude": 46.871,
+      "longitude": 9.531,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CHD",
+      "value": "CHD",
+      "code": "chd",
+      "name": "Château-d'Oex (CHD)",
+      "label": "Château-d'Oex (CHD) · CHD",
+      "latitude": 46.48,
+      "longitude": 7.14,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CIM",
+      "value": "CIM",
+      "code": "cim",
+      "name": "Cimetta (CIM)",
+      "label": "Cimetta (CIM) · CIM",
+      "latitude": 46.2,
+      "longitude": 8.792,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CDM",
+      "value": "CDM",
+      "code": "cdm",
+      "name": "Col des Mosses (CDM)",
+      "label": "Col des Mosses (CDM) · CDM",
+      "latitude": 46.392,
+      "longitude": 7.098,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GSB",
+      "value": "GSB",
+      "code": "gsb",
+      "name": "Col du Grand St-Bernard (GSB)",
+      "label": "Col du Grand St-Bernard (GSB) · GSB",
+      "latitude": 45.869,
+      "longitude": 7.171,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "COL",
+      "value": "COL",
+      "code": "col",
+      "name": "Coldrerio (COL)",
+      "label": "Coldrerio (COL) · COL",
+      "latitude": 45.854,
+      "longitude": 8.997,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "COG",
+      "value": "COG",
+      "code": "cog",
+      "name": "Combe-Garot (COG)",
+      "label": "Combe-Garot (COG) · COG",
+      "latitude": 46.963,
+      "longitude": 6.797,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "COS",
+      "value": "COS",
+      "code": "cos",
+      "name": "Cossonay (COS)",
+      "label": "Cossonay (COS) · COS",
+      "latitude": 46.61,
+      "longitude": 6.493,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "COY",
+      "value": "COY",
+      "code": "coy",
+      "name": "Courtelary (COY)",
+      "label": "Courtelary (COY) · COY",
+      "latitude": 47.181,
+      "longitude": 7.091,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "COP",
+      "value": "COP",
+      "code": "cop",
+      "name": "Courtepin (COP)",
+      "label": "Courtepin (COP) · COP",
+      "latitude": 46.86,
+      "longitude": 7.128,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "COU",
+      "value": "COU",
+      "code": "cou",
+      "name": "Couvet (COU)",
+      "label": "Couvet (COU) · COU",
+      "latitude": 46.934,
+      "longitude": 6.659,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DAV",
+      "value": "DAV",
+      "code": "dav",
+      "name": "Davos (DAV)",
+      "label": "Davos (DAV) · DAV",
+      "latitude": 46.813,
+      "longitude": 9.844,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "DEH",
+      "value": "DEH",
+      "code": "deh",
+      "name": "Degersheim (DEH)",
+      "label": "Degersheim (DEH) · DEH",
+      "latitude": 47.368,
+      "longitude": 9.198,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DEM",
+      "value": "DEM",
+      "code": "dem",
+      "name": "Delémont (DEM)",
+      "label": "Delémont (DEM) · DEM",
+      "latitude": 47.352,
+      "longitude": 7.35,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "DIE",
+      "value": "DIE",
+      "code": "die",
+      "name": "Diessenhofen (DIE)",
+      "label": "Diessenhofen (DIE) · DIE",
+      "latitude": 47.692,
+      "longitude": 8.727,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DIT",
+      "value": "DIT",
+      "code": "dit",
+      "name": "Dietikon (DIT)",
+      "label": "Dietikon (DIT) · DIT",
+      "latitude": 47.414,
+      "longitude": 8.404,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DMA",
+      "value": "DMA",
+      "code": "dma",
+      "name": "Dischma (DMA)",
+      "label": "Dischma (DMA) · DMA",
+      "latitude": 46.772,
+      "longitude": 9.882,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DIS",
+      "value": "DIS",
+      "code": "dis",
+      "name": "Disentis (DIS)",
+      "label": "Disentis (DIS) · DIS",
+      "latitude": 46.707,
+      "longitude": 8.853,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "EBK",
+      "value": "EBK",
+      "code": "ebk",
+      "name": "Ebnat-Kappel (EBK)",
+      "label": "Ebnat-Kappel (EBK) · EBK",
+      "latitude": 47.273,
+      "longitude": 9.108,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ECH",
+      "value": "ECH",
+      "code": "ech",
+      "name": "Echallens (ECH)",
+      "label": "Echallens (ECH) · ECH",
+      "latitude": 46.646,
+      "longitude": 6.622,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EFF",
+      "value": "EFF",
+      "code": "eff",
+      "name": "Effretikon (EFF)",
+      "label": "Effretikon (EFF) · EFF",
+      "latitude": 47.439,
+      "longitude": 8.703,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EGR",
+      "value": "EGR",
+      "code": "egr",
+      "name": "Eggersriet (EGR)",
+      "label": "Eggersriet (EGR) · EGR",
+      "latitude": 47.439,
+      "longitude": 9.468,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EGO",
+      "value": "EGO",
+      "code": "ego",
+      "name": "Egolzwil (EGO)",
+      "label": "Egolzwil (EGO) · EGO",
+      "latitude": 47.179,
+      "longitude": 8.005,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "OED",
+      "value": "OED",
+      "code": "oed",
+      "name": "Ehrendingen (OED)",
+      "label": "Ehrendingen (OED) · OED",
+      "latitude": 47.508,
+      "longitude": 8.339,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EIT",
+      "value": "EIT",
+      "code": "eit",
+      "name": "Eigenthal (EIT)",
+      "label": "Eigenthal (EIT) · EIT",
+      "latitude": 46.983,
+      "longitude": 8.219,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EIN",
+      "value": "EIN",
+      "code": "ein",
+      "name": "Einsiedeln (EIN)",
+      "label": "Einsiedeln (EIN) · EIN",
+      "latitude": 47.133,
+      "longitude": 8.757,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ELM",
+      "value": "ELM",
+      "code": "elm",
+      "name": "Elm (ELM)",
+      "label": "Elm (ELM) · ELM",
+      "latitude": 46.924,
+      "longitude": 9.175,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ENG",
+      "value": "ENG",
+      "code": "eng",
+      "name": "Engelberg (ENG)",
+      "label": "Engelberg (ENG) · ENG",
+      "latitude": 46.822,
+      "longitude": 8.411,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ENT",
+      "value": "ENT",
+      "code": "ent",
+      "name": "Entlebuch (ENT)",
+      "label": "Entlebuch (ENT) · ENT",
+      "latitude": 46.987,
+      "longitude": 8.069,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EPT",
+      "value": "EPT",
+      "code": "ept",
+      "name": "Eptingen (EPT)",
+      "label": "Eptingen (EPT) · EPT",
+      "latitude": 47.382,
+      "longitude": 7.805,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ERI",
+      "value": "ERI",
+      "code": "eri",
+      "name": "Eriswil (ERI)",
+      "label": "Eriswil (ERI) · ERI",
+      "latitude": 47.083,
+      "longitude": 7.85,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ERB",
+      "value": "ERB",
+      "code": "erb",
+      "name": "Erlenbach im Simmental (ERB)",
+      "label": "Erlenbach im Simmental (ERB) · ERB",
+      "latitude": 46.658,
+      "longitude": 7.524,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ESZ",
+      "value": "ESZ",
+      "code": "esz",
+      "name": "Eschenz (ESZ)",
+      "label": "Eschenz (ESZ) · ESZ",
+      "latitude": 47.646,
+      "longitude": 8.874,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EKO",
+      "value": "EKO",
+      "code": "eko",
+      "name": "Eschlikon (EKO)",
+      "label": "Eschlikon (EKO) · EKO",
+      "latitude": 47.452,
+      "longitude": 8.973,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EHM",
+      "value": "EHM",
+      "code": "ehm",
+      "name": "Escholzmatt (EHM)",
+      "label": "Escholzmatt (EHM) · EHM",
+      "latitude": 46.903,
+      "longitude": 7.935,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EUT",
+      "value": "EUT",
+      "code": "eut",
+      "name": "Euthal (EUT)",
+      "label": "Euthal (EUT) · EUT",
+      "latitude": 47.099,
+      "longitude": 8.818,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EVO",
+      "value": "EVO",
+      "code": "evo",
+      "name": "Evolène / Villa (EVO)",
+      "label": "Evolène / Villa (EVO) · EVO",
+      "latitude": 46.112,
+      "longitude": 7.509,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "FAH",
+      "value": "FAH",
+      "code": "fah",
+      "name": "Fahy (FAH)",
+      "label": "Fahy (FAH) · FAH",
+      "latitude": 47.424,
+      "longitude": 6.941,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "FAI",
+      "value": "FAI",
+      "code": "fai",
+      "name": "Faido (FAI)",
+      "label": "Faido (FAI) · FAI",
+      "latitude": 46.477,
+      "longitude": 8.805,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FIT",
+      "value": "FIT",
+      "code": "fit",
+      "name": "Fieschertal (FIT)",
+      "label": "Fieschertal (FIT) · FIT",
+      "latitude": 46.429,
+      "longitude": 8.142,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FIL",
+      "value": "FIL",
+      "code": "fil",
+      "name": "Filisur (FIL)",
+      "label": "Filisur (FIL) · FIL",
+      "latitude": 46.671,
+      "longitude": 9.69,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CTA",
+      "value": "CTA",
+      "code": "cta",
+      "name": "Finhaut (CTA)",
+      "label": "Finhaut (CTA) · CTA",
+      "latitude": 46.083,
+      "longitude": 6.975,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FIO",
+      "value": "FIO",
+      "code": "fio",
+      "name": "Fionnay (FIO)",
+      "label": "Fionnay (FIO) · FIO",
+      "latitude": 46.031,
+      "longitude": 7.309,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FLW",
+      "value": "FLW",
+      "code": "flw",
+      "name": "Flawil (FLW)",
+      "label": "Flawil (FLW) · FLW",
+      "latitude": 47.414,
+      "longitude": 9.203,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FLI",
+      "value": "FLI",
+      "code": "fli",
+      "name": "Flims (FLI)",
+      "label": "Flims (FLI) · FLI",
+      "latitude": 46.834,
+      "longitude": 9.283,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FLU",
+      "value": "FLU",
+      "code": "flu",
+      "name": "Flühli, LU (FLU)",
+      "label": "Flühli, LU (FLU) · FLU",
+      "latitude": 46.889,
+      "longitude": 8.02,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FRF",
+      "value": "FRF",
+      "code": "frf",
+      "name": "Frauenfeld (FRF)",
+      "label": "Frauenfeld (FRF) · FRF",
+      "latitude": 47.573,
+      "longitude": 8.894,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GRA",
+      "value": "GRA",
+      "code": "gra",
+      "name": "Fribourg / Grangeneuve (GRA)",
+      "label": "Fribourg / Grangeneuve (GRA) · GRA",
+      "latitude": 46.771,
+      "longitude": 7.114,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "FRI",
+      "value": "FRI",
+      "code": "fri",
+      "name": "Frick (FRI)",
+      "label": "Frick (FRI) · FRI",
+      "latitude": 47.514,
+      "longitude": 8.014,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FRC",
+      "value": "FRC",
+      "code": "frc",
+      "name": "Fruence (FRC)",
+      "label": "Fruence (FRC) · FRC",
+      "latitude": 46.526,
+      "longitude": 6.902,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FRU",
+      "value": "FRU",
+      "code": "fru",
+      "name": "Frutigen (FRU)",
+      "label": "Frutigen (FRU) · FRU",
+      "latitude": 46.599,
+      "longitude": 7.658,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "FRA",
+      "value": "FRA",
+      "code": "fra",
+      "name": "Fräschels (FRA)",
+      "label": "Fräschels (FRA) · FRA",
+      "latitude": 46.996,
+      "longitude": 7.206,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GAD",
+      "value": "GAD",
+      "code": "gad",
+      "name": "Gadmen (GAD)",
+      "label": "Gadmen (GAD) · GAD",
+      "latitude": 46.737,
+      "longitude": 8.351,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GEP",
+      "value": "GEP",
+      "code": "gep",
+      "name": "Gempen, SO (GEP)",
+      "label": "Gempen, SO (GEP) · GEP",
+      "latitude": 47.494,
+      "longitude": 7.655,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GEA",
+      "value": "GEA",
+      "code": "gea",
+      "name": "Genève / Aïre (GEA)",
+      "label": "Genève / Aïre (GEA) · GEA",
+      "latitude": 46.196,
+      "longitude": 6.091,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GVE",
+      "value": "GVE",
+      "code": "gve",
+      "name": "Genève / Cointrin (GVE)",
+      "label": "Genève / Cointrin (GVE) · GVE",
+      "latitude": 46.248,
+      "longitude": 6.128,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "GIH",
+      "value": "GIH",
+      "code": "gih",
+      "name": "Giswil (GIH)",
+      "label": "Giswil (GIH) · GIH",
+      "latitude": 46.849,
+      "longitude": 8.19,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GLA",
+      "value": "GLA",
+      "code": "gla",
+      "name": "Glarus (GLA)",
+      "label": "Glarus (GLA) · GLA",
+      "latitude": 47.035,
+      "longitude": 9.067,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "GRI",
+      "value": "GRI",
+      "code": "gri",
+      "name": "Grimentz (GRI)",
+      "label": "Grimentz (GRI) · GRI",
+      "latitude": 46.18,
+      "longitude": 7.578,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GRH",
+      "value": "GRH",
+      "code": "grh",
+      "name": "Grimsel Hospiz (GRH)",
+      "label": "Grimsel Hospiz (GRH) · GRH",
+      "latitude": 46.572,
+      "longitude": 8.333,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "GWA",
+      "value": "GWA",
+      "code": "gwa",
+      "name": "Grindelwald (GWA)",
+      "label": "Grindelwald (GWA) · GWA",
+      "latitude": 46.619,
+      "longitude": 8.007,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GRO",
+      "value": "GRO",
+      "code": "gro",
+      "name": "Grono (GRO)",
+      "label": "Grono (GRO) · GRO",
+      "latitude": 46.255,
+      "longitude": 9.164,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "GSS",
+      "value": "GSS",
+      "code": "gss",
+      "name": "Gross, SZ (GSS)",
+      "label": "Gross, SZ (GSS) · GSS",
+      "latitude": 47.113,
+      "longitude": 8.78,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GHS",
+      "value": "GHS",
+      "code": "ghs",
+      "name": "Grosshöchstetten (GHS)",
+      "label": "Grosshöchstetten (GHS) · GHS",
+      "latitude": 46.905,
+      "longitude": 7.649,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GRY",
+      "value": "GRY",
+      "code": "gry",
+      "name": "Gryon (GRY)",
+      "label": "Gryon (GRY) · GRY",
+      "latitude": 46.275,
+      "longitude": 7.064,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GRC",
+      "value": "GRC",
+      "code": "grc",
+      "name": "Grächen (GRC)",
+      "label": "Grächen (GRC) · GRC",
+      "latitude": 46.195,
+      "longitude": 7.837,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "GIN",
+      "value": "GIN",
+      "code": "gin",
+      "name": "Grüningen (GIN)",
+      "label": "Grüningen (GIN) · GIN",
+      "latitude": 47.273,
+      "longitude": 8.744,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GSG",
+      "value": "GSG",
+      "code": "gsg",
+      "name": "Gsteig, Gstaad (GSG)",
+      "label": "Gsteig, Gstaad (GSG) · GSG",
+      "latitude": 46.377,
+      "longitude": 7.279,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GUG",
+      "value": "GUG",
+      "code": "gug",
+      "name": "Guglera (GUG)",
+      "label": "Guglera (GUG) · GUG",
+      "latitude": 46.75,
+      "longitude": 7.243,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GTT",
+      "value": "GTT",
+      "code": "gtt",
+      "name": "Guttannen (GTT)",
+      "label": "Guttannen (GTT) · GTT",
+      "latitude": 46.656,
+      "longitude": 8.292,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GOS",
+      "value": "GOS",
+      "code": "gos",
+      "name": "Göschenen (GOS)",
+      "label": "Göschenen (GOS) · GOS",
+      "latitude": 46.693,
+      "longitude": 8.595,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GOA",
+      "value": "GOA",
+      "code": "goa",
+      "name": "Göscheneralp (GOA)",
+      "label": "Göscheneralp (GOA) · GOA",
+      "latitude": 46.648,
+      "longitude": 8.5,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "GOE",
+      "value": "GOE",
+      "code": "goe",
+      "name": "Gösgen (GOE)",
+      "label": "Gösgen (GOE) · GOE",
+      "latitude": 47.363,
+      "longitude": 7.974,
+      "available_variables": [
+        "pr",
+        "sfcwind"
+      ]
+    },
+    {
+      "id": "GUE",
+      "value": "GUE",
+      "code": "gue",
+      "name": "Gütsch, Andermatt (GUE)",
+      "label": "Gütsch, Andermatt (GUE) · GUE",
+      "latitude": 46.652,
+      "longitude": 8.616,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "GUT",
+      "value": "GUT",
+      "code": "gut",
+      "name": "Güttingen (GUT)",
+      "label": "Güttingen (GUT) · GUT",
+      "latitude": 47.602,
+      "longitude": 9.279,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "HLL",
+      "value": "HLL",
+      "code": "hll",
+      "name": "Hallau (HLL)",
+      "label": "Hallau (HLL) · HLL",
+      "latitude": 47.697,
+      "longitude": 8.47,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "HAU",
+      "value": "HAU",
+      "code": "hau",
+      "name": "Hausen am Albis (HAU)",
+      "label": "Hausen am Albis (HAU) · HAU",
+      "latitude": 47.25,
+      "longitude": 8.52,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HTW",
+      "value": "HTW",
+      "code": "htw",
+      "name": "Herbetswil (HTW)",
+      "label": "Herbetswil (HTW) · HTW",
+      "latitude": 47.297,
+      "longitude": 7.588,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HES",
+      "value": "HES",
+      "code": "hes",
+      "name": "Herisau (HES)",
+      "label": "Herisau (HES) · HES",
+      "latitude": 47.394,
+      "longitude": 9.263,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HEB",
+      "value": "HEB",
+      "code": "heb",
+      "name": "Herzogenbuchsee (HEB)",
+      "label": "Herzogenbuchsee (HEB) · HEB",
+      "latitude": 47.193,
+      "longitude": 7.714,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HEK",
+      "value": "HEK",
+      "code": "hek",
+      "name": "Hessigkofen (HEK)",
+      "label": "Hessigkofen (HEK) · HEK",
+      "latitude": 47.142,
+      "longitude": 7.47,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HIW",
+      "value": "HIW",
+      "code": "hiw",
+      "name": "Hinwil (HIW)",
+      "label": "Hinwil (HIW) · HIW",
+      "latitude": 47.309,
+      "longitude": 8.812,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HOY",
+      "value": "HOY",
+      "code": "hoy",
+      "name": "Hoch-Ybrig (HOY)",
+      "label": "Hoch-Ybrig (HOY) · HOY",
+      "latitude": 47.012,
+      "longitude": 8.789,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HON",
+      "value": "HON",
+      "code": "hon",
+      "name": "Hondrich (HON)",
+      "label": "Hondrich (HON) · HON",
+      "latitude": 46.673,
+      "longitude": 7.681,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HUT",
+      "value": "HUT",
+      "code": "hut",
+      "name": "Huttwil (HUT)",
+      "label": "Huttwil (HUT) · HUT",
+      "latitude": 47.114,
+      "longitude": 7.837,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HER",
+      "value": "HER",
+      "code": "her",
+      "name": "Hérémence (HER)",
+      "label": "Hérémence (HER) · HER",
+      "latitude": 46.178,
+      "longitude": 7.404,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HOE",
+      "value": "HOE",
+      "code": "hoe",
+      "name": "Hörnli (HOE)",
+      "label": "Hörnli (HOE) · HOE",
+      "latitude": 47.371,
+      "longitude": 8.942,
+      "available_variables": [
+        "hurs",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ILZ",
+      "value": "ILZ",
+      "code": "ilz",
+      "name": "Ilanz (ILZ)",
+      "label": "Ilanz (ILZ) · ILZ",
+      "latitude": 46.775,
+      "longitude": 9.215,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "INF",
+      "value": "INF",
+      "code": "inf",
+      "name": "Innerferrera (INF)",
+      "label": "Innerferrera (INF) · INF",
+      "latitude": 46.52,
+      "longitude": 9.444,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "INN",
+      "value": "INN",
+      "code": "inn",
+      "name": "Innerthal (INN)",
+      "label": "Innerthal (INN) · INN",
+      "latitude": 47.106,
+      "longitude": 8.915,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "INT",
+      "value": "INT",
+      "code": "int",
+      "name": "Interlaken (INT)",
+      "label": "Interlaken (INT) · INT",
+      "latitude": 46.672,
+      "longitude": 7.87,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "IST",
+      "value": "IST",
+      "code": "ist",
+      "name": "Isenthal (IST)",
+      "label": "Isenthal (IST) · IST",
+      "latitude": 46.911,
+      "longitude": 8.561,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "JAU",
+      "value": "JAU",
+      "code": "jau",
+      "name": "Jaun (JAU)",
+      "label": "Jaun (JAU) · JAU",
+      "latitude": 46.612,
+      "longitude": 7.276,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "JON",
+      "value": "JON",
+      "code": "jon",
+      "name": "Jona (JON)",
+      "label": "Jona (JON) · JON",
+      "latitude": 47.224,
+      "longitude": 8.848,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "JUN",
+      "value": "JUN",
+      "code": "jun",
+      "name": "Jungfraujoch (JUN)",
+      "label": "Jungfraujoch (JUN) · JUN",
+      "latitude": 46.548,
+      "longitude": 7.985,
+      "available_variables": [
+        "hurs",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "JUS",
+      "value": "JUS",
+      "code": "jus",
+      "name": "Jussy (JUS)",
+      "label": "Jussy (JUS) · JUS",
+      "latitude": 46.229,
+      "longitude": 6.258,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KAI",
+      "value": "KAI",
+      "code": "kai",
+      "name": "Kaiserstuhl, AG (KAI)",
+      "label": "Kaiserstuhl, AG (KAI) · KAI",
+      "latitude": 47.571,
+      "longitude": 8.413,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KAS",
+      "value": "KAS",
+      "code": "kas",
+      "name": "Kandersteg (KAS)",
+      "label": "Kandersteg (KAS) · KAS",
+      "latitude": 46.494,
+      "longitude": 7.677,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KIE",
+      "value": "KIE",
+      "code": "kie",
+      "name": "Kiental (KIE)",
+      "label": "Kiental (KIE) · KIE",
+      "latitude": 46.583,
+      "longitude": 7.727,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KIS",
+      "value": "KIS",
+      "code": "kis",
+      "name": "Kiesen (KIS)",
+      "label": "Kiesen (KIS) · KIS",
+      "latitude": 46.821,
+      "longitude": 7.573,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KIB",
+      "value": "KIB",
+      "code": "kib",
+      "name": "Kirchberg, SG (KIB)",
+      "label": "Kirchberg, SG (KIB) · KIB",
+      "latitude": 47.423,
+      "longitude": 9.001,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KSE",
+      "value": "KSE",
+      "code": "kse",
+      "name": "Kleine Scheidegg (KSE)",
+      "label": "Kleine Scheidegg (KSE) · KSE",
+      "latitude": 46.585,
+      "longitude": 7.96,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KLA",
+      "value": "KLA",
+      "code": "kla",
+      "name": "Klosters (KLA)",
+      "label": "Klosters (KLA) · KLA",
+      "latitude": 46.865,
+      "longitude": 9.89,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KLT",
+      "value": "KLT",
+      "code": "klt",
+      "name": "Klöntal (KLT)",
+      "label": "Klöntal (KLT) · KLT",
+      "latitude": 47.037,
+      "longitude": 9.001,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KOP",
+      "value": "KOP",
+      "code": "kop",
+      "name": "Koppigen (KOP)",
+      "label": "Koppigen (KOP) · KOP",
+      "latitude": 47.119,
+      "longitude": 7.606,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "KRO",
+      "value": "KRO",
+      "code": "kro",
+      "name": "Kronberg (KRO)",
+      "label": "Kronberg (KRO) · KRO",
+      "latitude": 47.291,
+      "longitude": 9.328,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KUA",
+      "value": "KUA",
+      "code": "kua",
+      "name": "Kurzeneialp (KUA)",
+      "label": "Kurzeneialp (KUA) · KUA",
+      "latitude": 47.013,
+      "longitude": 7.841,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KUB",
+      "value": "KUB",
+      "code": "kub",
+      "name": "Küblis (KUB)",
+      "label": "Küblis (KUB) · KUB",
+      "latitude": 46.912,
+      "longitude": 9.778,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KUE",
+      "value": "KUE",
+      "code": "kue",
+      "name": "Küsnacht, ZH (KUE)",
+      "label": "Küsnacht, ZH (KUE) · KUE",
+      "latitude": 47.31,
+      "longitude": 8.585,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "KAR",
+      "value": "KAR",
+      "code": "kar",
+      "name": "Küssnacht am Rigi (KAR)",
+      "label": "Küssnacht am Rigi (KAR) · KAR",
+      "latitude": 47.098,
+      "longitude": 8.431,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AUB",
+      "value": "AUB",
+      "code": "aub",
+      "name": "L' Auberson (AUB)",
+      "label": "L' Auberson (AUB) · AUB",
+      "latitude": 46.823,
+      "longitude": 6.441,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ABG",
+      "value": "ABG",
+      "code": "abg",
+      "name": "L'Abergement (ABG)",
+      "label": "L'Abergement (ABG) · ABG",
+      "latitude": 46.756,
+      "longitude": 6.49,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BRL",
+      "value": "BRL",
+      "code": "brl",
+      "name": "La Brévine (BRL)",
+      "label": "La Brévine (BRL) · BRL",
+      "latitude": 46.984,
+      "longitude": 6.61,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CDF",
+      "value": "CDF",
+      "code": "cdf",
+      "name": "La Chaux-de-Fonds (CDF)",
+      "label": "La Chaux-de-Fonds (CDF) · CDF",
+      "latitude": 47.083,
+      "longitude": 6.792,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "CUE",
+      "value": "CUE",
+      "code": "cue",
+      "name": "La Cure (CUE)",
+      "label": "La Cure (CUE) · CUE",
+      "latitude": 46.46,
+      "longitude": 6.076,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DOL",
+      "value": "DOL",
+      "code": "dol",
+      "name": "La Dôle (DOL)",
+      "label": "La Dôle (DOL) · DOL",
+      "latitude": 46.425,
+      "longitude": 6.099,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "VST",
+      "value": "VST",
+      "code": "vst",
+      "name": "La Valsainte (VST)",
+      "label": "La Valsainte (VST) · VST",
+      "latitude": 46.648,
+      "longitude": 7.179,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "EGL",
+      "value": "EGL",
+      "code": "egl",
+      "name": "Lachen / Eggen (EGL)",
+      "label": "Lachen / Eggen (EGL) · EGL",
+      "latitude": 47.434,
+      "longitude": 9.587,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LAC",
+      "value": "LAC",
+      "code": "lac",
+      "name": "Lachen / Galgenen (LAC)",
+      "label": "Lachen / Galgenen (LAC) · LAC",
+      "latitude": 47.179,
+      "longitude": 8.859,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LAN",
+      "value": "LAN",
+      "code": "lan",
+      "name": "Landquart (LAN)",
+      "label": "Landquart (LAN) · LAN",
+      "latitude": 46.957,
+      "longitude": 9.578,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LAB",
+      "value": "LAB",
+      "code": "lab",
+      "name": "Langenbruck (LAB)",
+      "label": "Langenbruck (LAB) · LAB",
+      "latitude": 47.353,
+      "longitude": 7.76,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LGA",
+      "value": "LGA",
+      "code": "lga",
+      "name": "Langnau am Albis (LGA)",
+      "label": "Langnau am Albis (LGA) · LGA",
+      "latitude": 47.288,
+      "longitude": 8.533,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LAG",
+      "value": "LAG",
+      "code": "lag",
+      "name": "Langnau i.E. (LAG)",
+      "label": "Langnau i.E. (LAG) · LAG",
+      "latitude": 46.94,
+      "longitude": 7.806,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LAF",
+      "value": "LAF",
+      "code": "laf",
+      "name": "Laufen (LAF)",
+      "label": "Laufen (LAF) · LAF",
+      "latitude": 47.414,
+      "longitude": 7.527,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LFB",
+      "value": "LFB",
+      "code": "lfb",
+      "name": "Laufenburg (LFB)",
+      "label": "Laufenburg (LFB) · LFB",
+      "latitude": 47.548,
+      "longitude": 8.054,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LAP",
+      "value": "LAP",
+      "code": "lap",
+      "name": "Laupen (LAP)",
+      "label": "Laupen (LAP) · LAP",
+      "latitude": 46.917,
+      "longitude": 7.24,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LSN",
+      "value": "LSN",
+      "code": "lsn",
+      "name": "Lausanne (LSN)",
+      "label": "Lausanne (LSN) · LSN",
+      "latitude": 46.528,
+      "longitude": 6.643,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "NABLAU",
+      "value": "NABLAU",
+      "code": "nablau",
+      "name": "Lausanne (NABLAU)",
+      "label": "Lausanne (NABLAU) · NABLAU",
+      "latitude": 46.522,
+      "longitude": 6.64,
+      "available_variables": [
+        "hurs",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LTB",
+      "value": "LTB",
+      "code": "ltb",
+      "name": "Lauterbrunnen (LTB)",
+      "label": "Lauterbrunnen (LTB) · LTB",
+      "latitude": 46.593,
+      "longitude": 7.906,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LOC",
+      "value": "LOC",
+      "code": "loc",
+      "name": "Le Locle (LOC)",
+      "label": "Le Locle (LOC) · LOC",
+      "latitude": 47.045,
+      "longitude": 6.757,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MLS",
+      "value": "MLS",
+      "code": "mls",
+      "name": "Le Moléson (MLS)",
+      "label": "Le Moléson (MLS) · MLS",
+      "latitude": 46.546,
+      "longitude": 7.018,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LEI",
+      "value": "LEI",
+      "code": "lei",
+      "name": "Leibstadt (LEI)",
+      "label": "Leibstadt (LEI) · LEI",
+      "latitude": 47.597,
+      "longitude": 8.188,
+      "available_variables": [
+        "pr",
+        "sfcwind"
+      ]
+    },
+    {
+      "id": "LEH",
+      "value": "LEH",
+      "code": "leh",
+      "name": "Lenzerheide (LEH)",
+      "label": "Lenzerheide (LEH) · LEH",
+      "latitude": 46.715,
+      "longitude": 9.556,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "AVA",
+      "value": "AVA",
+      "code": "ava",
+      "name": "Les Avants (AVA)",
+      "label": "Les Avants (AVA) · AVA",
+      "latitude": 46.457,
+      "longitude": 6.942,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BIO",
+      "value": "BIO",
+      "code": "bio",
+      "name": "Les Bioux (BIO)",
+      "label": "Les Bioux (BIO) · BIO",
+      "latitude": 46.616,
+      "longitude": 6.263,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BNE",
+      "value": "BNE",
+      "code": "bne",
+      "name": "Les Brenets (BNE)",
+      "label": "Les Brenets (BNE) · BNE",
+      "latitude": 47.072,
+      "longitude": 6.71,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CHB",
+      "value": "CHB",
+      "code": "chb",
+      "name": "Les Charbonnières (CHB)",
+      "label": "Les Charbonnières (CHB) · CHB",
+      "latitude": 46.67,
+      "longitude": 6.312,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "DIB",
+      "value": "DIB",
+      "code": "dib",
+      "name": "Les Diablerets (DIB)",
+      "label": "Les Diablerets (DIB) · DIB",
+      "latitude": 46.347,
+      "longitude": 7.166,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAR",
+      "value": "MAR",
+      "code": "mar",
+      "name": "Les Marécottes (MAR)",
+      "label": "Les Marécottes (MAR) · MAR",
+      "latitude": 46.119,
+      "longitude": 7.017,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "PDM",
+      "value": "PDM",
+      "code": "pdm",
+      "name": "Les Ponts-de-Martel (PDM)",
+      "label": "Les Ponts-de-Martel (PDM) · PDM",
+      "latitude": 46.998,
+      "longitude": 6.727,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LEU",
+      "value": "LEU",
+      "code": "leu",
+      "name": "Leukerbad (LEU)",
+      "label": "Leukerbad (LEU) · LEU",
+      "latitude": 46.367,
+      "longitude": 7.622,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TFD",
+      "value": "TFD",
+      "code": "tfd",
+      "name": "Linthal / Tierfehd (TFD)",
+      "label": "Linthal / Tierfehd (TFD) · TFD",
+      "latitude": 46.879,
+      "longitude": 8.984,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "OTL",
+      "value": "OTL",
+      "code": "otl",
+      "name": "Locarno / Monti (OTL)",
+      "label": "Locarno / Monti (OTL) · OTL",
+      "latitude": 46.172,
+      "longitude": 8.787,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LOH",
+      "value": "LOH",
+      "code": "loh",
+      "name": "Lohn, SH (LOH)",
+      "label": "Lohn, SH (LOH) · LOH",
+      "latitude": 47.752,
+      "longitude": 8.678,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LON",
+      "value": "LON",
+      "code": "lon",
+      "name": "Longirod (LON)",
+      "label": "Longirod (LON) · LON",
+      "latitude": 46.496,
+      "longitude": 6.258,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LOT",
+      "value": "LOT",
+      "code": "lot",
+      "name": "Lorzentobel (LOT)",
+      "label": "Lorzentobel (LOT) · LOT",
+      "latitude": 47.181,
+      "longitude": 8.555,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LUG",
+      "value": "LUG",
+      "code": "lug",
+      "name": "Lugano (LUG)",
+      "label": "Lugano (LUG) · LUG",
+      "latitude": 46.004,
+      "longitude": 8.96,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LUN",
+      "value": "LUN",
+      "code": "lun",
+      "name": "Lungern (LUN)",
+      "label": "Lungern (LUN) · LUN",
+      "latitude": 46.786,
+      "longitude": 8.164,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LUT",
+      "value": "LUT",
+      "code": "lut",
+      "name": "Luthern (LUT)",
+      "label": "Luthern (LUT) · LUT",
+      "latitude": 47.058,
+      "longitude": 7.919,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "LUZ",
+      "value": "LUZ",
+      "code": "luz",
+      "name": "Luzern (LUZ)",
+      "label": "Luzern (LUZ) · LUZ",
+      "latitude": 47.036,
+      "longitude": 8.301,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LAE",
+      "value": "LAE",
+      "code": "lae",
+      "name": "Lägern (LAE)",
+      "label": "Lägern (LAE) · LAE",
+      "latitude": 47.482,
+      "longitude": 8.397,
+      "available_variables": [
+        "hurs",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "MAD",
+      "value": "MAD",
+      "code": "mad",
+      "name": "Madiswil (MAD)",
+      "label": "Madiswil (MAD) · MAD",
+      "latitude": 47.161,
+      "longitude": 7.826,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAG",
+      "value": "MAG",
+      "code": "mag",
+      "name": "Magadino / Cadenazzo (MAG)",
+      "label": "Magadino / Cadenazzo (MAG) · MAG",
+      "latitude": 46.16,
+      "longitude": 8.934,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "MGL",
+      "value": "MGL",
+      "code": "mgl",
+      "name": "Magglingen (MGL)",
+      "label": "Magglingen (MGL) · MGL",
+      "latitude": 47.141,
+      "longitude": 7.215,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAL",
+      "value": "MAL",
+      "code": "mal",
+      "name": "Malbun (MAL)",
+      "label": "Malbun (MAL) · MAL",
+      "latitude": 47.103,
+      "longitude": 9.609,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MBA",
+      "value": "MBA",
+      "code": "mba",
+      "name": "Marbach, LU (MBA)",
+      "label": "Marbach, LU (MBA) · MBA",
+      "latitude": 46.857,
+      "longitude": 7.902,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAS",
+      "value": "MAS",
+      "code": "mas",
+      "name": "Marsens (MAS)",
+      "label": "Marsens (MAS) · MAS",
+      "latitude": 46.656,
+      "longitude": 7.07,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAB",
+      "value": "MAB",
+      "code": "mab",
+      "name": "Martigny (MAB)",
+      "label": "Martigny (MAB) · MAB",
+      "latitude": 46.11,
+      "longitude": 7.063,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAT",
+      "value": "MAT",
+      "code": "mat",
+      "name": "Martina (MAT)",
+      "label": "Martina (MAT) · MAT",
+      "latitude": 46.884,
+      "longitude": 10.463,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MER",
+      "value": "MER",
+      "code": "mer",
+      "name": "Meiringen (MER)",
+      "label": "Meiringen (MER) · MER",
+      "latitude": 46.732,
+      "longitude": 8.169,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "MEV",
+      "value": "MEV",
+      "code": "mev",
+      "name": "Mervelier (MEV)",
+      "label": "Mervelier (MEV) · MEV",
+      "latitude": 47.347,
+      "longitude": 7.49,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MES",
+      "value": "MES",
+      "code": "mes",
+      "name": "Mesocco (MES)",
+      "label": "Mesocco (MES) · MES",
+      "latitude": 46.396,
+      "longitude": 9.231,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MGB",
+      "value": "MGB",
+      "code": "mgb",
+      "name": "Mogelsberg (MGB)",
+      "label": "Mogelsberg (MGB) · MGB",
+      "latitude": 47.362,
+      "longitude": 9.138,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MST",
+      "value": "MST",
+      "code": "mst",
+      "name": "Monstein (MST)",
+      "label": "Monstein (MST) · MST",
+      "latitude": 46.713,
+      "longitude": 9.769,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MOD",
+      "value": "MOD",
+      "code": "mod",
+      "name": "Montagne du Droit (MOD)",
+      "label": "Montagne du Droit (MOD) · MOD",
+      "latitude": 47.149,
+      "longitude": 6.935,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MOB",
+      "value": "MOB",
+      "code": "mob",
+      "name": "Montagnier, Bagnes (MOB)",
+      "label": "Montagnier, Bagnes (MOB) · MOB",
+      "latitude": 46.071,
+      "longitude": 7.225,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MVE",
+      "value": "MVE",
+      "code": "mve",
+      "name": "Montana (MVE)",
+      "label": "Montana (MVE) · MVE",
+      "latitude": 46.299,
+      "longitude": 7.461,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "MTO",
+      "value": "MTO",
+      "code": "mto",
+      "name": "Montenol (MTO)",
+      "label": "Montenol (MTO) · MTO",
+      "latitude": 47.354,
+      "longitude": 7.153,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MOS",
+      "value": "MOS",
+      "code": "mos",
+      "name": "Morbio Superiore (MOS)",
+      "label": "Morbio Superiore (MOS) · MOS",
+      "latitude": 45.861,
+      "longitude": 9.029,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MAC",
+      "value": "MAC",
+      "code": "mac",
+      "name": "Morges (MAC)",
+      "label": "Morges (MAC) · MAC",
+      "latitude": 46.517,
+      "longitude": 6.511,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MGI",
+      "value": "MGI",
+      "code": "mgi",
+      "name": "Morgins (MGI)",
+      "label": "Morgins (MGI) · MGI",
+      "latitude": 46.236,
+      "longitude": 6.852,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MMO",
+      "value": "MMO",
+      "code": "mmo",
+      "name": "Mormont (MMO)",
+      "label": "Mormont (MMO) · MMO",
+      "latitude": 47.438,
+      "longitude": 7.037,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MOA",
+      "value": "MOA",
+      "code": "moa",
+      "name": "Mosen (MOA)",
+      "label": "Mosen (MOA) · MOA",
+      "latitude": 47.244,
+      "longitude": 8.233,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MSG",
+      "value": "MSG",
+      "code": "msg",
+      "name": "Mosogno (MSG)",
+      "label": "Mosogno (MSG) · MSG",
+      "latitude": 46.199,
+      "longitude": 8.641,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MTE",
+      "value": "MTE",
+      "code": "mte",
+      "name": "Mottec (MTE)",
+      "label": "Mottec (MTE) · MTE",
+      "latitude": 46.148,
+      "longitude": 7.624,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MDO",
+      "value": "MDO",
+      "code": "mdo",
+      "name": "Moudon (MDO)",
+      "label": "Moudon (MDO) · MDO",
+      "latitude": 46.676,
+      "longitude": 6.803,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MOU",
+      "value": "MOU",
+      "code": "mou",
+      "name": "Moutier (MOU)",
+      "label": "Moutier (MOU) · MOU",
+      "latitude": 47.272,
+      "longitude": 7.372,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MUR",
+      "value": "MUR",
+      "code": "mur",
+      "name": "Muri, AG (MUR)",
+      "label": "Muri, AG (MUR) · MUR",
+      "latitude": 47.265,
+      "longitude": 8.328,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MUT",
+      "value": "MUT",
+      "code": "mut",
+      "name": "Murten (MUT)",
+      "label": "Murten (MUT) · MUT",
+      "latitude": 46.942,
+      "longitude": 7.136,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MOE",
+      "value": "MOE",
+      "code": "moe",
+      "name": "Möhlin (MOE)",
+      "label": "Möhlin (MOE) · MOE",
+      "latitude": 47.572,
+      "longitude": 7.878,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MUB",
+      "value": "MUB",
+      "code": "mub",
+      "name": "Mühleberg (MUB)",
+      "label": "Mühleberg (MUB) · MUB",
+      "latitude": 46.973,
+      "longitude": 7.278,
+      "available_variables": [
+        "pr",
+        "sfcwind"
+      ]
+    },
+    {
+      "id": "MUL",
+      "value": "MUL",
+      "code": "mul",
+      "name": "Mülligen (MUL)",
+      "label": "Mülligen (MUL) · MUL",
+      "latitude": 47.452,
+      "longitude": 8.231,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MUE",
+      "value": "MUE",
+      "code": "mue",
+      "name": "Mürren (MUE)",
+      "label": "Mürren (MUE) · MUE",
+      "latitude": 46.555,
+      "longitude": 7.89,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "MUS",
+      "value": "MUS",
+      "code": "mus",
+      "name": "Müstair (MUS)",
+      "label": "Müstair (MUS) · MUS",
+      "latitude": 46.631,
+      "longitude": 10.456,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "NAP",
+      "value": "NAP",
+      "code": "nap",
+      "name": "Napf (NAP)",
+      "label": "Napf (NAP) · NAP",
+      "latitude": 47.005,
+      "longitude": 7.94,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "NEU",
+      "value": "NEU",
+      "code": "neu",
+      "name": "Neuchâtel (NEU)",
+      "label": "Neuchâtel (NEU) · NEU",
+      "latitude": 47.0,
+      "longitude": 6.953,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "NIE",
+      "value": "NIE",
+      "code": "nie",
+      "name": "Niederneunforn (NIE)",
+      "label": "Niederneunforn (NIE) · NIE",
+      "latitude": 47.596,
+      "longitude": 8.78,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CGI",
+      "value": "CGI",
+      "code": "cgi",
+      "name": "Nyon / Changins (CGI)",
+      "label": "Nyon / Changins (CGI) · CGI",
+      "latitude": 46.401,
+      "longitude": 6.228,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "OBI",
+      "value": "OBI",
+      "code": "obi",
+      "name": "Oberiberg (OBI)",
+      "label": "Oberiberg (OBI) · OBI",
+      "latitude": 47.037,
+      "longitude": 8.779,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "OBD",
+      "value": "OBD",
+      "code": "obd",
+      "name": "Obstalden (OBD)",
+      "label": "Obstalden (OBD) · OBD",
+      "latitude": 47.114,
+      "longitude": 9.163,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "OLI",
+      "value": "OLI",
+      "code": "oli",
+      "name": "Olivone (OLI)",
+      "label": "Olivone (OLI) · OLI",
+      "latitude": 46.529,
+      "longitude": 8.936,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "OPF",
+      "value": "OPF",
+      "code": "opf",
+      "name": "Opfikon (OPF)",
+      "label": "Opfikon (OPF) · OPF",
+      "latitude": 47.438,
+      "longitude": 8.56,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "BOZ",
+      "value": "BOZ",
+      "code": "boz",
+      "name": "Orbe (BOZ)",
+      "label": "Orbe (BOZ) · BOZ",
+      "latitude": 46.736,
+      "longitude": 6.546,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ORS",
+      "value": "ORS",
+      "code": "ors",
+      "name": "Orsières (ORS)",
+      "label": "Orsières (ORS) · ORS",
+      "latitude": 46.021,
+      "longitude": 7.142,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ORZ",
+      "value": "ORZ",
+      "code": "orz",
+      "name": "Orzens (ORZ)",
+      "label": "Orzens (ORZ) · ORZ",
+      "latitude": 46.722,
+      "longitude": 6.682,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "OTE",
+      "value": "OTE",
+      "code": "ote",
+      "name": "Otelfingen (OTE)",
+      "label": "Otelfingen (OTE) · OTE",
+      "latitude": 47.461,
+      "longitude": 8.387,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "PAY",
+      "value": "PAY",
+      "code": "pay",
+      "name": "Payerne (PAY)",
+      "label": "Payerne (PAY) · PAY",
+      "latitude": 46.812,
+      "longitude": 6.942,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "PAV",
+      "value": "PAV",
+      "code": "pav",
+      "name": "Payerne / Ville (PAV)",
+      "label": "Payerne / Ville (PAV) · PAV",
+      "latitude": 46.833,
+      "longitude": 6.936,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "PFA",
+      "value": "PFA",
+      "code": "pfa",
+      "name": "Pfäffikon, ZH (PFA)",
+      "label": "Pfäffikon, ZH (PFA) · PFA",
+      "latitude": 47.377,
+      "longitude": 8.755,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "PIG",
+      "value": "PIG",
+      "code": "pig",
+      "name": "Pigniu (PIG)",
+      "label": "Pigniu (PIG) · PIG",
+      "latitude": 46.81,
+      "longitude": 9.115,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "PIL",
+      "value": "PIL",
+      "code": "pil",
+      "name": "Pilatus (PIL)",
+      "label": "Pilatus (PIL) · PIL",
+      "latitude": 46.979,
+      "longitude": 8.252,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "PIO",
+      "value": "PIO",
+      "code": "pio",
+      "name": "Piotta (PIO)",
+      "label": "Piotta (PIO) · PIO",
+      "latitude": 46.515,
+      "longitude": 8.688,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "COV",
+      "value": "COV",
+      "code": "cov",
+      "name": "Piz Corvatsch (COV)",
+      "label": "Piz Corvatsch (COV) · COV",
+      "latitude": 46.418,
+      "longitude": 9.821,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "PLF",
+      "value": "PLF",
+      "code": "plf",
+      "name": "Plaffeien (PLF)",
+      "label": "Plaffeien (PLF) · PLF",
+      "latitude": 46.748,
+      "longitude": 7.266,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "LOB",
+      "value": "LOB",
+      "code": "lob",
+      "name": "Pleigne (LOB)",
+      "label": "Pleigne (LOB) · LOB",
+      "latitude": 47.419,
+      "longitude": 7.275,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "POT",
+      "value": "POT",
+      "code": "pot",
+      "name": "Ponte Tresa (POT)",
+      "label": "Ponte Tresa (POT) · POT",
+      "latitude": 45.967,
+      "longitude": 8.859,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "PON",
+      "value": "PON",
+      "code": "pon",
+      "name": "Pontresina (PON)",
+      "label": "Pontresina (PON) · PON",
+      "latitude": 46.509,
+      "longitude": 9.888,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ROB",
+      "value": "ROB",
+      "code": "rob",
+      "name": "Poschiavo / Robbia (ROB)",
+      "label": "Poschiavo / Robbia (ROB) · ROB",
+      "latitude": 46.347,
+      "longitude": 10.063,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "PUY",
+      "value": "PUY",
+      "code": "puy",
+      "name": "Pully (PUY)",
+      "label": "Pully (PUY) · PUY",
+      "latitude": 46.512,
+      "longitude": 6.668,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "PUD",
+      "value": "PUD",
+      "code": "pud",
+      "name": "Punt la Drossa (PUD)",
+      "label": "Punt la Drossa (PUD) · PUD",
+      "latitude": 46.654,
+      "longitude": 10.19,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "REG",
+      "value": "REG",
+      "code": "reg",
+      "name": "Reigoldswil (REG)",
+      "label": "Reigoldswil (REG) · REG",
+      "latitude": 47.4,
+      "longitude": 7.673,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "REM",
+      "value": "REM",
+      "code": "rem",
+      "name": "Rempen (REM)",
+      "label": "Rempen (REM) · REM",
+      "latitude": 47.138,
+      "longitude": 8.897,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "RIC",
+      "value": "RIC",
+      "code": "ric",
+      "name": "Ricken (RIC)",
+      "label": "Ricken (RIC) · RIC",
+      "latitude": 47.263,
+      "longitude": 9.06,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WHF",
+      "value": "WHF",
+      "code": "whf",
+      "name": "Riedholz / Wallierhof (WHF)",
+      "label": "Riedholz / Wallierhof (WHF) · WHF",
+      "latitude": 47.234,
+      "longitude": 7.563,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "RIH",
+      "value": "RIH",
+      "code": "rih",
+      "name": "Riehen (RIH)",
+      "label": "Riehen (RIH) · RIH",
+      "latitude": 47.59,
+      "longitude": 7.675,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "RIX",
+      "value": "RIX",
+      "code": "rix",
+      "name": "Riex (RIX)",
+      "label": "Riex (RIX) · RIX",
+      "latitude": 46.494,
+      "longitude": 6.736,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ROE",
+      "value": "ROE",
+      "code": "roe",
+      "name": "Robièi (ROE)",
+      "label": "Robièi (ROE) · ROE",
+      "latitude": 46.443,
+      "longitude": 8.513,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ROM",
+      "value": "ROM",
+      "code": "rom",
+      "name": "Romont (ROM)",
+      "label": "Romont (ROM) · ROM",
+      "latitude": 46.704,
+      "longitude": 6.935,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ROT",
+      "value": "ROT",
+      "code": "rot",
+      "name": "Rothenbrunnen (ROT)",
+      "label": "Rothenbrunnen (ROT) · ROT",
+      "latitude": 46.766,
+      "longitude": 9.418,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "RUE",
+      "value": "RUE",
+      "code": "rue",
+      "name": "Rünenberg (RUE)",
+      "label": "Rünenberg (RUE) · RUE",
+      "latitude": 47.435,
+      "longitude": 7.879,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SBE",
+      "value": "SBE",
+      "code": "sbe",
+      "name": "S. Bernardino (SBE)",
+      "label": "S. Bernardino (SBE) · SBE",
+      "latitude": 46.464,
+      "longitude": 9.185,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SAF",
+      "value": "SAF",
+      "code": "saf",
+      "name": "Saas Fee (SAF)",
+      "label": "Saas Fee (SAF) · SAF",
+      "latitude": 46.111,
+      "longitude": 7.933,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAP",
+      "value": "SAP",
+      "code": "sap",
+      "name": "Safien Platz (SAP)",
+      "label": "Safien Platz (SAP) · SAP",
+      "latitude": 46.679,
+      "longitude": 9.315,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAI",
+      "value": "SAI",
+      "code": "sai",
+      "name": "Saignelégier (SAI)",
+      "label": "Saignelégier (SAI) · SAI",
+      "latitude": 47.257,
+      "longitude": 6.981,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "HAI",
+      "value": "HAI",
+      "code": "hai",
+      "name": "Salen-Reutenen (HAI)",
+      "label": "Salen-Reutenen (HAI) · HAI",
+      "latitude": 47.651,
+      "longitude": 9.024,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SAX",
+      "value": "SAX",
+      "code": "sax",
+      "name": "Salez / Saxerriet (SAX)",
+      "label": "Salez / Saxerriet (SAX) · SAX",
+      "latitude": 47.233,
+      "longitude": 9.493,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAM",
+      "value": "SAM",
+      "code": "sam",
+      "name": "Samedan (SAM)",
+      "label": "Samedan (SAM) · SAM",
+      "latitude": 46.526,
+      "longitude": 9.879,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SAB",
+      "value": "SAB",
+      "code": "sab",
+      "name": "Sangernboden (SAB)",
+      "label": "Sangernboden (SAB) · SAB",
+      "latitude": 46.717,
+      "longitude": 7.351,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAR",
+      "value": "SAR",
+      "code": "sar",
+      "name": "Sargans (SAR)",
+      "label": "Sargans (SAR) · SAR",
+      "latitude": 47.054,
+      "longitude": 9.44,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SRN",
+      "value": "SRN",
+      "code": "srn",
+      "name": "Sarnen (SRN)",
+      "label": "Sarnen (SRN) · SRN",
+      "latitude": 46.897,
+      "longitude": 8.254,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAG",
+      "value": "SAG",
+      "code": "sag",
+      "name": "Sattel, SZ (SAG)",
+      "label": "Sattel, SZ (SAG) · SAG",
+      "latitude": 47.081,
+      "longitude": 8.637,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SVG",
+      "value": "SVG",
+      "code": "svg",
+      "name": "Savognin (SVG)",
+      "label": "Savognin (SVG) · SVG",
+      "latitude": 46.595,
+      "longitude": 9.597,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SUA",
+      "value": "SUA",
+      "code": "sua",
+      "name": "Schaan (SUA)",
+      "label": "Schaan (SUA) · SUA",
+      "latitude": 47.187,
+      "longitude": 9.491,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SHA",
+      "value": "SHA",
+      "code": "sha",
+      "name": "Schaffhausen (SHA)",
+      "label": "Schaffhausen (SHA) · SHA",
+      "latitude": 47.69,
+      "longitude": 8.62,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SCH",
+      "value": "SCH",
+      "code": "sch",
+      "name": "Schleitheim (SCH)",
+      "label": "Schleitheim (SCH) · SCH",
+      "latitude": 47.744,
+      "longitude": 8.482,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SZB",
+      "value": "SZB",
+      "code": "szb",
+      "name": "Schwarzenburg (SZB)",
+      "label": "Schwarzenburg (SZB) · SZB",
+      "latitude": 46.814,
+      "longitude": 7.349,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SCE",
+      "value": "SCE",
+      "code": "sce",
+      "name": "Schwarzenegg (SCE)",
+      "label": "Schwarzenegg (SCE) · SCE",
+      "latitude": 46.806,
+      "longitude": 7.723,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SWZ",
+      "value": "SWZ",
+      "code": "swz",
+      "name": "Schwyz (SWZ)",
+      "label": "Schwyz (SWZ) · SWZ",
+      "latitude": 47.02,
+      "longitude": 8.644,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SWA",
+      "value": "SWA",
+      "code": "swa",
+      "name": "Schwägalp (SWA)",
+      "label": "Schwägalp (SWA) · SWA",
+      "latitude": 47.256,
+      "longitude": 9.317,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SCA",
+      "value": "SCA",
+      "code": "sca",
+      "name": "Schänis (SCA)",
+      "label": "Schänis (SCA) · SCA",
+      "latitude": 47.17,
+      "longitude": 9.021,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SCD",
+      "value": "SCD",
+      "code": "scd",
+      "name": "Scudellate (SCD)",
+      "label": "Scudellate (SCD) · SCD",
+      "latitude": 45.922,
+      "longitude": 9.04,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SCU",
+      "value": "SCU",
+      "code": "scu",
+      "name": "Scuol (SCU)",
+      "label": "Scuol (SCU) · SCU",
+      "latitude": 46.793,
+      "longitude": 10.283,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SED",
+      "value": "SED",
+      "code": "sed",
+      "name": "Sedrun (SED)",
+      "label": "Sedrun (SED) · SED",
+      "latitude": 46.672,
+      "longitude": 8.745,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SIA",
+      "value": "SIA",
+      "code": "sia",
+      "name": "Segl-Maria (SIA)",
+      "label": "Segl-Maria (SIA) · SIA",
+      "latitude": 46.432,
+      "longitude": 9.762,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SPA",
+      "value": "SPA",
+      "code": "spa",
+      "name": "Sempach (SPA)",
+      "label": "Sempach (SPA) · SPA",
+      "latitude": 47.135,
+      "longitude": 8.196,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SEM",
+      "value": "SEM",
+      "code": "sem",
+      "name": "Semsales (SEM)",
+      "label": "Semsales (SEM) · SEM",
+      "latitude": 46.576,
+      "longitude": 6.931,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SEV",
+      "value": "SEV",
+      "code": "sev",
+      "name": "Sevelen (SEV)",
+      "label": "Sevelen (SEV) · SEV",
+      "latitude": 47.132,
+      "longitude": 9.506,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SIE",
+      "value": "SIE",
+      "code": "sie",
+      "name": "Siebnen (SIE)",
+      "label": "Siebnen (SIE) · SIE",
+      "latitude": 47.172,
+      "longitude": 8.9,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SRE",
+      "value": "SRE",
+      "code": "sre",
+      "name": "Sierre (SRE)",
+      "label": "Sierre (SRE) · SRE",
+      "latitude": 46.297,
+      "longitude": 7.55,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SIH",
+      "value": "SIH",
+      "code": "sih",
+      "name": "Sihlbrugg (SIH)",
+      "label": "Sihlbrugg (SIH) · SIH",
+      "latitude": 47.221,
+      "longitude": 8.578,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SIM",
+      "value": "SIM",
+      "code": "sim",
+      "name": "Simplon-Dorf (SIM)",
+      "label": "Simplon-Dorf (SIM) · SIM",
+      "latitude": 46.197,
+      "longitude": 8.056,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SIO",
+      "value": "SIO",
+      "code": "sio",
+      "name": "Sion (SIO)",
+      "label": "Sion (SIO) · SIO",
+      "latitude": 46.219,
+      "longitude": 7.33,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SIS",
+      "value": "SIS",
+      "code": "sis",
+      "name": "Sissach (SIS)",
+      "label": "Sissach (SIS) · SIS",
+      "latitude": 47.464,
+      "longitude": 7.803,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SOG",
+      "value": "SOG",
+      "code": "sog",
+      "name": "Soglio (SOG)",
+      "label": "Soglio (SOG) · SOG",
+      "latitude": 46.343,
+      "longitude": 9.536,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SON",
+      "value": "SON",
+      "code": "son",
+      "name": "Sonogno (SON)",
+      "label": "Sonogno (SON) · SON",
+      "latitude": 46.35,
+      "longitude": 8.788,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SDO",
+      "value": "SDO",
+      "code": "sdo",
+      "name": "Splügen (SDO)",
+      "label": "Splügen (SDO) · SDO",
+      "latitude": 46.553,
+      "longitude": 9.322,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAN",
+      "value": "SAN",
+      "code": "san",
+      "name": "St. Antönien (SAN)",
+      "label": "St. Antönien (SAN) · SAN",
+      "latitude": 46.972,
+      "longitude": 9.826,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "STG",
+      "value": "STG",
+      "code": "stg",
+      "name": "St. Gallen (STG)",
+      "label": "St. Gallen (STG) · STG",
+      "latitude": 47.425,
+      "longitude": 9.399,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SPZ",
+      "value": "SPZ",
+      "code": "spz",
+      "name": "St. Peterzell (SPZ)",
+      "label": "St. Peterzell (SPZ) · SPZ",
+      "latitude": 47.317,
+      "longitude": 9.175,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "STU",
+      "value": "STU",
+      "code": "stu",
+      "name": "St. Urban (STU)",
+      "label": "St. Urban (STU) · STU",
+      "latitude": 47.215,
+      "longitude": 7.84,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SMM",
+      "value": "SMM",
+      "code": "smm",
+      "name": "Sta. Maria, Val Müstair (SMM)",
+      "label": "Sta. Maria, Val Müstair (SMM) · SMM",
+      "latitude": 46.602,
+      "longitude": 10.426,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SBO",
+      "value": "SBO",
+      "code": "sbo",
+      "name": "Stabio (SBO)",
+      "label": "Stabio (SBO) · SBO",
+      "latitude": 45.843,
+      "longitude": 8.932,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "AST",
+      "value": "AST",
+      "code": "ast",
+      "name": "Stalden / Ackersand (AST)",
+      "label": "Stalden / Ackersand (AST) · AST",
+      "latitude": 46.241,
+      "longitude": 7.874,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SKO",
+      "value": "SKO",
+      "code": "sko",
+      "name": "Stallikon (SKO)",
+      "label": "Stallikon (SKO) · SKO",
+      "latitude": 47.305,
+      "longitude": 8.501,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SNS",
+      "value": "SNS",
+      "code": "sns",
+      "name": "Stans (SNS)",
+      "label": "Stans (SNS) · SNS",
+      "latitude": 46.969,
+      "longitude": 8.346,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "STB",
+      "value": "STB",
+      "code": "stb",
+      "name": "Starkenbach (STB)",
+      "label": "Starkenbach (STB) · STB",
+      "latitude": 47.185,
+      "longitude": 9.25,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "STE",
+      "value": "STE",
+      "code": "ste",
+      "name": "Steckborn (STE)",
+      "label": "Steckborn (STE) · STE",
+      "latitude": 47.662,
+      "longitude": 8.972,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SGD",
+      "value": "SGD",
+      "code": "sgd",
+      "name": "Stiegelschwand (SGD)",
+      "label": "Stiegelschwand (SGD) · SGD",
+      "latitude": 46.488,
+      "longitude": 7.532,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "STP",
+      "value": "STP",
+      "code": "stp",
+      "name": "Stöckalp (STP)",
+      "label": "Stöckalp (STP) · STP",
+      "latitude": 46.8,
+      "longitude": 8.281,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SUS",
+      "value": "SUS",
+      "code": "sus",
+      "name": "Susch (SUS)",
+      "label": "Susch (SUS) · SUS",
+      "latitude": 46.755,
+      "longitude": 10.083,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "SAE",
+      "value": "SAE",
+      "code": "sae",
+      "name": "Säntis (SAE)",
+      "label": "Säntis (SAE) · SAE",
+      "latitude": 47.249,
+      "longitude": 9.343,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "TAF",
+      "value": "TAF",
+      "code": "taf",
+      "name": "Tafers (TAF)",
+      "label": "Tafers (TAF) · TAF",
+      "latitude": 46.819,
+      "longitude": 7.216,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TAM",
+      "value": "TAM",
+      "code": "tam",
+      "name": "Tamins (TAM)",
+      "label": "Tamins (TAM) · TAM",
+      "latitude": 46.826,
+      "longitude": 9.409,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TAV",
+      "value": "TAV",
+      "code": "tav",
+      "name": "Tavanasa (TAV)",
+      "label": "Tavanasa (TAV) · TAV",
+      "latitude": 46.751,
+      "longitude": 9.045,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TEU",
+      "value": "TEU",
+      "code": "teu",
+      "name": "Teufen, AR (TEU)",
+      "label": "Teufen, AR (TEU) · TEU",
+      "latitude": 47.388,
+      "longitude": 9.396,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "THU",
+      "value": "THU",
+      "code": "thu",
+      "name": "Thun (THU)",
+      "label": "Thun (THU) · THU",
+      "latitude": 46.75,
+      "longitude": 7.585,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "THS",
+      "value": "THS",
+      "code": "ths",
+      "name": "Thusis (THS)",
+      "label": "Thusis (THS) · THS",
+      "latitude": 46.709,
+      "longitude": 9.442,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TIC",
+      "value": "TIC",
+      "code": "tic",
+      "name": "Tiefencastel (TIC)",
+      "label": "Tiefencastel (TIC) · TIC",
+      "latitude": 46.664,
+      "longitude": 9.574,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "CTO",
+      "value": "CTO",
+      "code": "cto",
+      "name": "Torricella / Crana (CTO)",
+      "label": "Torricella / Crana (CTO) · CTO",
+      "latitude": 46.076,
+      "longitude": 8.895,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TDG",
+      "value": "TDG",
+      "code": "tdg",
+      "name": "Tour de Gourze (TDG)",
+      "label": "Tour de Gourze (TDG) · TDG",
+      "latitude": 46.51,
+      "longitude": 6.741,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TRO",
+      "value": "TRO",
+      "code": "tro",
+      "name": "Trogen (TRO)",
+      "label": "Trogen (TRO) · TRO",
+      "latitude": 47.399,
+      "longitude": 9.455,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TRU",
+      "value": "TRU",
+      "code": "tru",
+      "name": "Trun (TRU)",
+      "label": "Trun (TRU) · TRU",
+      "latitude": 46.744,
+      "longitude": 9.009,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TST",
+      "value": "TST",
+      "code": "tst",
+      "name": "Tschiertschen (TST)",
+      "label": "Tschiertschen (TST) · TST",
+      "latitude": 46.82,
+      "longitude": 9.608,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ULR",
+      "value": "ULR",
+      "code": "ulr",
+      "name": "Ulrichen (ULR)",
+      "label": "Ulrichen (ULR) · ULR",
+      "latitude": 46.505,
+      "longitude": 8.308,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "UNK",
+      "value": "UNK",
+      "code": "unk",
+      "name": "Unterkulm (UNK)",
+      "label": "Unterkulm (UNK) · UNK",
+      "latitude": 47.32,
+      "longitude": 8.111,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "UNS",
+      "value": "UNS",
+      "code": "uns",
+      "name": "Unterschächen (UNS)",
+      "label": "Unterschächen (UNS) · UNS",
+      "latitude": 46.871,
+      "longitude": 8.775,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "URB",
+      "value": "URB",
+      "code": "urb",
+      "name": "Urnerboden (URB)",
+      "label": "Urnerboden (URB) · URB",
+      "latitude": 46.899,
+      "longitude": 8.917,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "URN",
+      "value": "URN",
+      "code": "urn",
+      "name": "Urnäsch (URN)",
+      "label": "Urnäsch (URN) · URN",
+      "latitude": 47.312,
+      "longitude": 9.28,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "UST",
+      "value": "UST",
+      "code": "ust",
+      "name": "Uster (UST)",
+      "label": "Uster (UST) · UST",
+      "latitude": 47.351,
+      "longitude": 8.693,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VAD",
+      "value": "VAD",
+      "code": "vad",
+      "name": "Vaduz (VAD)",
+      "label": "Vaduz (VAD) · VAD",
+      "latitude": 47.127,
+      "longitude": 9.518,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "VAR",
+      "value": "VAR",
+      "code": "var",
+      "name": "Valeyres-sous-Rances (VAR)",
+      "label": "Valeyres-sous-Rances (VAR) · VAR",
+      "latitude": 46.752,
+      "longitude": 6.525,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VVI",
+      "value": "VVI",
+      "code": "vvi",
+      "name": "Vallorbe (VVI)",
+      "label": "Vallorbe (VVI) · VVI",
+      "latitude": 46.713,
+      "longitude": 6.385,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VLS",
+      "value": "VLS",
+      "code": "vls",
+      "name": "Vals (VLS)",
+      "label": "Vals (VLS) · VLS",
+      "latitude": 46.628,
+      "longitude": 9.189,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VEL",
+      "value": "VEL",
+      "code": "vel",
+      "name": "Vella (VEL)",
+      "label": "Vella (VEL) · VEL",
+      "latitude": 46.718,
+      "longitude": 9.174,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VEV",
+      "value": "VEV",
+      "code": "vev",
+      "name": "Vevey / Corseaux (VEV)",
+      "label": "Vevey / Corseaux (VEV) · VEV",
+      "latitude": 46.471,
+      "longitude": 6.815,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VIO",
+      "value": "VIO",
+      "code": "vio",
+      "name": "Vicosoprano (VIO)",
+      "label": "Vicosoprano (VIO) · VIO",
+      "latitude": 46.353,
+      "longitude": 9.628,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VIT",
+      "value": "VIT",
+      "code": "vit",
+      "name": "Villars-Tiercelin (VIT)",
+      "label": "Villars-Tiercelin (VIT) · VIT",
+      "latitude": 46.622,
+      "longitude": 6.71,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VIG",
+      "value": "VIG",
+      "code": "vig",
+      "name": "Vira, Gambarogno (VIG)",
+      "label": "Vira, Gambarogno (VIG) · VIG",
+      "latitude": 46.147,
+      "longitude": 8.855,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VIS",
+      "value": "VIS",
+      "code": "vis",
+      "name": "Visp (VIS)",
+      "label": "Visp (VIS) · VIS",
+      "latitude": 46.303,
+      "longitude": 7.843,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "VRI",
+      "value": "VRI",
+      "code": "vri",
+      "name": "Vrin (VRI)",
+      "label": "Vrin (VRI) · VRI",
+      "latitude": 46.656,
+      "longitude": 9.103,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "VAE",
+      "value": "VAE",
+      "code": "vae",
+      "name": "Vättis (VAE)",
+      "label": "Vättis (VAE) · VAE",
+      "latitude": 46.909,
+      "longitude": 9.444,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WDO",
+      "value": "WDO",
+      "code": "wdo",
+      "name": "Wahlendorf (WDO)",
+      "label": "Wahlendorf (WDO) · WDO",
+      "latitude": 47.004,
+      "longitude": 7.337,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "TAW",
+      "value": "TAW",
+      "code": "taw",
+      "name": "Wald / Tanne (TAW)",
+      "label": "Wald / Tanne (TAW) · TAW",
+      "latitude": 47.42,
+      "longitude": 9.52,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WAG",
+      "value": "WAG",
+      "code": "wag",
+      "name": "Waldegg (WAG)",
+      "label": "Waldegg (WAG) · WAG",
+      "latitude": 47.362,
+      "longitude": 8.455,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WAN",
+      "value": "WAN",
+      "code": "wan",
+      "name": "Wangen b. Olten (WAN)",
+      "label": "Wangen b. Olten (WAN) · WAN",
+      "latitude": 47.335,
+      "longitude": 7.879,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WIE",
+      "value": "WIE",
+      "code": "wie",
+      "name": "Wasen im Emmental (WIE)",
+      "label": "Wasen im Emmental (WIE) · WIE",
+      "latitude": 47.045,
+      "longitude": 7.805,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WEE",
+      "value": "WEE",
+      "code": "wee",
+      "name": "Weesen (WEE)",
+      "label": "Weesen (WEE) · WEE",
+      "latitude": 47.132,
+      "longitude": 9.086,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WEF",
+      "value": "WEF",
+      "code": "wef",
+      "name": "Weinfelden (WEF)",
+      "label": "Weinfelden (WEF) · WEF",
+      "latitude": 47.568,
+      "longitude": 9.119,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WFJ",
+      "value": "WFJ",
+      "code": "wfj",
+      "name": "Weissfluhjoch (WFJ)",
+      "label": "Weissfluhjoch (WFJ) · WFJ",
+      "latitude": 46.833,
+      "longitude": 9.806,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "WET",
+      "value": "WET",
+      "code": "wet",
+      "name": "Weisstannen (WET)",
+      "label": "Weisstannen (WET) · WET",
+      "latitude": 46.991,
+      "longitude": 9.344,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WID",
+      "value": "WID",
+      "code": "wid",
+      "name": "Widnau (WID)",
+      "label": "Widnau (WID) · WID",
+      "latitude": 47.369,
+      "longitude": 9.643,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WBR",
+      "value": "WBR",
+      "code": "wbr",
+      "name": "Wil, ZH (WBR)",
+      "label": "Wil, ZH (WBR) · WBR",
+      "latitude": 47.605,
+      "longitude": 8.507,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WCH",
+      "value": "WCH",
+      "code": "wch",
+      "name": "Wilchingen (WCH)",
+      "label": "Wilchingen (WCH) · WCH",
+      "latitude": 47.667,
+      "longitude": 8.454,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WHA",
+      "value": "WHA",
+      "code": "wha",
+      "name": "Wildhaus (WHA)",
+      "label": "Wildhaus (WHA) · WHA",
+      "latitude": 47.201,
+      "longitude": 9.367,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WIS",
+      "value": "WIS",
+      "code": "wis",
+      "name": "Wimmis (WIS)",
+      "label": "Wimmis (WIS) · WIS",
+      "latitude": 46.671,
+      "longitude": 7.665,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WIN",
+      "value": "WIN",
+      "code": "win",
+      "name": "Winterthur / Seen (WIN)",
+      "label": "Winterthur / Seen (WIN) · WIN",
+      "latitude": 47.475,
+      "longitude": 8.763,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WIT",
+      "value": "WIT",
+      "code": "wit",
+      "name": "Wittnau (WIT)",
+      "label": "Wittnau (WIT) · WIT",
+      "latitude": 47.48,
+      "longitude": 7.969,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WIW",
+      "value": "WIW",
+      "code": "wiw",
+      "name": "Witzwil (WIW)",
+      "label": "Witzwil (WIW) · WIW",
+      "latitude": 46.999,
+      "longitude": 7.053,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "WYN",
+      "value": "WYN",
+      "code": "wyn",
+      "name": "Wynau (WYN)",
+      "label": "Wynau (WYN) · WYN",
+      "latitude": 47.255,
+      "longitude": 7.787,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "WAE",
+      "value": "WAE",
+      "code": "wae",
+      "name": "Wädenswil (WAE)",
+      "label": "Wädenswil (WAE) · WAE",
+      "latitude": 47.221,
+      "longitude": 8.678,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "PSI",
+      "value": "PSI",
+      "code": "psi",
+      "name": "Würenlingen / PSI (PSI)",
+      "label": "Würenlingen / PSI (PSI) · PSI",
+      "latitude": 47.536,
+      "longitude": 8.227,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "YVN",
+      "value": "YVN",
+      "code": "yvn",
+      "name": "Yverdon-les-Bains (YVN)",
+      "label": "Yverdon-les-Bains (YVN) · YVN",
+      "latitude": 46.782,
+      "longitude": 6.651,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ZER",
+      "value": "ZER",
+      "code": "zer",
+      "name": "Zermatt (ZER)",
+      "label": "Zermatt (ZER) · ZER",
+      "latitude": 46.029,
+      "longitude": 7.752,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "ZNZ",
+      "value": "ZNZ",
+      "code": "znz",
+      "name": "Zernez (ZNZ)",
+      "label": "Zernez (ZNZ) · ZNZ",
+      "latitude": 46.699,
+      "longitude": 10.088,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ZEV",
+      "value": "ZEV",
+      "code": "zev",
+      "name": "Zervreila (ZEV)",
+      "label": "Zervreila (ZEV) · ZEV",
+      "latitude": 46.579,
+      "longitude": 9.119,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ZOF",
+      "value": "ZOF",
+      "code": "zof",
+      "name": "Zofingen (ZOF)",
+      "label": "Zofingen (ZOF) · ZOF",
+      "latitude": 47.28,
+      "longitude": 7.943,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ZUB",
+      "value": "ZUB",
+      "code": "zub",
+      "name": "Zugerberg (ZUB)",
+      "label": "Zugerberg (ZUB) · ZUB",
+      "latitude": 47.153,
+      "longitude": 8.537,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ZWE",
+      "value": "ZWE",
+      "code": "zwe",
+      "name": "Zweisimmen (ZWE)",
+      "label": "Zweisimmen (ZWE) · ZWE",
+      "latitude": 46.551,
+      "longitude": 7.385,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "ZWK",
+      "value": "ZWK",
+      "code": "zwk",
+      "name": "Zwillikon (ZWK)",
+      "label": "Zwillikon (ZWK) · ZWK",
+      "latitude": 47.29,
+      "longitude": 8.432,
+      "available_variables": [
+        "pr"
+      ]
+    },
+    {
+      "id": "REH",
+      "value": "REH",
+      "code": "reh",
+      "name": "Zürich / Affoltern (REH)",
+      "label": "Zürich / Affoltern (REH) · REH",
+      "latitude": 47.428,
+      "longitude": 8.518,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "SMA",
+      "value": "SMA",
+      "code": "sma",
+      "name": "Zürich / Fluntern (SMA)",
+      "label": "Zürich / Fluntern (SMA) · SMA",
+      "latitude": 47.378,
+      "longitude": 8.566,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "NABZUE",
+      "value": "NABZUE",
+      "code": "nabzue",
+      "name": "Zürich / Kaserne (NABZUE)",
+      "label": "Zürich / Kaserne (NABZUE) · NABZUE",
+      "latitude": 47.378,
+      "longitude": 8.53,
+      "available_variables": [
+        "hurs",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    },
+    {
+      "id": "KLO",
+      "value": "KLO",
+      "code": "klo",
+      "name": "Zürich / Kloten (KLO)",
+      "label": "Zürich / Kloten (KLO) · KLO",
+      "latitude": 47.48,
+      "longitude": 8.536,
+      "available_variables": [
+        "hurs",
+        "pr",
+        "rsds",
+        "sfcwind",
+        "tas",
+        "tasmax",
+        "tasmin"
+      ]
+    }
+  ]
+}

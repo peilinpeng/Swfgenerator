@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CH2025 Future Weather File Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="chartTooltip" class="chart-tooltip" hidden></div>
+
+  <header class="hero hero-compact">
+    <div>
+      <p class="eyebrow">CH2025 Climate scenarios · Weather-file generation</p>
+      <h1><strong>Future Weather File Lab</strong></h1>
+      <p class="hero-copy">Configure station and scenario inputs, inspect FRY/XMY selection, download generated files, and review weather or simulation diagnostics.</p>
+    </div>
+    <div class="hero-actions">
+      <label class="button button-outline file-label">
+        Import run JSON
+        <input id="jsonInput" type="file" accept="application/json" />
+      </label>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="config-panel">
+      <section class="card sticky-card">
+        <div class="card-header no-rule"><span class="step">01</span><h2>Configure product</h2></div>
+
+        <label class="field"><span class="field-label">Station</span><select id="stationSelect">
+          <option value="SMA">Zürich / Fluntern · SMA</option><option value="BAS">Basel / Binningen · BAS</option><option value="BER">Bern / Zollikofen · BER</option><option value="LUG">Lugano · LUG</option>
+        </select></label>
+        <label class="field"><span class="field-label">Global warming level</span><select id="gwlSelect">
+          <option value="gwl1.5">GWL 1.5</option><option value="gwl2.0" selected>GWL 2.0</option><option value="gwl2.5">GWL 2.5</option><option value="gwl3.0">GWL 3.0</option>
+        </select></label>
+        <label class="field"><span class="field-label">Weather-file mode</span><select id="modeSelect">
+          <option value="fry">FRY — future reference year</option><option value="xmy">XMY — fit-for-purpose stress file</option><option value="both" selected>FRY + XMY package</option>
+        </select></label>
+        <label class="field"><span class="field-label">XMY stress perspective</span><select id="profileSelect">
+          <option value="seasonal_warm">Seasonal heat burden</option><option value="peak_event">Peak heat event</option><option value="sustained_heat">Sustained heatwave</option><option value="nocturnal_heat">Nocturnal heat stress</option>
+        </select></label>
+        <details class="details-block"><summary>Advanced settings</summary>
+          <label class="field"><span class="field-label">Warm season definition</span><select id="seasonSelect">
+            <option value="JJA" selected>JJA · June–August</option><option value="MJJAS">MJJAS · May–September</option><option value="AMJJAS">AMJJAS · April–September</option>
+          </select></label>
+        </details>
+        <div class="button-row"><button id="buildCommandBtn" class="button button-primary">Preview command plan</button><button id="resetBtn" class="button button-secondary">Reset</button></div>
+      </section>
+    </aside>
+
+    <section class="content-panel">
+      <section class="status-grid">
+        <article class="card status-card"><p class="label">Station capability</p><h3 id="capabilityLevel">Not checked</h3><p id="capabilityReason" class="muted">Load a run JSON or preview a command plan.</p></article>
+        <article class="card status-card"><p class="label">Scenario</p><h3 id="scenarioLabel">SMA · GWL 2.0</h3><p id="methodLabel" class="muted">FRY: FS ranking over tas / hurs / rsds + official tasmax/tasmin tie-break.</p></article>
+        <article class="card status-card"><p class="label">Output readiness</p><h3 id="outputReadiness">Draft</h3><p class="muted">This static page reads generated metadata; it does not execute the backend.</p></article>
+      </section>
+
+      <section class="card command-card">
+        <div class="card-header"><span class="step">02</span><h2>Reproducible command preview</h2></div>
+        <p class="section-note">This panel only prints the terminal commands for the selected configuration. It does <strong>not</strong> run the backend inside the browser. Run the commands in Terminal, then import the generated <code>run_summary.json</code>.</p>
+        <pre id="commandBlock">Click “Preview command plan” to generate a reproducible CLI sequence.</pre>
+      </section>
+
+      <article class="card">
+        <div class="card-header"><span class="step">03</span><h2>Output files</h2></div>
+        <div id="fileList" class="file-list empty-state">No files loaded yet.</div>
+      </article>
+
+      <article class="card">
+        <div class="card-header"><span class="step">04</span><h2>FRY month selection</h2></div>
+        <div id="selectionProcess" class="selection-panel empty-state">Load a run to inspect FS/CDF-based month selection.</div>
+      </article>
+
+      <section class="card">
+        <div class="card-header"><span class="step">05</span><h2>Weather diagnostics</h2></div>
+        <div class="chart-toolbar">
+          <label>Variable <select id="weatherVariableSelect"></select></label>
+          <label>Chart <select id="weatherChartType"><option value="bar">Bar comparison</option><option value="line">Line comparison</option></select></label>
+        </div>
+        <div class="chart-section"><p id="weatherChartTitle" class="chart-title">Monthly variable comparison</p><canvas id="weatherVariableChart" height="230" style="width:100%"></canvas><div id="weatherLegend" class="chart-legend"></div></div>
+        <div class="chart-section" style="margin-top:24px"><p class="chart-title">Temperature carpet plot — FRY hourly average (°C)</p><p class="chart-subtitle">Y-axis: hour of day · X-axis: month · Colour: temperature</p><canvas id="carpetChart" height="200" style="width:100%"></canvas><div id="carpetLegend" style="margin-top:8px"></div></div>
+      </section>
+
+      <article class="card">
+        <div class="card-header"><span class="step">06</span><h2>XMY selected profiles</h2></div>
+        <div id="xmyCards" class="xmy-card-grid empty-state">No XMY profiles loaded yet.</div>
+        <div class="chart-toolbar toolbar-spaced"><label>Profile <select id="xmyProfileSelect"></select></label><label>Statistic <select id="xmyStatSelect"></select></label></div>
+        <canvas id="xmyStatChart" height="220" style="width:100%"></canvas>
+      </article>
+
+      <article class="card" id="bpsMetricsCard">
+        <div class="card-header"><span class="step">07</span><h2>BPS metrics</h2></div>
+        <div id="metricsTable" class="table-wrap empty-state">No simulation metrics loaded yet.</div>
+      </article>
+
+      <article class="card" id="simulationComparisonCard">
+        <div class="card-header"><span class="step">08</span><h2>Simulation result comparison</h2></div>
+        <p class="section-note">This panel is reserved for Honeybee / OpenStudio / EnergyPlus outputs. Choose one or more metrics after BPS results are available.</p>
+        <div id="simulationControls" class="metric-checkboxes empty-state">No BPS results loaded yet.</div>
+        <canvas id="simulationChart" height="260" style="width:100%"></canvas>
+      </article>
+
+      <article class="card">
+        <div class="card-header"><span class="step">09</span><h2>Sources &amp; assumptions</h2></div>
+        <div class="two-column"><div><div id="sourceList" class="source-list empty-state">No sources loaded yet.</div></div><div><ul id="assumptionList" class="assumption-list"></ul></div></div>
+      </article>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

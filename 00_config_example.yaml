@@ -1,0 +1,52 @@
+# CH2025 -> future EPW pipeline configuration example.
+# The scripts also accept CLI arguments, so this file is mainly for reproducibility.
+
+project:
+  station: sma
+  station_label: Zurich / Fluntern
+  ref_state: ref91-20
+  target_state: gwl2.0
+  synthetic_year: 2001
+
+paths:
+  ch2025_daily_dir: ./data_processed/ch2025_daily
+  daily_signal_dir: ./data_processed/daily_signal
+  common_chains_dir: ./data_processed/common_model_chains
+  hourly_obs_dir: ./data_processed/hourly_obs
+  hourly_future_candidates_dir: ./data_processed/hourly_future_candidates
+  fry_dir: ./data_processed/fry
+  xmy_dir: ./data_processed/xmy
+  epw_ready_dir: ./data_processed/epw_ready
+  epw_dir: ./epw_output
+
+ch2025:
+  primary_signal_variables: [tas, hurs, rsds]
+  fry_tiebreak_variables: [tasmax, tasmin]
+
+selection:
+  fry_top_n_for_tiebreak: 5
+  warm_months: [6, 7, 8]
+  cdh_base_temperature_c: 26.0
+  hot_day_threshold_c: 30.0
+  tropical_night_threshold_c: 20.0
+
+station_capability:
+  required_ch2025_target_variables: [tas, hurs, rsds, tasmax, tasmin]
+  required_ch2025_ref_variables: [tas, hurs, rsds]
+  required_hourly_variables: [tas, hurs, rsds, sfcWind]
+  recommended_hourly_variables: [pres, windDir, horizIR, cloudcover]
+
+epw_completion:
+  solar_model: boland_ridley_simple
+  opaque_sky_cover_policy: equal_total  # equal_total or missing
+  fallback_pressure_pa: 101325
+  fallback_wind_dir_deg: 0
+
+meteoswiss:
+  collection_id: ch.meteoschweiz.ogd-smn
+  granularity: h
+  update_types: [historical]
+  cache_dir: ./cache/meteoswiss
+  start_year: 1991
+  end_year: 2020
+  manual_download_required: false
