@@ -1,0 +1,65 @@
+# Basel observed calibration config (Phase 1).
+#
+# Computes ASHRAE-style design conditions from Basel observed multi-year hourly
+# data and compares them against the printed Basel design-condition table
+# (targets in compute_design_conditions_SPEC.md §5/§7/§8). Uses the Basel
+# reference DDY for tau/solar-model/wind inheritance.
+#
+# NOTE: the new CLI `design-conditions` stage runs future mode; calibration mode
+# is exercised directly via legacy/scripts/09b_compute_design_conditions.py
+# --mode calibration (see docs/VALIDATION_WORKFLOW.md). This config documents the
+# station + reference + targets used.
+
+station:
+  code: bas
+  name: "Basel Binningen (BAS)"
+  latitude: 47.541
+  longitude: 7.584
+  elevation_m: 317.3                       # from Basel reference EPW LOCATION (NOT the buggy 0)
+  timezone_utc_offset: 1.0
+  source_ids:
+    wmo: "066010"
+    meteoswiss: "bas"
+  reference_epw: data/reference/basel/CHE_BL_Basel.Binningen.066010_TMYx.epw
+  reference_ddy: data/reference/basel/CHE_BL_Basel.Binningen.066010_TMYx.ddy
+
+scenario:
+  ref_state: ref91-20
+  gwls: [gwl2.0]                            # unused in calibration; present for schema completeness
+  baseline_start_year: 1991
+  baseline_end_year: 2020
+
+profiles: [seasonal_warm, peak_event, sustained_heat, nocturnal_heat]
+
+data_source:
+  mode: api
+  cache:
+    enabled: true
+    dir: cache
+    refresh: false
+
+output:
+  root: outputs                            # calibration writes under outputs/design_conditions_calibration
+
+epw_writer:
+  morphed_fields: [dry_bulb_temperature, relative_humidity, global_horizontal_radiation]
+  require_reference_epw: true
+
+design_conditions:
+  db_bin_width_c: 0.5
+  timestamp_semantics: hour_ending_local_standard_time
+  reference_fallback:
+    allow: false
+
+# Printed Basel design-condition targets (compute_design_conditions_SPEC.md).
+# Used to compute residuals during calibration; tiered tolerance (SPEC §12):
+# same-source +/-0.5 K, cross-source (MeteoSwiss vs ASHRAE) +/-1-2 K.
+calibration_targets:
+  heating_99_6_db: -7.0
+  cooling_0_4_db: 31.8
+  cooling_0_4_mcwb: 20.5
+  hdd_18_3: 2744
+  cdd_18_3: 241
+  # Gumbel extreme annual DB moments (SPEC §7): M_max=34.9 s=1.7, M_min=-9.9 s=3.6
+  gumbel_tmax: {5: 36.2, 10: 37.2, 20: 38.2, 50: 39.4}
+  gumbel_tmin: {5: -12.4, 10: -14.5, 20: -16.5, 50: -19.1}

@@ -1,0 +1,46 @@
+# Basel GWL4.0 weather-output batch config (Phase 3).
+#
+# Drives `swfgenerator full`: API fetch (CH2025 deltas + MeteoSwiss observed) ->
+# future candidate pool -> FRY/XMY selection -> reference-based EPW export ->
+# ASHRAE-style design conditions / future DDY. Station-agnostic core; Basel here.
+
+station:
+  code: bas
+  name: "Basel Binningen (BAS)"
+  latitude: 47.541
+  longitude: 7.584
+  elevation_m: 317.3                       # from Basel reference EPW LOCATION
+  timezone_utc_offset: 1.0
+  source_ids:
+    wmo: "066010"
+    meteoswiss: "bas"
+  reference_epw: data/reference/basel/CHE_BL_Basel.Binningen.066010_TMYx.epw
+  reference_ddy: data/reference/basel/CHE_BL_Basel.Binningen.066010_TMYx.ddy
+
+scenario:
+  ref_state: ref91-20
+  gwls: [gwl4.0]
+  baseline_start_year: 1991
+  baseline_end_year: 2020
+
+profiles: [seasonal_warm, peak_event, sustained_heat, nocturnal_heat]
+
+data_source:
+  mode: api
+  cache:
+    enabled: true
+    dir: cache
+    refresh: false
+
+output:
+  root: outputs/basel_gwl4_0_batch
+
+epw_writer:
+  morphed_fields: [dry_bulb_temperature, relative_humidity, global_horizontal_radiation]
+  require_reference_epw: true
+
+design_conditions:
+  db_bin_width_c: 0.5
+  timestamp_semantics: hour_ending_local_standard_time
+  reference_fallback:
+    allow: false
