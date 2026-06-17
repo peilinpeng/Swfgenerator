@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swfgenerator"
+version = "0.1.0"
+description = "Future Swiss weather file generator (FRY/XMY EPW + ASHRAE-style design conditions/DDY) for building performance simulation."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Peilin Peng" }]
+keywords = ["epw", "ddy", "ashrae", "ch2025", "meteoswiss", "weather", "building-simulation"]
+dependencies = [
+    "numpy>=1.21",
+    "pandas>=1.3",
+    "psychrolib>=2.5",
+    "pyyaml>=5.4",
+    "requests>=2.25",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.0"]
+
+[project.scripts]
+swfgenerator = "swfgenerator.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+swfgenerator = ["resources/reference/**/*.ddy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: heavy end-to-end tests requiring API/network or large local data (deselected by default)",
+]
+addopts = "-m 'not integration'"
