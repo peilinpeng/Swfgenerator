@@ -488,7 +488,7 @@ def main() -> int:
         "assumptions": [
             "Candidate pool retains useful auxiliary variables, but final EPW completion is applied only to selected FRY/XMY files.",
             "Official CH2025 tasmax/tasmin are used only as FRY tie-break targets, not as primary FS variables.",
-            "DHI/DNI are generated in the EPW completion layer from GHI using a Boland-Ridley-style diffuse-fraction model unless observed DHI is available.",
+            "Final EPW export is reference-based: GHI is morphed from the selected rsds series, DHI/DNI are derived by a validated Boland-Ridley / clearness-index decomposition, and non-morphed auxiliary fields are inherited from the reference EPW.",
             "Cloud cover is retained/interpolated from visual observations or satellite CFC where available and used as the basis for Total Sky Cover; Opaque Sky Cover is proxy/fallback when no independent source exists.",
             "External published benchmarks such as Wehrli/SIA 2028 1-in-10 warm summer are used for frontend weather-level comparison only; they are not generated XMY outputs and are not complete EPW files.",
         ],

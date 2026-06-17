@@ -125,6 +125,7 @@ def main() -> int:
     p.add_argument("--profiles", default="seasonal_warm,peak_event,sustained_heat,nocturnal_heat")
     p.add_argument("--baseline-start-year", type=int, default=1991)
     p.add_argument("--baseline-end-year", type=int, default=2020)
+    p.add_argument("--reference-epw", default=None, help="Mandatory for final EPW export: reference EPW used as metadata/header/hourly carrier")
     p.add_argument("--skip-existing", action="store_true", help="Skip some file-generation steps when expected outputs already exist.")
     p.add_argument("--continue-on-error", action="store_true")
     p.add_argument("--dry-run", action="store_true")
@@ -338,6 +339,11 @@ def main() -> int:
                 run([py(), "10_compare_weather_files_v4.py", "--files", *files_args, "--output", comparison], args.dry_run)
 
                 # 8) EPW completion and writing
+                if not args.reference_epw:
+                    raise RuntimeError("EPW export now requires --reference-epw; the writer is reference-based and will not build a donor-free EPW.")
+                reference_epw = Path(args.reference_epw)
+                if not args.dry_run and not reference_epw.exists():
+                    raise RuntimeError(f"Reference EPW not found: {reference_epw}")
                 station_meta = ensure_station_metadata(station, dry_run=args.dry_run)
                 selected_files = {"fry": fry, **xmy_paths}
                 epw_files = {}
@@ -346,7 +352,17 @@ def main() -> int:
                     ready = f"data_processed/epw_ready/{outbase}_epw_ready.csv"
                     epw = f"outputs/epw/{outbase}.epw"
                     run([py(), "08_complete_epw_fields_v4.py", "--hourly-table", csv_path, "--station-metadata", str(station_meta), "--output", ready], args.dry_run)
-                    run([py(), "09_write_epw_v4.py", "--completed-hourly", ready, "--station-metadata", str(station_meta), "--output-epw", epw], args.dry_run)
+                    run([
+                        py(), "09_write_epw_v4.py",
+                        "--completed-hourly", ready,
+                        "--reference-epw", str(reference_epw),
+                        "--station-metadata", str(station_meta),
+                        "--output-epw", epw,
+                        "--generated-file-type", key.upper(),
+                        "--scenario-label", target_state,
+                        "--gwl-label", target_state,
+                        "--method-label", "reference_based_morphed_epw",
+                    ], args.dry_run)
                     epw_files[key] = epw
 
                 # 9) Run summary for frontend

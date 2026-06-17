@@ -48,6 +48,13 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000` and import any generated `outputs/run_<station>_<gwl>/run_summary.json`.
 
-## Important note on station metadata
+## Important note on EPW generation
 
-EPW writing requires station metadata: latitude, longitude, timezone and elevation. For SMA a metadata JSON is bundled/created by previous runs. For additional stations, provide `station_metadata/<station>.json` or refresh the station catalog and update metadata before final EPW export. The pipeline can still generate candidate files and selection results, but final EPW geolocation should be checked before simulation.
+Final EPW export is reference-based and requires `--reference-epw`. The reference
+EPW is the authoritative carrier of LOCATION metadata, design conditions, ground
+temperatures, typical/extreme periods, pressure, sky cover, wind, illuminance and
+all other non-morphed hourly fields. By default the writer overwrites dry-bulb
+temperature, relative humidity and global horizontal radiation; derives dew point,
+diffuse horizontal radiation and direct normal radiation; and inherits the
+remaining EPW fields. Station metadata JSON may still be used by upstream helper
+scripts, but it must not override the reference EPW LOCATION line.

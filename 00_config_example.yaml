@@ -36,11 +36,12 @@ station_capability:
   required_hourly_variables: [tas, hurs, rsds, sfcWind]
   recommended_hourly_variables: [pres, windDir, horizIR, cloudcover]
 
-epw_completion:
-  solar_model: boland_ridley_simple
-  opaque_sky_cover_policy: equal_total  # equal_total or missing
-  fallback_pressure_pa: 101325
-  fallback_wind_dir_deg: 0
+epw_generation:
+  # Mandatory for final EPW export. Header blocks, station metadata, pressure,
+  # sky cover, wind, illuminance and all non-morphed fields are inherited from
+  # this reference EPW.
+  reference_epw: /path/to/reference.epw
+  morphed_fields: [dry_bulb_temperature, relative_humidity, global_horizontal_radiation]
 
 meteoswiss:
   collection_id: ch.meteoschweiz.ogd-smn
