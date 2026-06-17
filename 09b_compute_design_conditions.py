@@ -997,9 +997,30 @@ def build_design_days(
         pressure_pa=pres, wind_speed=wind["htg_ws"], wind_dir=wind["htg_wd"],
         solar_model="ASHRAEClearSky", taub=None, taud=None,
     ))
-    # Non-surviving heating 99.0% DB (full-file realism)
+    # Non-surviving heating 99.0% family (full-file realism; mirrors the
+    # OneBuilding reference, which carries 6 ASHRAEClearSky objects =
+    # {Htg DB, Hum_n DP, Htg Wind} x {99.6%, 99%}). These do not survive the
+    # Honeybee 99.6%/.4% name filter but keep the ClearSky set structurally
+    # identical to the reference DDY.
+    dp99 = heating["DP_99.0"]
     days.append(DesignDay(
         name=f"{station} Ann Htg 99% Condns DB",
+        month=coldest, day=21, day_type="WinterDesignDay",
+        max_db=heating["DB_99.0"], daily_range=0.0,
+        humidity_type="Wetbulb", humidity_value=heating["DB_99.0"],
+        pressure_pa=pres, wind_speed=wind["htg_ws"], wind_dir=wind["htg_wd"],
+        solar_model="ASHRAEClearSky", taub=None, taud=None,
+    ))
+    days.append(DesignDay(
+        name=f"{station} Ann Hum_n 99% Condns DP=>MCDB",
+        month=coldest, day=21, day_type="WinterDesignDay",
+        max_db=heating["DP_99.0_MCDB"], daily_range=0.0,
+        humidity_type="Dewpoint", humidity_value=dp99,
+        pressure_pa=pres, wind_speed=wind["htg_ws"], wind_dir=wind["htg_wd"],
+        solar_model="ASHRAEClearSky", taub=None, taud=None,
+    ))
+    days.append(DesignDay(
+        name=f"{station} Ann Htg Wind 99% Condns WS=>MCDB",
         month=coldest, day=21, day_type="WinterDesignDay",
         max_db=heating["DB_99.0"], daily_range=0.0,
         humidity_type="Wetbulb", humidity_value=heating["DB_99.0"],
@@ -1159,6 +1180,7 @@ def write_report(
     calibration: Optional[Dict[str, Any]],
     tau_source: str,
     wind_source: str,
+    fallback_warning: Optional[str] = None,
 ) -> None:
     L: List[str] = []
     L.append(f"# Design-Conditions Report — {station} ({mode} mode)")
@@ -1169,6 +1191,11 @@ def write_report(
     L.append(f"- Tau source: `{tau_source}`")
     L.append(f"- Wind source: `{wind_source}`")
     L.append("")
+    if fallback_warning:
+        L.append("> **⚠ REFERENCE-DDY FALLBACK**")
+        L.append(">")
+        L.append(f"> {fallback_warning}")
+        L.append("")
     L.append("## Timestamp semantics & input contract (SPEC s1)")
     L.append("")
     L.append(f"- timestamp_semantics: `{contract.timestamp_semantics}`")
@@ -1254,25 +1281,34 @@ def write_report(
 
 def resolve_tau_and_wind(
     reference_ddy: Optional[Path],
-) -> Tuple[Dict[int, Tuple[float, float]], str, Dict[str, float], str]:
+) -> Tuple[Dict[int, Tuple[float, float]], str, Dict[str, float], str, bool]:
+    """Return (tau_table, tau_source, wind, wind_source, is_fallback).
+
+    is_fallback is True when no per-object tau was inherited from a real
+    reference DDY and the SPEC Basel table / documented default wind are used
+    instead. Callers must NOT silently accept a fallback in production/future
+    mode (SPEC s10; see main()).
+    """
     if reference_ddy is not None:
         info = parse_reference_ddy(reference_ddy)
         tau = dict(BASEL_REFERENCE_TAU)
         if info["monthly_tau"]:
             tau.update(info["monthly_tau"])
             tau_source = f"reference_ddy({reference_ddy.name})"
+            is_fallback = False
         else:
-            tau_source = f"basel_reference_spec_table (reference_ddy parsed no monthly tau)"
+            tau_source = "basel_reference_spec_table (reference_ddy parsed no monthly tau)"
+            is_fallback = True
         # Wind: try to find heating/cooling wind from objects (best effort).
         wind = {"htg_ws": DEFAULT_HEATING_WIND_SPEED, "htg_wd": DEFAULT_HEATING_WIND_DIR,
                 "clg_ws": DEFAULT_COOLING_WIND_SPEED, "clg_wd": DEFAULT_COOLING_WIND_DIR}
         wind_source = f"reference_ddy({reference_ddy.name}) where present, else documented defaults"
-        return tau, tau_source, wind, wind_source
+        return tau, tau_source, wind, wind_source, is_fallback
     tau = dict(BASEL_REFERENCE_TAU)
     wind = {"htg_ws": DEFAULT_HEATING_WIND_SPEED, "htg_wd": DEFAULT_HEATING_WIND_DIR,
             "clg_ws": DEFAULT_COOLING_WIND_SPEED, "clg_wd": DEFAULT_COOLING_WIND_DIR}
     return (tau, "basel_reference_spec_table (no --reference-ddy supplied)",
-            wind, "documented_defaults (no --reference-ddy; wind not inherited)")
+            wind, "documented_defaults (no --reference-ddy; wind not inherited)", True)
 
 
 # ===========================================================================
@@ -1292,6 +1328,11 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         "Do NOT rely on the EPW header (known Elevation=0 bug).")
     p.add_argument("--reference-ddy", default=None,
                    help="Reference .ddy used as tau/wind/solar-model template (SPEC s10)")
+    p.add_argument("--allow-reference-fallback", action="store_true",
+                   help="Explicitly allow falling back to SPEC Basel tau / default wind "
+                        "when no per-object tau is inherited from --reference-ddy. "
+                        "Future mode REFUSES to run without this flag when no reference "
+                        "DDY is available (SPEC s10).")
     p.add_argument("--outdir", default="./data_processed/design_conditions")
     p.add_argument("--out-prefix", default=None, help="Output filename prefix")
     p.add_argument("--db-bin-width", type=float, default=0.5, help="Joint-freq bin width (deg C)")
@@ -1365,14 +1406,39 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         outdir = Path(args.outdir)
         prefix = args.out_prefix or f"{args.station}_{args.mode}"
 
+        # Resolve tau/wind and enforce the reference-DDY fallback policy BEFORE
+        # the expensive data load/psychrometrics, so future mode fails fast.
+        tau_table, tau_source, wind, wind_source, is_fallback = resolve_tau_and_wind(ref_ddy)
+
+        # Reference-DDY fallback policy (SPEC s10): a real reference DDY is the
+        # carrier of per-object solar model, monthly tau, and wind. Falling back
+        # to the SPEC Basel table / default wind is acceptable only for a quick
+        # calibration sanity check, and must NEVER happen silently in a
+        # future/production run. Require an explicit opt-in to fall back.
+        fallback_warning = None
+        if is_fallback:
+            fallback_warning = (
+                "REFERENCE-DDY FALLBACK ACTIVE: no per-object solar model / monthly tau "
+                "/ wind were inherited from a real reference DDY. Using the SPEC Basel "
+                "tau table and documented default wind speeds. These are NOT the target "
+                f"station's values (tau_source={tau_source}; wind_source={wind_source})."
+            )
+            if args.mode == "future" and not args.allow_reference_fallback:
+                log("[ERROR] " + fallback_warning)
+                log("[ERROR] future mode must not silently fall back. Pass a real "
+                    "--reference-ddy, or re-run with --allow-reference-fallback to "
+                    "explicitly accept Basel-tau/default-wind placeholders.")
+                return 1
+            log("[WARN] " + fallback_warning)
+            if args.allow_reference_fallback:
+                log("[WARN] Proceeding because --allow-reference-fallback was set.")
+
         raw = load_hourly(input_path)
         contract = resolve_columns(raw, column_overrides(args))
         hourly, contract = prepare_dataset(
             raw, contract, elevation_m=args.elevation,
             timestamp_semantics=args.timestamp_semantics,
         )
-
-        tau_table, tau_source, wind, wind_source = resolve_tau_and_wind(ref_ddy)
 
         per_chain: Optional[List[Dict[str, Any]]] = None
         if args.mode == "future":
@@ -1438,6 +1504,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             "reference_ddy": str(ref_ddy) if ref_ddy else None,
             "tau_source": tau_source,
             "wind_source": wind_source,
+            "reference_fallback": {
+                "is_fallback": is_fallback,
+                "allowed": bool(args.allow_reference_fallback),
+                "warning": fallback_warning,
+            },
             "timestamp_semantics": contract.timestamp_semantics,
             "input_notes": contract.notes,
             "validation_gates": gates,
@@ -1450,7 +1521,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         write_report(report_path, mode=args.mode, station=args.station, dc=dc,
                      contract=contract, gates=gates, ddy_diag=ddy_diag,
                      per_chain=per_chain, calibration=calibration,
-                     tau_source=tau_source, wind_source=wind_source)
+                     tau_source=tau_source, wind_source=wind_source,
+                     fallback_warning=fallback_warning)
 
         log(f"[OK] design conditions written:")
         log(f"  CSV : {csv_path}")
