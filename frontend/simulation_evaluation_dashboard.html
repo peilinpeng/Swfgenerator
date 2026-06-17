@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulation Evaluation Dashboard</title>
+  <link rel="stylesheet" href="simulation_evaluation_dashboard.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">BPS evaluation interface</p>
+      <h1>Simulation Evaluation Dashboard</h1>
+      <p class="subtitle">Import <code>simulation_evaluation_summary.json</code> generated from Honeybee / Ladybug outputs and compare FRY/XMY performance metrics.</p>
+      <div class="actions">
+        <label class="button primary">
+          Import evaluation JSON
+          <input id="jsonInput" type="file" accept=".json,application/json" hidden />
+        </label>
+      </div>
+    </header>
+
+    <section id="status" class="status">No evaluation file loaded.</section>
+
+    <section class="grid cards" id="cards"></section>
+
+    <section class="panel">
+      <div class="panel-title-row">
+        <h2>Metric comparison</h2>
+        <div class="controls">
+          <label>Metric
+            <select id="metricSelect"></select>
+          </label>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div id="barLegend" class="legend"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title-row">
+        <h2>Thermal-load relationship</h2>
+        <div class="controls two">
+          <label>X-axis
+            <select id="scatterX"></select>
+          </label>
+          <label>Y-axis
+            <select id="scatterY"></select>
+          </label>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="scatterChart"></canvas>
+      </div>
+      <div id="scatterLegend" class="legend"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Normalized metric heatmap</h2>
+      <div class="chart-wrap heatmap-wrap">
+        <canvas id="heatmapChart"></canvas>
+      </div>
+      <p class="note">Values are min–max normalized per metric. Darker cells indicate more severe performance for that metric.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Metrics table</h2>
+      <div class="table-wrap">
+        <table id="metricsTable"></table>
+      </div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <script src="simulation_evaluation_dashboard.js"></script>
+</body>
+</html>
