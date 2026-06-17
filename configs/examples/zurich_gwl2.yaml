@@ -1,0 +1,51 @@
+# Example swfgenerator workflow config.
+#
+# Zurich / Fluntern (SMA) is used here ONLY as an example. The package core is
+# station-agnostic: switch stations by editing this block (or pointing --config
+# at another file). Nothing below is a baked-in core default.
+
+station:
+  code: sma                                # MeteoSwiss / pipeline station id
+  name: "Zurich Fluntern (SMA)"
+  latitude: 47.378
+  longitude: 8.566
+  elevation_m: 555.6                       # drives standard pressure (NOT the buggy EPW Elevation=0)
+  timezone_utc_offset: 1.0
+  source_ids:
+    wmo: "066600"
+    meteoswiss: "sma"
+  # Reference files. reference_ddy is required for future design-day generation
+  # unless design_conditions.reference_fallback.allow is true.
+  reference_epw: null                      # TODO: provide a reference EPW to enable EPW export
+  reference_ddy: data/reference/zurich/CHE_ZH_Zurich.Fluntern.066600_TMYx.2011-2025.ddy
+
+scenario:
+  ref_state: ref91-20
+  gwls: [gwl2.0]                            # e.g. [gwl1.5, gwl2.0, gwl3.0]
+  baseline_start_year: 1991
+  baseline_end_year: 2020
+
+profiles: [seasonal_warm, peak_event, sustained_heat, nocturnal_heat]
+
+data_source:
+  mode: api                                # api (default) | local
+  cache:
+    enabled: true
+    dir: cache
+    refresh: false
+  local_overrides: {}                      # RESERVED: optional explicit local input files (debug)
+
+output:
+  root: outputs                            # production output root (NEVER test_outputs)
+
+epw_writer:
+  # RESERVED until wired per-stage in the new CLI; the legacy writer already
+  # morphs DB/RH/GHI and derives DP/DHI/DNI.
+  morphed_fields: [dry_bulb_temperature, relative_humidity, global_horizontal_radiation]
+  require_reference_epw: true              # batch EPW export requires --reference-epw
+
+design_conditions:
+  db_bin_width_c: 0.5
+  timestamp_semantics: hour_ending_local_standard_time
+  reference_fallback:
+    allow: false                           # no silent fallback in production/future mode
