@@ -107,6 +107,14 @@ DERIVED_FIELDS = ["dew_point_temperature", "direct_normal_radiation", "diffuse_h
 BR_A = 8.0
 BR_B = 0.586
 LOW_SUN_COS_ZENITH = 0.052336  # cos(87 deg); avoids unstable DNI near horizon.
+# Artificial-cap-plateau detection (validation only; does NOT change decomposition).
+# A real clipping artifact shows up as the DNI series PLATEAUING at ~1200 W/m2,
+# i.e. that value is also the maximum and it repeats over many daylight hours. A
+# single near-1200 value below a higher physical maximum is NOT a cap.
+DNI_CAP_VALUE = 1200.0           # the legacy artificial-cap value to watch for
+DNI_CAP_TOL = 2.0                # W/m2 window around the cap value
+DNI_CAP_PLATEAU_MIN_HOURS = 12   # hours clustered at the cap to call it a plateau
+DNI_HIGH_THRESHOLD = 1100.0      # report high physical DNI values above this
 HEADER_KEYS_REQUIRING_INHERITANCE = [
     "LOCATION",
     "DESIGN CONDITIONS",
@@ -592,9 +600,19 @@ def validate_rows(
                 tolerance = max(5.0, 0.03 * max(g, 1.0))
                 if closure > tolerance:
                     closure_failures += 1
-            cap_1200_hits = sum(1 for v in dni if abs(v - 1200.0) < 0.5)
             max_dni = max(dni)
             repeated_max_dni = sum(1 for v in dni if abs(v - max_dni) < 0.5)
+            near_cap_hours = sum(1 for v in dni if abs(v - DNI_CAP_VALUE) <= DNI_CAP_TOL)
+            high_dni_hours = sum(1 for v in dni if v > DNI_HIGH_THRESHOLD)
+            # Artificial-cap plateau: the maximum itself sits at ~1200 AND it
+            # repeats over many daylight hours (a flat clip), with a cluster of
+            # values pinned at the cap. A higher physical maximum rules it out.
+            max_at_cap = max_dni <= DNI_CAP_VALUE + DNI_CAP_TOL
+            cap_plateau_suspected = (
+                max_at_cap
+                and repeated_max_dni >= DNI_CAP_PLATEAU_MIN_HOURS
+                and near_cap_hours >= DNI_CAP_PLATEAU_MIN_HOURS
+            )
             diagnostics["solar_summary"] = {
                 "policy": "morph_ghi_derive_dhi_dni_boland_ridley",
                 "ghi_min": min(ghi),
@@ -609,21 +627,38 @@ def validate_rows(
                 "closure_error_max_wm2": max(closure_errors) if closure_errors else 0.0,
                 "closure_error_mean_wm2": sum(closure_errors) / len(closure_errors) if closure_errors else 0.0,
                 "closure_failure_hours": closure_failures,
-                "dni_1200_cap_hits": cap_1200_hits,
+                # Diagnostics distinguishing an artificial cap plateau from high
+                # physical DNI (kept under explicit, self-describing names).
+                "dni_near_1200_hours": near_cap_hours,
+                "dni_high_hours_gt_1100": high_dni_hours,
                 "dni_repeated_max_count": repeated_max_dni,
+                "dni_max_at_cap_value": max_at_cap,
+                "cap_plateau_suspected": cap_plateau_suspected,
             }
+            # Hard gates: physical-consistency checks only.
             if night_nonzero:
                 errors.append(f"Solar validation failed: nighttime GHI/DNI/DHI nonzero in {night_nonzero} hours")
             if dhi_gt_ghi:
                 errors.append(f"Solar validation failed: DHI exceeds GHI in {dhi_gt_ghi} hours")
             if closure_failures:
                 errors.append(f"Solar validation failed: GHI closure error exceeds tolerance in {closure_failures} hours")
-            if cap_1200_hits:
-                errors.append(f"Solar validation failed: DNI hits suspicious 1200 W/m2 cap in {cap_1200_hits} hours")
-            if repeated_max_dni >= 12 and max_dni >= 1199.5:
-                errors.append(f"Solar validation failed: repeated artificial DNI cap suspected at {max_dni:.0f} W/m2 in {repeated_max_dni} hours")
-            elif repeated_max_dni > 1 and max_dni >= 1199.5:
-                warnings.append(f"Solar diagnostic: DNI maximum {max_dni:.0f} W/m2 repeats in {repeated_max_dni} hours; below cap-failure threshold.")
+            # Artificial-cap gate: only fail on an actual plateau pinned at ~1200.
+            if cap_plateau_suspected:
+                errors.append(
+                    f"Solar validation failed: possible artificial DNI cap plateau at "
+                    f"~{DNI_CAP_VALUE:.0f} W/m2 (max={max_dni:.0f} repeats {repeated_max_dni}x, "
+                    f"{near_cap_hours} hours pinned near the cap).")
+            elif near_cap_hours and not max_at_cap:
+                # High physical DNI: values near 1200 exist but the series exceeds
+                # the cap, so this is genuine clear-sky beam, not clipping.
+                warnings.append(
+                    f"Solar diagnostic: high physical DNI values (dni_max={max_dni:.0f} W/m2 > "
+                    f"{DNI_CAP_VALUE:.0f}; {near_cap_hours} hour(s) near 1200, {high_dni_hours} "
+                    f"hour(s) > {DNI_HIGH_THRESHOLD:.0f}); not an artificial cap plateau.")
+            elif repeated_max_dni >= DNI_CAP_PLATEAU_MIN_HOURS and max_at_cap:
+                warnings.append(
+                    f"Solar diagnostic: DNI maximum {max_dni:.0f} W/m2 repeats {repeated_max_dni}x near "
+                    f"the cap value but the near-cap cluster is small; review for clipping.")
     else:
         warnings.append("Solar radiation inherited from reference EPW; future GHI signal is not applied in this output.")
 
