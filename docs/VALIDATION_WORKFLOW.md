@@ -64,10 +64,10 @@ package/orchestration/path/config issues — never EPW writer or 09b semantics.*
 Configs: `basel_gwl1.5.yaml`, `basel_gwl2.yaml`, `basel_gwl3.0.yaml`,
 `basel_gwl4.0.yaml`. Weather generation only (no BPS yet).
 
-> **GWL availability:** CH2025 publishes GWL 1.5 / 2.0 / 3.0 (the local archive
-> also carried 2.5). **GWL 4.0 may not exist in CH2025** — verify against the
-> CH2025 STAC before relying on `basel_gwl4.0.yaml`; if unavailable, substitute
-> GWL 2.5 or drop 4.0.
+> **GWL availability (verified 2026-06-18):** the CH2025 STAC serves GWL 1.5 /
+> 2.0 / 2.5 / 3.0 / **4.0** for Basel (`bas`) — all of tas/hurs/rsds download for
+> each. `basel_gwl4.0.yaml` is therefore usable. (Earlier concern that 4.0 might
+> be absent is resolved.)
 
 Climate-sanity expectations: cooling design DB rises with GWL; CDD rises; HDD
 falls; heating design less severe; FRY/XMY profiles show distinct seasonal / peak
