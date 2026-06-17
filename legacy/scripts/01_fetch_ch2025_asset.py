@@ -24,21 +24,46 @@ import json
 import os
 import re
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 
 
 STAC_ROOT = "https://data.geo.admin.ch/api/stac/v1"
 DEFAULT_TIMEOUT = 60
+# Network robustness (configurable via CLI; mutated in main()). These govern the
+# STAC discovery / download calls only — no climate algorithm is affected.
+REQUEST_TIMEOUT = DEFAULT_TIMEOUT
+RETRY_ATTEMPTS = 4
+RETRY_BACKOFF = 2.0  # seconds; exponential: backoff * 2**(attempt-1)
+
+
+def _retry(call: "Callable[[], Any]", what: str) -> Any:
+    """Run a network call with retries + exponential backoff (transient STAC
+    timeouts are common). Raises a clear error after the final attempt."""
+    last_exc: Optional[Exception] = None
+    for attempt in range(1, RETRY_ATTEMPTS + 1):
+        try:
+            return call()
+        except (urllib.error.URLError, TimeoutError, OSError, RuntimeError) as exc:
+            last_exc = exc
+            if attempt < RETRY_ATTEMPTS:
+                wait = RETRY_BACKOFF * (2 ** (attempt - 1))
+                log(f"      [retry] {what} failed (attempt {attempt}/{RETRY_ATTEMPTS}): "
+                    f"{exc}; retrying in {wait:.1f}s")
+                time.sleep(wait)
+    raise RuntimeError(f"{what} failed after {RETRY_ATTEMPTS} attempts: {last_exc}")
 
 
 def log(msg: str) -> None:
     print(msg, flush=True)
 
 
-def fetch_json(url: str, timeout: int = DEFAULT_TIMEOUT) -> Dict[str, Any]:
+def fetch_json(url: str, timeout: Optional[int] = None) -> Dict[str, Any]:
+    timeout = REQUEST_TIMEOUT if timeout is None else timeout
     req = urllib.request.Request(
         url,
         headers={
@@ -46,25 +71,38 @@ def fetch_json(url: str, timeout: int = DEFAULT_TIMEOUT) -> Dict[str, Any]:
             "Accept": "application/json",
         },
     )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        if resp.status != 200:
-            raise RuntimeError(f"HTTP {resp.status} while requesting {url}")
-        data = resp.read().decode("utf-8")
-    return json.loads(data)
+
+    def _do() -> Dict[str, Any]:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            if resp.status != 200:
+                raise RuntimeError(f"HTTP {resp.status} while requesting {url}")
+            return json.loads(resp.read().decode("utf-8"))
+
+    return _retry(_do, f"GET {url}")
 
 
-def download_file(url: str, dest: Path, timeout: int = DEFAULT_TIMEOUT) -> None:
+def download_file(url: str, dest: Path, timeout: Optional[int] = None) -> None:
+    timeout = REQUEST_TIMEOUT if timeout is None else timeout
     dest.parent.mkdir(parents=True, exist_ok=True)
 
     req = urllib.request.Request(
         url,
         headers={"User-Agent": "ch2025-fetcher/0.1"},
     )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        if resp.status != 200:
-            raise RuntimeError(f"HTTP {resp.status} while downloading {url}")
-        with open(dest, "wb") as f:
-            f.write(resp.read())
+
+    def _do() -> None:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            if resp.status != 200:
+                raise RuntimeError(f"HTTP {resp.status} while downloading {url}")
+            data = resp.read()
+        # Write atomically only after a complete read, so an interrupted/timed-out
+        # download never leaves a truncated cache file that looks "present".
+        tmp = dest.with_suffix(dest.suffix + ".part")
+        with open(tmp, "wb") as f:
+            f.write(data)
+        tmp.replace(dest)
+
+    _retry(_do, f"DOWNLOAD {url}")
 
 
 def normalize_text(value: Any) -> str:
@@ -311,11 +349,35 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Discover and print the asset, but do not download it",
     )
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=DEFAULT_TIMEOUT,
+        help=f"Per-request network timeout in seconds (default {DEFAULT_TIMEOUT})",
+    )
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=RETRY_ATTEMPTS,
+        help=f"Network retry attempts with exponential backoff (default {RETRY_ATTEMPTS})",
+    )
+    parser.add_argument(
+        "--retry-backoff",
+        type=float,
+        default=RETRY_BACKOFF,
+        help=f"Base backoff seconds between retries (default {RETRY_BACKOFF})",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+
+    # Apply network-robustness settings (validation/fetch logic only).
+    global REQUEST_TIMEOUT, RETRY_ATTEMPTS, RETRY_BACKOFF
+    REQUEST_TIMEOUT = max(1, int(args.timeout))
+    RETRY_ATTEMPTS = max(1, int(args.retries))
+    RETRY_BACKOFF = max(0.0, float(args.retry_backoff))
 
     station = args.station.strip().lower()
     variable = args.variable.strip()
@@ -323,6 +385,21 @@ def main() -> int:
     fmt = args.fmt.strip().lower()
 
     try:
+        # Cache-first: if the raw asset is already cached, reuse it WITHOUT any
+        # STAC discovery/network call (the discovery call is what intermittently
+        # times out). Skipped only when --force requests a refresh.
+        cache_dir_for_asset = Path(args.cache_dir) / station / variable / state
+        if not args.force and cache_dir_for_asset.is_dir():
+            cached = sorted(
+                p for p in cache_dir_for_asset.glob(f"*.{fmt}")
+                if p.is_file() and not p.name.endswith(".meta.json")
+            )
+            if cached:
+                log("[cache] Cached asset found; skipping STAC discovery and download.")
+                log(f"      Cache path: {cached[0]}")
+                log("      Done (cache-first; use --force to refresh).")
+                return 0
+
         log(f"[1/4] Discovering collection for CH2025 DAILY-LOCAL ...")
         collection = discover_collection(args.collection_id)
         collection_id = collection.get("id", "<unknown>")
