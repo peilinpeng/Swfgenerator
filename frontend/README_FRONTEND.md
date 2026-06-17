@@ -22,7 +22,7 @@ Then either:
 - click **Load sample run**, or
 - click **Import run JSON** and select `outputs/run_sma_gwl2.0/run_summary.json`.
 
-## Downloads
+## Downloads (generated, not committed)
 
 `12_build_run_summary_v4.py` copies generated CSV/EPW/JSON files into:
 
@@ -31,6 +31,14 @@ frontend/public/downloads/<run_id>/
 ```
 
 The frontend uses each file's `download_href` field for the Download button. The local source path is still displayed for traceability.
+
+> **`frontend/public/` is generated output and is git-ignored** (it holds large
+> EPW/CSV/JSON run artifacts). The committed dashboard does **not** depend on it:
+> the viewer loads the tracked `mock-data/sample_run_summary.json` for the sample,
+> reads `data/stations_catalog.json`, and otherwise expects you to **import** a
+> `run_summary.json` you generated with the pipeline. Run the Python pipeline first
+> to (re)create `frontend/public/downloads/<run_id>/` locally for the Download
+> buttons.
 
 ## Notes
 

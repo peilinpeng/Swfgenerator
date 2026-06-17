@@ -3,6 +3,25 @@
 This directory holds **present-day reference design-day templates** used by
 `09b_compute_design_conditions.py` (see `compute_design_conditions_SPEC.md`, §10).
 
+## Canonical location vs. packaged copy (avoid divergence)
+
+The same reference `.ddy` templates exist in two places:
+
+- `data/reference/<station>/` — **canonical, user-visible repository data.** This
+  is what the example configs point to (`station.reference_ddy`) and what you
+  should edit/add stations to.
+- `src/swfgenerator/resources/reference/<station>/` — a **byte-identical packaged
+  copy** so an installed wheel can still find a bundled reference when no config
+  path is given. It is only a *fallback*: `stations.resolve_reference_ddy()` first
+  uses the explicit config path, then this packaged copy.
+
+Because the runtime prefers the config path (→ `data/reference`), the canonical
+copy wins in normal use. **If you change a reference `.ddy`, update both copies**
+(or regenerate the packaged copy from `data/reference`) to prevent divergence. The
+duplication is intentional for wheel portability; if wheel installs are not
+needed, the packaged copy under `src/.../resources/reference/` can be dropped and
+the pipeline will still work from `data/reference`.
+
 ## `zurich/CHE_ZH_Zurich.Fluntern.066600_TMYx.2011-2025.ddy`
 
 Reference design-day file (`.ddy`) for **Zürich-Fluntern / SMA** (WMO 066600).
