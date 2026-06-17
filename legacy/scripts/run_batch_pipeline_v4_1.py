@@ -22,7 +22,26 @@ def log(msg: str) -> None:
     print(msg, flush=True)
 
 
+# Directory holding this script and its sibling numbered stage scripts. After the
+# package refactor these live in legacy/scripts/, so child scripts must be invoked
+# by their absolute sibling path rather than a CWD-relative bare name. Data/output
+# paths remain relative to the working directory (project root), unchanged.
+_SCRIPT_DIR = Path(__file__).resolve().parent
+
+
+def _resolve_script_in_cmd(cmd: List[str]) -> List[str]:
+    """Rewrite a `[python, "NN_stage.py", ...]` command so the script is resolved
+    against this file's directory (robust to the working directory and the move
+    into legacy/scripts/). Leaves already-absolute paths and non-.py args alone."""
+    if len(cmd) >= 2 and isinstance(cmd[1], str) and cmd[1].endswith(".py"):
+        p = Path(cmd[1])
+        if not p.is_absolute():
+            cmd = [cmd[0], str(_SCRIPT_DIR / cmd[1]), *cmd[2:]]
+    return cmd
+
+
 def run(cmd: List[str], dry_run: bool = False) -> None:
+    cmd = _resolve_script_in_cmd(cmd)
     log("\n$ " + " ".join(cmd))
     if dry_run:
         return
@@ -31,6 +50,7 @@ def run(cmd: List[str], dry_run: bool = False) -> None:
 
 def run_optional(cmd: List[str], dry_run: bool = False) -> bool:
     """Run an optional auxiliary step. Return False instead of aborting on failure."""
+    cmd = _resolve_script_in_cmd(cmd)
     log("\n$ " + " ".join(cmd))
     if dry_run:
         return True
@@ -92,7 +112,7 @@ def ensure_station_metadata(station: str, dry_run: bool = False) -> Path:
         # station-metadata creation for batch runs. Elevation is not always present
         # in the CH2025 STAC item; if absent, station_metadata_from_catalog uses 0 m.
         try:
-            subprocess.run([py(), "00_discover_ch2025_stations_v4_1.py", "--output", "frontend/data/stations_catalog.json"], check=True)
+            subprocess.run(_resolve_script_in_cmd([py(), "00_discover_ch2025_stations_v4_1.py", "--output", "frontend/data/stations_catalog.json"]), check=True)
             meta = station_metadata_from_catalog(station)
         except Exception:
             meta = None
