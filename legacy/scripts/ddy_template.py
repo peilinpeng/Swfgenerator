@@ -312,7 +312,7 @@ def patch_template(
     dc: Dict[str, Any],
     *,
     pressure_pa: Optional[float] = None,
-    daily_range_policy: str = "inherit",     # "inherit" | "compute"
+    daily_range_policy: str = "compute",     # "compute" (production) | "inherit"
     pressure_policy: str = "compute",        # "compute" | "inherit"
     strictness: str = "permissive",          # "strict" | "permissive"
 ) -> PatchResult:
@@ -395,24 +395,31 @@ def patch_template(
                 "source": SOURCE_COMPUTED_PSYCHRO, "note": f"slot index {slot}"})
             obj.fields[slot][0] = new_val
         # --- daily dry-bulb range (policy) ---
-        if daily_range_policy == "compute":
-            cr = computed_daily_range(fam, dc)
-            if cr is not None:
-                ref_val = obj.value(IDX_DBRANGE)
-                new_val = _fmt(cr, ref_val or "0.0")
-                res.source_map.append({
-                    "object_name": obj.name, "object_family": fam.name,
-                    "field_name": "Daily Dry-Bulb Temperature Range",
-                    "reference_value": ref_val, "generated_value": new_val,
-                    "source": SOURCE_COMPUTED_RANGE, "note": "daily_range_policy=compute"})
-                obj.fields[IDX_DBRANGE][0] = new_val
+        # Cooling families carry a computed mean-coincident DB range (annual
+        # MCDBR / monthly MCDBR); under the production "compute" policy this is a
+        # climate-dependent field and IS patched. Heating / humidification
+        # families have no computed range statistic (computed_daily_range -> None)
+        # so they keep the reference convention (no invented heating-range
+        # algorithm); heating-wind objects never reach here (non-computable).
+        cr = computed_daily_range(fam, dc) if daily_range_policy == "compute" else None
+        if cr is not None:
+            ref_val = obj.value(IDX_DBRANGE)
+            new_val = _fmt(cr, ref_val or "0.0")
+            res.source_map.append({
+                "object_name": obj.name, "object_family": fam.name,
+                "field_name": "Daily Dry-Bulb Temperature Range",
+                "reference_value": ref_val, "generated_value": new_val,
+                "source": SOURCE_COMPUTED_RANGE, "note": "daily_range_policy=compute"})
+            obj.fields[IDX_DBRANGE][0] = new_val
         else:
+            note = ("daily_range_policy=inherit" if daily_range_policy == "inherit"
+                    else "no computed range for this family (heating); reference convention kept")
             res.source_map.append({
                 "object_name": obj.name, "object_family": fam.name,
                 "field_name": "Daily Dry-Bulb Temperature Range",
                 "reference_value": obj.value(IDX_DBRANGE),
                 "generated_value": obj.value(IDX_DBRANGE),
-                "source": SOURCE_INHERIT, "note": "daily_range_policy=inherit"})
+                "source": SOURCE_INHERIT, "note": note})
         # --- barometric pressure (policy) ---
         if pressure_policy == "compute" and pressure_pa is not None:
             ref_val = obj.value(IDX_PRESSURE)

@@ -136,11 +136,31 @@ def test_strict_mode_raises_on_unclassified(ref_path):
 
 def test_source_map_labels_computed_vs_inherited(ref_path):
     objs, _ = T.load_reference(ref_path)
-    res = T.patch_template(objs, _synthetic_dc(), pressure_pa=95000.0,
-                           pressure_policy="compute")
+    # production defaults (daily_range_policy='compute', pressure_policy='compute')
+    res = T.patch_template(objs, _synthetic_dc(), pressure_pa=95000.0)
     sources = {r["source"] for r in res.source_map}
     assert T.SOURCE_COMPUTED_HOURLY in sources       # Max Dry-Bulb
     assert T.SOURCE_COMPUTED_PSYCHRO in sources       # humidity value
     assert T.SOURCE_COMPUTED_PRESSURE in sources      # elevation pressure
-    assert T.SOURCE_INHERIT in sources                # wind / tau / range
+    assert T.SOURCE_COMPUTED_RANGE in sources         # daily DB range (cooling, default)
+    assert T.SOURCE_INHERIT in sources                # wind / tau / humidity type
     assert T.SOURCE_TEMPLATE in sources               # non-design-day + wind days
+
+
+def test_default_policy_computes_cooling_range(ref_path):
+    """Production default must patch cooling daily DB range (not inherit)."""
+    objs, _ = T.load_reference(ref_path)
+    res = T.patch_template(objs, _synthetic_dc(), pressure_pa=95000.0)
+    clg = next(o for o in res.objects
+               if o.is_design_day and o.name.endswith("Ann Clg .4% Condns DB=>MWB"))
+    assert float(clg.value(T.IDX_DBRANGE)) == pytest.approx(12.34, abs=0.05)
+    # the computed-range source row must exist for a cooling object
+    range_rows = [r for r in res.source_map
+                  if r["field_name"] == "Daily Dry-Bulb Temperature Range"
+                  and r["source"] == T.SOURCE_COMPUTED_RANGE]
+    assert any("Ann Clg" in r["object_name"] for r in range_rows)
+    # heating objects keep the reference convention (inherited range)
+    htg_range = [r for r in res.source_map
+                 if r["field_name"] == "Daily Dry-Bulb Temperature Range"
+                 and "Ann Htg 99.6% Condns DB" in r["object_name"]]
+    assert htg_range and htg_range[0]["source"] == T.SOURCE_INHERIT

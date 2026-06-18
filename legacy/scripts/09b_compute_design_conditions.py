@@ -1363,9 +1363,13 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     p.add_argument("--ddy-strictness", choices=["strict", "permissive"], default="permissive",
                    help="template mode: strict fails on any unclassifiable reference "
                         "design-day object; permissive preserves it verbatim and lists it.")
-    p.add_argument("--daily-range-policy", choices=["inherit", "compute"], default="inherit",
-                   help="template mode: inherit the reference daily dry-bulb range "
-                        "(faithful reproduction) or overwrite with computed MCDBR.")
+    p.add_argument("--daily-range-policy", choices=["compute", "inherit"], default="compute",
+                   help="template mode (production default 'compute'): patch the daily "
+                        "dry-bulb range of cooling design days from the computed "
+                        "(annual/monthly) MCDBR so the design-day profile reflects the "
+                        "future climate; 'inherit' keeps the reference range. Heating "
+                        "families always keep the reference convention (no computed "
+                        "heating range).")
     p.add_argument("--pressure-policy", choices=["compute", "inherit"], default="compute",
                    help="template mode: compute barometric pressure from station "
                         "elevation (default) or inherit the reference value.")
