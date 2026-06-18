@@ -56,6 +56,14 @@ except ImportError as exc:  # pragma: no cover - hard dependency
 
 psychrolib.SetUnitSystem(psychrolib.SI)
 
+# Reference-DDY template patcher (sibling module). The future/observed DDY is
+# produced by patching the station's reference .ddy so the generated file
+# reproduces the reference object structure exactly (count / families / survivor
+# set / field & object order), overwriting only the computed design-condition
+# fields. See ddy_template.py.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ddy_template as ddt  # noqa: E402
+
 PIPELINE_VERSION = "Swfgenerator-09b-design-conditions-v1"
 
 # ---------------------------------------------------------------------------
@@ -1128,6 +1136,20 @@ def write_ddy(path: Path, days: List[DesignDay], header_comment: str) -> None:
     path.write_text("\n".join(parts), encoding="utf-8")
 
 
+def _write_source_map_csv(path: Path, source_map: List[Dict[str, Any]]) -> None:
+    """Write the per-field DDY source map (template mode): which fields are
+    computed from the climate data vs inherited from the reference template."""
+    import csv as _csv
+    path.parent.mkdir(parents=True, exist_ok=True)
+    cols = ["object_name", "object_family", "field_name", "reference_value",
+            "generated_value", "source", "note"]
+    with open(path, "w", newline="", encoding="utf-8") as fh:
+        w = _csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        for row in source_map:
+            w.writerow({c: row.get(c, "") for c in cols})
+
+
 # ===========================================================================
 # Output writers
 # ===========================================================================
@@ -1333,6 +1355,20 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         "when no per-object tau is inherited from --reference-ddy. "
                         "Future mode REFUSES to run without this flag when no reference "
                         "DDY is available (SPEC s10).")
+    p.add_argument("--ddy-mode", choices=["template", "legacy"], default="template",
+                   help="template (default): patch computed values onto the reference "
+                        ".ddy, reproducing its full object structure (count/families/"
+                        "survivors/field+object order); legacy: hand-build the reduced "
+                        "OneBuilding-style family (only when no reference DDY available).")
+    p.add_argument("--ddy-strictness", choices=["strict", "permissive"], default="permissive",
+                   help="template mode: strict fails on any unclassifiable reference "
+                        "design-day object; permissive preserves it verbatim and lists it.")
+    p.add_argument("--daily-range-policy", choices=["inherit", "compute"], default="inherit",
+                   help="template mode: inherit the reference daily dry-bulb range "
+                        "(faithful reproduction) or overwrite with computed MCDBR.")
+    p.add_argument("--pressure-policy", choices=["compute", "inherit"], default="compute",
+                   help="template mode: compute barometric pressure from station "
+                        "elevation (default) or inherit the reference value.")
     p.add_argument("--outdir", default="./data_processed/design_conditions")
     p.add_argument("--out-prefix", default=None, help="Output filename prefix")
     p.add_argument("--db-bin-width", type=float, default=0.5, help="Joint-freq bin width (deg C)")
@@ -1461,20 +1497,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 hourly, elevation_m=args.elevation,
                 db_bin_width=args.db_bin_width, label=f"{args.station}_observed")
 
-        # Build DDY.
-        days = build_design_days(dc, station=args.station, tau_table=tau_table,
-                                 tau_source=tau_source, wind=wind)
-        surviving = [d for d in days if name_survives_honeybee_filter(d.name)]
-        ddy_diag = {
-            "total": len(days),
-            "surviving": len(surviving),
-            "surviving_names": [d.name for d in surviving],
-            "cooling_tau2017": sum(1 for d in days if d.solar_model == "ASHRAETau2017"),
-            "cooling_with_tau": sum(1 for d in days if d.solar_model == "ASHRAETau2017"
-                                    and d.taub is not None and d.taud is not None),
-            "heating_clearsky": sum(1 for d in days if d.solar_model == "ASHRAEClearSky"),
-        }
-
         calibration = build_calibration_table(dc, args) if args.mode == "calibration" else None
 
         outdir.mkdir(parents=True, exist_ok=True)
@@ -1482,17 +1504,90 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         json_path = outdir / f"{prefix}_design_conditions.json"
         ddy_path = outdir / f"{prefix}.ddy"
         report_path = outdir / f"{prefix}_validation.md"
+        srcmap_path = outdir / f"{prefix}_ddy_source_map.csv"
 
-        ddy_header = (
-            f"{args.station} future/observed design conditions ({args.mode} mode)\n"
-            f"Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')} by {PIPELINE_VERSION}\n"
-            f"Method: ASHRAE-consistent approximation (HOF 2021 Ch.14); per-chain-then-average for future.\n"
-            f"Solar model inherited from present-day reference DDY; CH2025 provides no future tau "
-            f"(tau_source={tau_source}; reference-file assumption, not a future-climate output).\n"
-            f"Wind inherited from reference DDY ({wind_source}); pressure from station elevation.\n"
-            f"Honeybee add_from_ddy_996_004 surviving objects: {ddy_diag['surviving']} of {ddy_diag['total']}."
-        )
-        write_ddy(ddy_path, days, ddy_header)
+        # Build DDY. The template path patches the reference .ddy so the generated
+        # file reproduces its full object structure; the legacy reduced builder is
+        # used only when no real reference DDY is available (explicit fallback).
+        use_template = (args.ddy_mode == "template" and ref_ddy is not None
+                        and not is_fallback)
+        gen_ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        ddy_structure: Optional[Dict[str, Any]] = None
+        if use_template:
+            ref_objects, _ = ddt.load_reference(ref_ddy)
+            patch = ddt.patch_template(
+                ref_objects, dc, pressure_pa=float(dc["pressure_pa"]),
+                daily_range_policy=args.daily_range_policy,
+                pressure_policy=args.pressure_policy,
+                strictness=args.ddy_strictness)
+            tau_objs = sum(1 for o in patch.objects
+                           if o.is_design_day and ddt.solar_model(o).startswith("ASHRAETau"))
+            clearsky_objs = sum(1 for o in patch.objects
+                                if o.is_design_day and ddt.solar_model(o) == "ASHRAEClearSky")
+            ddy_diag = {
+                "total": patch.n_design_days,
+                "surviving": len(patch.survivors),
+                "surviving_names": patch.survivors,
+                "cooling_tau2017": tau_objs,
+                "cooling_with_tau": tau_objs,
+                "heating_clearsky": clearsky_objs,
+                "generator": "template",
+                "non_design_day_objects": patch.n_non_design_days,
+                "families": patch.families,
+                "unclassified": patch.unclassified,
+                "reference_ddy": str(ref_ddy),
+            }
+            ddy_structure = {
+                "generator": "template",
+                "reference_ddy": str(ref_ddy),
+                "strictness": args.ddy_strictness,
+                "daily_range_policy": args.daily_range_policy,
+                "pressure_policy": args.pressure_policy,
+                "total_objects": len(patch.objects),
+                "design_days": patch.n_design_days,
+                "non_design_day_objects": patch.n_non_design_days,
+                "families": patch.families,
+                "unclassified": patch.unclassified,
+            }
+            ddy_header = (
+                f"{args.station} future/observed design conditions ({args.mode} mode)\n"
+                f"Generated {gen_ts} by {PIPELINE_VERSION}\n"
+                f"Method: ASHRAE-consistent approximation (HOF 2021 Ch.14); per-chain-then-average for future.\n"
+                f"Generator: reference-DDY TEMPLATE patch of {Path(ref_ddy).name} "
+                f"(strictness={args.ddy_strictness}); reproduces reference object structure.\n"
+                f"Computed-and-patched fields: Maximum Dry-Bulb, coincident humidity value"
+                f"{', daily dry-bulb range' if args.daily_range_policy == 'compute' else ''}"
+                f"{', barometric pressure(elevation)' if args.pressure_policy == 'compute' else ''}.\n"
+                f"Inherited verbatim from reference: wind speed/direction, tau_b/tau_d, solar "
+                f"model, schedules, rain/snow/DST flags, non-design-day objects, object & field order.\n"
+                f"Honeybee add_from_ddy_996_004 surviving objects: {ddy_diag['surviving']} of {ddy_diag['total']}."
+            )
+            ddy_path.write_text(ddt.render_ddy(patch.objects, ddy_header), encoding="utf-8")
+            _write_source_map_csv(srcmap_path, patch.source_map)
+            log(f"  SRCMAP: {srcmap_path}  ({len(patch.source_map)} field rows)")
+        else:
+            days = build_design_days(dc, station=args.station, tau_table=tau_table,
+                                     tau_source=tau_source, wind=wind)
+            surviving = [d for d in days if name_survives_honeybee_filter(d.name)]
+            ddy_diag = {
+                "total": len(days),
+                "surviving": len(surviving),
+                "surviving_names": [d.name for d in surviving],
+                "cooling_tau2017": sum(1 for d in days if d.solar_model == "ASHRAETau2017"),
+                "cooling_with_tau": sum(1 for d in days if d.solar_model == "ASHRAETau2017"
+                                        and d.taub is not None and d.taud is not None),
+                "heating_clearsky": sum(1 for d in days if d.solar_model == "ASHRAEClearSky"),
+                "generator": "legacy_reduced",
+            }
+            ddy_header = (
+                f"{args.station} future/observed design conditions ({args.mode} mode)\n"
+                f"Generated {gen_ts} by {PIPELINE_VERSION}\n"
+                f"Method: ASHRAE-consistent approximation (HOF 2021 Ch.14); per-chain-then-average for future.\n"
+                f"Generator: LEGACY reduced family (no usable reference DDY template).\n"
+                f"Solar model / tau / wind: tau_source={tau_source}; wind_source={wind_source}.\n"
+                f"Honeybee add_from_ddy_996_004 surviving objects: {ddy_diag['surviving']} of {ddy_diag['total']}."
+            )
+            write_ddy(ddy_path, days, ddy_header)
         write_summary_csv(csv_path, dc)
 
         payload = {
@@ -1502,8 +1597,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "input": str(input_path),
             "reference_ddy": str(ref_ddy) if ref_ddy else None,
-            "tau_source": tau_source,
-            "wind_source": wind_source,
+            "tau_source": (f"reference_ddy({Path(ref_ddy).name}) per-object verbatim"
+                           if use_template else tau_source),
+            "wind_source": (f"reference_ddy({Path(ref_ddy).name}) per-object verbatim"
+                            if use_template else wind_source),
+            "ddy_structure": ddy_structure,
             "reference_fallback": {
                 "is_fallback": is_fallback,
                 "allowed": bool(args.allow_reference_fallback),
