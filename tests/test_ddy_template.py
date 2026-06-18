@@ -137,7 +137,9 @@ def test_daily_range_compute_policy_overwrites(ref_path):
 
 def test_kind_specific_cooling_daily_range(ref_path):
     """Annual cooling daily range is coincident with the design's primary variable:
-    DB->MCDBR_DB, WB->MCDBR_WB, DP->MCDBR_DP, Enth->MCDBR_Enth (NOT one generic value)."""
+    DB->MCDBR_DB, WB->MCDBR_WB, DP->MCDBR_DP. The Enth day reuses the DP-family
+    range (the reference DDY pins Enth=>MDB to the DP range, not a separate
+    enthalpy-coincident range), so Enth->MCDBR_DP (NOT one generic value)."""
     objs, _ = T.load_reference(ref_path)
     res = T.patch_template(objs, _synthetic_dc(), pressure_pa=95000.0)
     def rng(suffix):
@@ -147,7 +149,8 @@ def test_kind_specific_cooling_daily_range(ref_path):
     assert rng("Ann Clg .4% Condns DB=>MWB") == pytest.approx(20.0, abs=0.05)
     assert rng("Ann Clg .4% Condns WB=>MDB") == pytest.approx(18.0, abs=0.05)
     assert rng("Ann Clg .4% Condns DP=>MDB") == pytest.approx(16.0, abs=0.05)
-    assert rng("Ann Clg .4% Condns Enth=>MDB") == pytest.approx(15.0, abs=0.05)
+    # Enth day inherits the DP-family range (MCDBR_DP = 16.0), not MCDBR_Enth.
+    assert rng("Ann Clg .4% Condns Enth=>MDB") == pytest.approx(16.0, abs=0.05)
     # the source-map note records the kind-specific key used
     notes = {r["object_name"]: r["note"] for r in res.source_map
              if r["field_name"] == "Daily Dry-Bulb Temperature Range"

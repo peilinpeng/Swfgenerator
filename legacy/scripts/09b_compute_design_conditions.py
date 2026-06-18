@@ -735,24 +735,18 @@ def core_design_conditions(
             mcdb, _ = mean_coincident(m_wb, m_db, wb_val, bin_width=db_bin_width)
             entry[f"WB_{pctl}"] = round(wb_val, 2)
             entry[f"WB_{pctl}_MCDB"] = round(mcdb, 2)
-        # Monthly daily range at this month's 5% DB (generic, DB-coincident).
+        # Monthly daily DB range = MEAN daily range over ALL days of the month
+        # (NOT a hot-tail selection). Unlike the annual cooling day -- a peak-
+        # conditions day whose range is coincident with the hottest tail (~14 K) --
+        # the monthly cooling days represent that month's TYPICAL conditions, so the
+        # reference DDY assigns each month its all-days mean daily DB range (Basel:
+        # Jan 5.2, Jul 10.4 K) and shares it across the month's DB and WB days.
         m_daily = daily[daily["month"] == m]
-        m5 = value_exceeded(m_db, 5.0)
-        rng_days = m_daily[m_daily["Tmax"] >= m5]
-        if rng_days.empty:
-            rng_days = m_daily
-        entry["MCDBR"] = round(float(rng_days["range"].mean()), 2)
-        entry["MCWBR"] = round(float(rng_days["wb_range"].mean()), 2)
-        # Kind-specific monthly daily DB range (SPEC s5c extension): DB=>MCWB days
-        # use the DB-coincident range; WB=>MCDB days use the WB-coincident range
-        # (days whose daily-max WB is in the month's upper tail).
-        def _m_kind_range(day_col: str, threshold: float) -> float:
-            sel = m_daily[m_daily[day_col] >= threshold]
-            if sel.empty:
-                sel = rng_days
-            return round(float(sel["range"].mean()), 2)
-        entry["MCDBR_DB"] = entry["MCDBR"]
-        entry["MCDBR_WB"] = _m_kind_range("WBmax", value_exceeded(m_wb, 5.0))
+        month_db_range = round(float(m_daily["range"].mean()), 2)
+        entry["MCDBR"] = month_db_range
+        entry["MCWBR"] = round(float(m_daily["wb_range"].mean()), 2)
+        entry["MCDBR_DB"] = month_db_range
+        entry["MCDBR_WB"] = month_db_range  # reference uses one per-month range for both kinds
         months[m] = entry
     dc["monthly"] = months
 
