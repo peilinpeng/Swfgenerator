@@ -4,11 +4,17 @@ The future/observed DDY is produced by patching the station reference .ddy. Thes
 tests protect the guarantees that motivated the refactor:
 
   * object count / family coverage / survivor set reproduce the reference;
-  * wind, tau, solar model, daily range, non-design-day objects are inherited
-    verbatim (NOT defaulted);
-  * only Maximum Dry-Bulb and the coincident humidity value are overwritten by
-    computed design conditions;
+  * wind, tau, solar model, humidity-condition type and non-design-day objects
+    are inherited verbatim from the reference (NOT defaulted);
+  * the computed design conditions overwrite Maximum Dry-Bulb, the coincident
+    humidity value, the elevation barometric pressure, and the cooling daily
+    dry-bulb range (kind-specific MCDBR; heating ranges keep the reference
+    convention; heating-wind objects stay template-preserved);
   * strict mode fails on an unclassifiable design-day object.
+
+NOTE: the 114 / 31 counts below are FIXTURE-SPECIFIC to the bundled Basel/Zurich
+TMYx reference DDYs, not universal production constants. The production code never
+hard-codes a count; it derives structure from whatever reference DDY is supplied.
 """
 import pytest
 
@@ -46,9 +52,15 @@ def _synthetic_dc():
         cooling[f"DP_{p}_MCDB"] = 44.0
         cooling[f"Enth_{p}"] = 33.0
         cooling[f"Enth_{p}_MDB"] = 22.0
+    # kind-specific annual daily DB ranges (distinct so a test can prove the WB
+    # design day uses MCDBR_WB, not the generic / DB value)
+    cooling["MCDBR_DB"] = 20.0
+    cooling["MCDBR_WB"] = 18.0
+    cooling["MCDBR_DP"] = 16.0
+    cooling["MCDBR_Enth"] = 15.0
     monthly = {}
     for m in range(1, 13):
-        e = {"MCDBR": 9.0}
+        e = {"MCDBR": 9.0, "MCDBR_DB": 9.0, "MCDBR_WB": 7.0}
         for p in ("0.4", "2.0", "5.0", "10.0"):
             e[f"DB_{p}"] = 90.0 + m
             e[f"DB_{p}_MCWB"] = 50.0
@@ -69,10 +81,10 @@ def _synthetic_dc():
 def test_reference_structure_classifies_fully(ref_objects):
     dd = [o for o in ref_objects if o.is_design_day]
     nd = [o for o in ref_objects if not o.is_design_day]
-    assert len(dd) == 114
-    assert len(nd) >= 1  # Site:Location etc. preserved
+    assert len(dd) == 114          # fixture-specific (bundled Basel/Zurich TMYx)
+    assert len(nd) >= 1            # Site:Location etc. preserved
     survivors = [o for o in dd if T.name_survives_honeybee(o.name)]
-    assert len(survivors) == 31
+    assert len(survivors) == 31    # fixture-specific survivor count
     unclassified = [o.name for o in dd if T.classify(o.name) is None]
     assert unclassified == []
 
@@ -118,8 +130,46 @@ def test_daily_range_compute_policy_overwrites(ref_path):
                            strictness="permissive")
     clg = next(o for o in res.objects
                if o.is_design_day and o.name.endswith("Ann Clg .4% Condns DB=>MWB"))
-    # value is formatted to the reference field's precision (1 decimal here)
-    assert float(clg.value(T.IDX_DBRANGE)) == pytest.approx(12.34, abs=0.05)
+    # DB design day uses the DB-coincident range MCDBR_DB (20.0), formatted to the
+    # reference field's precision (1 decimal here)
+    assert float(clg.value(T.IDX_DBRANGE)) == pytest.approx(20.0, abs=0.05)
+
+
+def test_kind_specific_cooling_daily_range(ref_path):
+    """Annual cooling daily range is coincident with the design's primary variable:
+    DB->MCDBR_DB, WB->MCDBR_WB, DP->MCDBR_DP, Enth->MCDBR_Enth (NOT one generic value)."""
+    objs, _ = T.load_reference(ref_path)
+    res = T.patch_template(objs, _synthetic_dc(), pressure_pa=95000.0)
+    def rng(suffix):
+        o = next(o for o in res.objects
+                 if o.is_design_day and o.name.endswith(suffix))
+        return float(o.value(T.IDX_DBRANGE))
+    assert rng("Ann Clg .4% Condns DB=>MWB") == pytest.approx(20.0, abs=0.05)
+    assert rng("Ann Clg .4% Condns WB=>MDB") == pytest.approx(18.0, abs=0.05)
+    assert rng("Ann Clg .4% Condns DP=>MDB") == pytest.approx(16.0, abs=0.05)
+    assert rng("Ann Clg .4% Condns Enth=>MDB") == pytest.approx(15.0, abs=0.05)
+    # the source-map note records the kind-specific key used
+    notes = {r["object_name"]: r["note"] for r in res.source_map
+             if r["field_name"] == "Daily Dry-Bulb Temperature Range"
+             and r["source"] == T.SOURCE_COMPUTED_RANGE}
+    wb_note = next(v for k, v in notes.items() if k.endswith("WB=>MDB"))
+    assert "MCDBR_WB" in wb_note
+
+
+def test_daily_range_generic_fallback_when_kind_absent(ref_path):
+    """Older summaries without MCDBR_<kind> fall back to the generic MCDBR, logged."""
+    objs, _ = T.load_reference(ref_path)
+    dc = _synthetic_dc()
+    for k in ("MCDBR_DB", "MCDBR_WB", "MCDBR_DP", "MCDBR_Enth"):
+        dc["cooling"].pop(k, None)
+    res = T.patch_template(objs, dc, pressure_pa=95000.0)
+    clg = next(o for o in res.objects
+               if o.is_design_day and o.name.endswith("Ann Clg .4% Condns WB=>MDB"))
+    assert float(clg.value(T.IDX_DBRANGE)) == pytest.approx(12.34, abs=0.05)  # generic MCDBR
+    note = next(r["note"] for r in res.source_map
+                if r["object_name"].endswith("WB=>MDB")
+                and r["field_name"] == "Daily Dry-Bulb Temperature Range")
+    assert "fallback" in note.lower()
 
 
 def test_strict_mode_raises_on_unclassified(ref_path):
@@ -153,7 +203,7 @@ def test_default_policy_computes_cooling_range(ref_path):
     res = T.patch_template(objs, _synthetic_dc(), pressure_pa=95000.0)
     clg = next(o for o in res.objects
                if o.is_design_day and o.name.endswith("Ann Clg .4% Condns DB=>MWB"))
-    assert float(clg.value(T.IDX_DBRANGE)) == pytest.approx(12.34, abs=0.05)
+    assert float(clg.value(T.IDX_DBRANGE)) == pytest.approx(20.0, abs=0.05)  # MCDBR_DB
     # the computed-range source row must exist for a cooling object
     range_rows = [r for r in res.source_map
                   if r["field_name"] == "Daily Dry-Bulb Temperature Range"

@@ -99,12 +99,25 @@ def field_rows(ref: T.IdfObject, gen: T.IdfObject) -> List[Dict[str, Any]]:
     return rows
 
 
-def index_objects(objs: List[T.IdfObject]) -> Dict[Tuple, T.IdfObject]:
+def index_objects(objs: List[T.IdfObject]) -> Tuple[Dict[Tuple, T.IdfObject], List[Dict[str, str]]]:
+    """Index design-day objects by family signature.
+
+    Returns (index, duplicates). A duplicate signature means two design-day
+    objects classify identically; rather than silently overwriting (which would
+    hide a structural problem), every collision is recorded and reported.
+    """
     out: Dict[Tuple, T.IdfObject] = {}
+    duplicates: List[Dict[str, str]] = []
     for o in objs:
-        if o.is_design_day:
-            out[signature(o.name)] = o
-    return out
+        if not o.is_design_day:
+            continue
+        sig = signature(o.name)
+        if sig in out:
+            duplicates.append({"signature": str(sig), "first": out[sig].name,
+                               "duplicate": o.name})
+            continue
+        out[sig] = o
+    return out, duplicates
 
 
 def compare(ref_path: Path, gen_path: Path) -> Dict[str, Any]:
@@ -116,8 +129,8 @@ def compare(ref_path: Path, gen_path: Path) -> Dict[str, Any]:
     ref_nd = [o for o in ref_objs if not o.is_design_day]
     gen_nd = [o for o in gen_objs if not o.is_design_day]
 
-    ref_idx = index_objects(ref_objs)
-    gen_idx = index_objects(gen_objs)
+    ref_idx, ref_dups = index_objects(ref_objs)
+    gen_idx, gen_dups = index_objects(gen_objs)
 
     matched = sorted(set(ref_idx) & set(gen_idx), key=lambda s: str(s))
     missing = sorted(set(ref_idx) - set(gen_idx), key=lambda s: str(s))  # in ref, not gen
@@ -154,6 +167,8 @@ def compare(ref_path: Path, gen_path: Path) -> Dict[str, Any]:
         "name_diffs": name_diffs, "field_diffs": field_diffs,
         "ref_unclassified": [o.name for o in ref_dd if T.classify(o.name) is None],
         "gen_unclassified": [o.name for o in gen_dd if T.classify(o.name) is None],
+        "ref_duplicate_signatures": ref_dups,
+        "gen_duplicate_signatures": gen_dups,
     }
 
 
@@ -189,6 +204,19 @@ def write_md(res: Dict[str, Any], path: Path) -> None:
     L.append("")
     L.append(f"Non-design-day objects (reference): {res['ref_nd']}")
     L.append(f"\nNon-design-day objects (generated): {res['gen_nd']}\n")
+
+    rd, gd = res.get("ref_duplicate_signatures", []), res.get("gen_duplicate_signatures", [])
+    L.append("## Duplicate family signatures\n")
+    if not rd and not gd:
+        L.append("None — every design-day object has a unique family signature "
+                 "(no silent overwrite during matching).\n")
+    else:
+        L.append(f"**WARNING** reference duplicates: {len(rd)}, generated duplicates: {len(gd)}. "
+                 "Matching keeps the first occurrence; collisions listed below.\n")
+        for tag, dd in (("reference", rd), ("generated", gd)):
+            for d in dd:
+                L.append(f"- {tag}: signature {d['signature']} — '{d['first']}' vs '{d['duplicate']}'")
+        L.append("")
 
     L.append("## Object-family classification\n")
     L.append("| family | reference | generated |")
@@ -269,10 +297,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     res = compare(a.reference, a.generated)
     write_md(res, a.out_md)
     write_csv(res, a.out_csv)
+    ndup = len(res.get("ref_duplicate_signatures", [])) + len(res.get("gen_duplicate_signatures", []))
+    if ndup:
+        print(f"  [WARN] {ndup} duplicate family signature(s) detected; see report.",
+              file=sys.stderr)
     print(f"DDY compare: ref_dd={res['ref_total_dd']} gen_dd={res['gen_total_dd']} "
           f"survivors {len(res['ref_survivors'])}/{len(res['gen_survivors'])} "
           f"missing={len(res['missing'])} extra={len(res['extra'])} "
-          f"name_diffs={len(res['name_diffs'])}")
+          f"name_diffs={len(res['name_diffs'])} duplicates={ndup}")
     print(f"  wrote {a.out_md}")
     print(f"  wrote {a.out_csv}")
     return 0

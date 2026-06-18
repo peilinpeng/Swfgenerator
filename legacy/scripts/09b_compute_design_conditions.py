@@ -465,10 +465,15 @@ def daily_frame(hourly: pd.DataFrame) -> pd.DataFrame:
     daily = grp.agg(
         Tmax=("DB", "max"), Tmin=("DB", "min"), n=("DB", "size"),
         WBmax=("WB", "max"), WBmin=("WB", "min"),
+        DPmax=("DP", "max"), ENTHmax=("ENTH", "max"),
     ).reset_index()
     daily["Tmean"] = (daily["Tmax"] + daily["Tmin"]) / 2.0  # SPEC s4
     daily["range"] = daily["Tmax"] - daily["Tmin"]
     daily["wb_range"] = daily["WBmax"] - daily["WBmin"]
+    # DPmax/ENTHmax are kept to select days coincident with the WB/DP/Enth cooling
+    # design conditions when computing kind-specific daily dry-bulb ranges (SPEC
+    # s5c extension): a high-humidity design day has a smaller DB diurnal swing
+    # than a high-DB day, which the reference DDY encodes per design-day family.
     return daily
 
 
@@ -634,6 +639,28 @@ def core_design_conditions(
         "(Ch.14 p.14.7)."
     )
 
+    # --- Family-specific cooling daily DB ranges (SPEC s5c extension) --------
+    # The daily dry-bulb range written to a cooling design day should be
+    # coincident with the design's PRIMARY variable: a high-WB/DP/Enth (humid)
+    # design day has a smaller DB diurnal swing than a high-DB day. The reference
+    # DDY encodes this per family (Basel annual: DB 14.1 / WB 12.1 / DP·Enth 10.4).
+    # We compute one coincident daily DB range per KIND (percentile-invariant:
+    # the reference annual ranges do not vary with the 0.4/1/2% percentile), by
+    # averaging the daily DB range over days whose daily-maximum of that variable
+    # is in the warm-season upper tail (>= the variable's 5% annual exceedance,
+    # the same threshold used for MCDBR above). Stored under cooling["MCDBR_<kind>"];
+    # the generic dc["MCDBR"] remains as a labelled fallback.
+    def _kind_daily_db_range(day_col: str, threshold: float) -> float:
+        sel = daily[daily[day_col] >= threshold]
+        if sel.empty:
+            sel = hot_days
+        return round(float(sel["range"].mean()), 2)
+
+    cooling["MCDBR_DB"] = _kind_daily_db_range("Tmax", value_exceeded(db, 5.0))
+    cooling["MCDBR_WB"] = _kind_daily_db_range("WBmax", value_exceeded(wb, 5.0))
+    cooling["MCDBR_DP"] = _kind_daily_db_range("DPmax", value_exceeded(dp, 5.0))
+    cooling["MCDBR_Enth"] = _kind_daily_db_range("ENTHmax", value_exceeded(enth, 5.0))
+
     # --- Degree-days (SPEC s8 / Eqs. 2-3) -----------------------------------
     dd = {}
     daily_complete = daily[daily["year"].isin(complete_years)] if complete_years else daily
@@ -702,7 +729,7 @@ def core_design_conditions(
             mcdb, _ = mean_coincident(m_wb, m_db, wb_val, bin_width=db_bin_width)
             entry[f"WB_{pctl}"] = round(wb_val, 2)
             entry[f"WB_{pctl}_MCDB"] = round(mcdb, 2)
-        # Monthly daily range at this month's 5% DB.
+        # Monthly daily range at this month's 5% DB (generic, DB-coincident).
         m_daily = daily[daily["month"] == m]
         m5 = value_exceeded(m_db, 5.0)
         rng_days = m_daily[m_daily["Tmax"] >= m5]
@@ -710,6 +737,16 @@ def core_design_conditions(
             rng_days = m_daily
         entry["MCDBR"] = round(float(rng_days["range"].mean()), 2)
         entry["MCWBR"] = round(float(rng_days["wb_range"].mean()), 2)
+        # Kind-specific monthly daily DB range (SPEC s5c extension): DB=>MCWB days
+        # use the DB-coincident range; WB=>MCDB days use the WB-coincident range
+        # (days whose daily-max WB is in the month's upper tail).
+        def _m_kind_range(day_col: str, threshold: float) -> float:
+            sel = m_daily[m_daily[day_col] >= threshold]
+            if sel.empty:
+                sel = rng_days
+            return round(float(sel["range"].mean()), 2)
+        entry["MCDBR_DB"] = entry["MCDBR"]
+        entry["MCDBR_WB"] = _m_kind_range("WBmax", value_exceeded(m_wb, 5.0))
         months[m] = entry
     dc["monthly"] = months
 
@@ -1620,10 +1657,17 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             "per_chain": per_chain,
         }
         write_json(json_path, payload)
+        # In template mode tau/wind are inherited per-object verbatim from the
+        # reference DDY; report that, not the legacy "where present, else
+        # documented defaults" wording (which only applies to the legacy builder).
+        report_tau_source = (f"reference_ddy({Path(ref_ddy).name}) per-object verbatim"
+                             if use_template else tau_source)
+        report_wind_source = (f"reference_ddy({Path(ref_ddy).name}) per-object verbatim"
+                              if use_template else wind_source)
         write_report(report_path, mode=args.mode, station=args.station, dc=dc,
                      contract=contract, gates=gates, ddy_diag=ddy_diag,
                      per_chain=per_chain, calibration=calibration,
-                     tau_source=tau_source, wind_source=wind_source,
+                     tau_source=report_tau_source, wind_source=report_wind_source,
                      fallback_warning=fallback_warning)
 
         log(f"[OK] design conditions written:")

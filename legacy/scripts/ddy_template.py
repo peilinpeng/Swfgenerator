@@ -252,13 +252,36 @@ def computed_values(fam: Family, dc: Dict[str, Any]) -> Dict[str, Any]:
     return {}
 
 
-def computed_daily_range(fam: Family, dc: Dict[str, Any]) -> Optional[float]:
-    if fam.name in ("ann_clg",):
-        return _g(dc, "MCDBR")
+# Cooling design-day family -> kind-specific daily-DB-range key. The daily range
+# is coincident with the design's primary variable (a humid WB/DP/Enth design day
+# has a smaller DB swing than a hot DB day); the reference DDY encodes this per
+# family. classify() yields annual kinds DB/Wb/Dp/Enth and monthly kinds DB/WB.
+_ANNUAL_RANGE_KEY = {"DB": "MCDBR_DB", "Wb": "MCDBR_WB", "Dp": "MCDBR_DP", "Enth": "MCDBR_Enth"}
+_MONTHLY_RANGE_KEY = {"DB": "MCDBR_DB", "WB": "MCDBR_WB"}
+
+
+def computed_daily_range(fam: Family, dc: Dict[str, Any]) -> Tuple[Optional[float], str]:
+    """Return (kind-specific cooling daily DB range, note).
+
+    Prefers the family-specific MCDBR_<kind>; falls back to the generic MCDBR with
+    an explicit note when the kind-specific value is absent (older summaries).
+    Heating / humidification families return None (they keep the reference
+    convention; no computed heating daily-range algorithm).
+    """
+    if fam.name == "ann_clg":
+        cooling = dc.get("cooling", {})
+        key = _ANNUAL_RANGE_KEY.get(fam.kind or "")
+        if key is not None and _g(cooling, key) is not None:
+            return _g(cooling, key), f"kind={fam.kind} coincident ({key})"
+        v = _g(dc, "MCDBR")
+        return v, "generic MCDBR fallback (kind-specific MCDBR_<kind> absent)"
     if fam.name == "monthly_clg":
         entry = dc.get("monthly", {}).get(fam.month) or dc.get("monthly", {}).get(str(fam.month)) or {}
-        return _g(entry, "MCDBR")
-    return None  # heating families keep their 0.0 range
+        key = _MONTHLY_RANGE_KEY.get(fam.kind or "")
+        if key is not None and _g(entry, key) is not None:
+            return _g(entry, key), f"month={fam.month} kind={fam.kind} coincident ({key})"
+        return _g(entry, "MCDBR"), "generic monthly MCDBR fallback (kind-specific absent)"
+    return None, ""  # heating families keep their 0.0 range
 
 
 # ---------------------------------------------------------------------------
@@ -401,7 +424,8 @@ def patch_template(
         # families have no computed range statistic (computed_daily_range -> None)
         # so they keep the reference convention (no invented heating-range
         # algorithm); heating-wind objects never reach here (non-computable).
-        cr = computed_daily_range(fam, dc) if daily_range_policy == "compute" else None
+        cr, cr_note = (computed_daily_range(fam, dc) if daily_range_policy == "compute"
+                       else (None, ""))
         if cr is not None:
             ref_val = obj.value(IDX_DBRANGE)
             new_val = _fmt(cr, ref_val or "0.0")
@@ -409,7 +433,7 @@ def patch_template(
                 "object_name": obj.name, "object_family": fam.name,
                 "field_name": "Daily Dry-Bulb Temperature Range",
                 "reference_value": ref_val, "generated_value": new_val,
-                "source": SOURCE_COMPUTED_RANGE, "note": "daily_range_policy=compute"})
+                "source": SOURCE_COMPUTED_RANGE, "note": cr_note})
             obj.fields[IDX_DBRANGE][0] = new_val
         else:
             note = ("daily_range_policy=inherit" if daily_range_policy == "inherit"
