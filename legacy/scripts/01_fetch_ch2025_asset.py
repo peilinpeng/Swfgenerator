@@ -270,6 +270,20 @@ def choose_asset(
         media_type = normalize_text(asset.get("type"))
         text = " ".join([key, title, href, media_type])
 
+        # Hard requirements: the asset filename must carry BOTH the requested
+        # variable and the requested state as underscore-delimited tokens. The
+        # CH2025 station assets are named '<...>_<var>_<state>.<fmt>', so these
+        # tokens uniquely identify the file. Without this, a request for a state
+        # that does not exist (e.g. a missing GWL) would otherwise silently
+        # resolve to some other state's file via the additive scoring below and
+        # poison the cache (observed: gwl4.0 -> gwl1.5 content). Require an exact
+        # token match and fail loudly instead.
+        var_token = f"_{variable_norm}_" in key or f"_{variable_norm}_" in href
+        state_token = f"_{state_norm}." in key or f"_{state_norm}." in href \
+            or f"_{state_norm}_" in key or f"_{state_norm}_" in href
+        if not (var_token and state_token):
+            continue
+
         score = 0
 
         if variable_norm in text:
@@ -280,9 +294,9 @@ def choose_asset(
             score += 10
 
         # Prefer exact token-like hits in filenames
-        if f"_{variable_norm}_" in key or f"_{variable_norm}_" in href:
+        if var_token:
             score += 5
-        if f"_{state_norm}" in key or f"_{state_norm}" in href:
+        if state_token:
             score += 5
 
         # Prefer direct file links over generic asset names
@@ -293,10 +307,11 @@ def choose_asset(
             candidates.append((score, asset_key, asset))
 
     if not candidates:
-        available = ", ".join(assets.keys())
+        available = ", ".join(sorted(assets.keys()))
         raise RuntimeError(
             f"No asset matched variable='{variable}', state='{state}', fmt='{fmt}'. "
-            f"Available asset keys: {available}"
+            f"This state may not exist in the CH2025 collection for this station "
+            f"(no silent fallback to another state). Available asset keys: {available}"
         )
 
     candidates.sort(key=lambda x: x[0], reverse=True)
