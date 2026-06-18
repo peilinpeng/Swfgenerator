@@ -61,24 +61,55 @@ package/orchestration/path/config issues — never EPW writer or 09b semantics.*
 
 ## Phase 3 — Basel four-GWL weather-output batch
 
-Configs: `basel_gwl1.5.yaml`, `basel_gwl2.yaml`, `basel_gwl3.0.yaml`,
-`basel_gwl4.0.yaml`. Weather generation only (no BPS yet).
+Configs: `basel_gwl1.5.yaml`, `basel_gwl2.yaml`, `basel_gwl2.5.yaml`,
+`basel_gwl3.0.yaml`. Weather generation only (no BPS yet).
 
-> **GWL availability (verified 2026-06-18):** the CH2025 STAC serves GWL 1.5 /
-> 2.0 / 2.5 / 3.0 / **4.0** for Basel (`bas`) — all of tas/hurs/rsds download for
-> each. `basel_gwl4.0.yaml` is therefore usable. (Earlier concern that 4.0 might
-> be absent is resolved.)
+> **GWL availability (re-verified 2026-06-18):** CH2025 publishes GWL **1.5 / 2.0
+> / 2.5 / 3.0** for Basel (`bas`) — and **no GWL4.0**. Confirmed by enumerating
+> the STAC item assets for both the per-station DAILY-LOCAL collection
+> (`ch.meteoschweiz.ogd-climate-scenarios-ch2025`, 70 assets = 5 states × 7 vars
+> × 2 fmt) and the DAILY-GRIDDED collection (`…-ch2025-grid`); neither exposes a
+> 4.0 level. An earlier note claiming 4.0 availability was incorrect: a fetch for
+> the non-existent `gwl4.0` had silently resolved to GWL1.5 data and poisoned the
+> cache, because `01_fetch_ch2025_asset.py::choose_asset` only *added* score for
+> a state match instead of *requiring* it. `choose_asset` now requires both the
+> variable and state filename tokens and raises a clear "no asset matched … no
+> silent fallback" error for an absent state. The Basel matrix therefore uses
+> **1.5 / 2.0 / 2.5 / 3.0**; `basel_gwl4.0.yaml` was removed.
+
+```bash
+for c in basel_gwl1.5 basel_gwl2 basel_gwl2.5 basel_gwl3.0; do
+  swfgenerator full --config configs/examples/$c.yaml
+done
+```
+
+Output layout (assembled under the git-ignored `outputs/basel_weather_batch/`):
+`gwl<level>/{epw/ (5 EPW + sidecars), ddy/ (future DDY), reports/
+(design-condition CSV/JSON/MD), run_summary.json}`. The `swfgenerator full`
+pipeline natively writes EPWs to `outputs/epw/`, the run summary to
+`outputs/run_bas_<state>/`, and the DDY + design-condition reports to
+`<output_root>/design_conditions/`; the per-GWL `epw/ddy/reports` tree is a
+post-run reorganisation of those native artifacts.
 
 Climate-sanity expectations: cooling design DB rises with GWL; CDD rises; HDD
 falls; heating design less severe; FRY/XMY profiles show distinct seasonal / peak
 / sustained / nocturnal signatures. Flag and explain any non-monotonic deviation
 (ensemble sampling / per-chain averaging — diagnostic, not an automatic failure).
 
-Summary table to produce:
+Verified results (2026-06-18; all monotonic; 20/20 EPWs pass; DDY survivors = 31;
+no reference fallback; no solar-closure / night / DHI>GHI / cap-plateau flags):
 
 ```text
-GWL | FRY year | XMY seasonal | XMY peak | XMY sustained | XMY nocturnal | Clg0.4 DB | Htg99.6 DB | CDD18.3 | HDD18.3 | EPW validation | DDY survivor count
+GWL    | FRY      | XMYseas | XMYpeak | XMYsust | XMYnoct | Clg0.4 | Htg99.6 | CDD18.3 | HDD18.3 | EPW | DDYsurv
+gwl1.5 | composite| 2003    | 2019    | 2003    | 2003    | 32.38  | -6.85   | 305     | 2584    | 5/5 | 31
+gwl2.0 | composite| 2003    | 2015    | 2003    | 2003    | 33.09  | -6.28   | 369     | 2435    | 5/5 | 31
+gwl2.5 | composite| 2003    | 2015    | 2003    | 2003    | 33.83  | -5.75   | 444     | 2282    | 5/5 | 31
+gwl3.0 | composite| 2003    | 2015    | 2003    | 2003    | 34.58  | -5.26   | 520     | 2149    | 5/5 | 31
 ```
+
+FRY is a 12-month composite of best-fit monthly source years (not a single year);
+the XMY columns report the selected `source_year` per profile. 2003 (European
+heatwave) dominates the warm-season stress profiles, as expected.
 
 ## Phase 4 — Building-simulation preparation only (DO NOT run full matrix)
 
@@ -86,7 +117,7 @@ Final matrix (fixed case-study building):
 
 ```text
 Station: Basel
-GWL:     1.5 / 2.0 / 3.0 / 4.0
+GWL:     1.5 / 2.0 / 2.5 / 3.0   (CH2025 has no 4.0)
 Weather: FRY, XMY Seasonal, XMY Peak, XMY Sustained, XMY Nocturnal
 ```
 
