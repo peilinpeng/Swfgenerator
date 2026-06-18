@@ -37,6 +37,47 @@ Acceptance (SPEC §12, tiered): Gumbel unit test ±0.1 K; same-source design
 reproduction ±0.5 K; cross-source / period-mismatched (MeteoSwiss vs ASHRAE)
 ±1–2 K with residuals explained; Honeybee survivor count = 31 (never 2).
 
+### DDY generation: reference-template patching (not a reduced rebuild)
+
+The future/observed `.ddy` is produced by **patching the station reference
+`.ddy`** (`legacy/scripts/ddy_template.py`), not by hand-building a reduced
+family. The generated DDY reproduces the reference object structure exactly:
+
+```text
+generated design-day count        == reference (Basel/Zurich TMYx: 114, not hard-coded)
+generated object family coverage  == reference (per dynamic name classification)
+generated Honeybee survivor set   == reference (identical names; 31)
+non-design-day objects            == preserved verbatim (Site:Location, Site:Precipitation, …)
+```
+
+Only the genuinely computed fields are overwritten — **Maximum Dry-Bulb**, the
+**coincident humidity value**, optionally the **daily dry-bulb range**
+(`--daily-range-policy`), and the **elevation barometric pressure**
+(`--pressure-policy`). Wind speed/direction, tau_b/tau_d, solar model, schedule
+and flag fields, day/month, humidity-condition type, and object & field order are
+**inherited per-object verbatim** from the reference (no default-wind
+placeholder). `09b` flags: `--ddy-mode template|legacy` (default `template`;
+`legacy` is the old reduced builder, used only when no reference DDY is
+available), `--ddy-strictness strict|permissive`. Each run writes a per-field
+**source map** (`<prefix>_ddy_source_map.csv`) labelling every field
+`computed_from_*` vs `inherited_from_reference_ddy` / `template_preserved`.
+
+Compare any generated DDY against its reference:
+
+```bash
+python3 legacy/scripts/ddy_compare.py \
+    --reference data/reference/basel/CHE_BL_Basel.Binningen.066010_TMYx.ddy \
+    --generated outputs/design_conditions_calibration/bas_calib.ddy \
+    --out-md  outputs/validation/ddy_compare_bas_calibration.md \
+    --out-csv outputs/validation/ddy_compare_bas_calibration.csv
+```
+
+Acceptance: `missing == 0`, `extra == 0`, `name_diffs == 0`, survivors equal and
+identical names, and **zero** wind / tau / daily-range / pressure / solar-model /
+humidity-type differences — the only field differences are Maximum Dry-Bulb and
+the coincident humidity value (the recomputed climate signal). Do **not** accept
+"survivors = 31" alone as success.
+
 ## Phase 2 — Basel GWL2.0 full pipeline smoke test
 
 Config: `configs/examples/basel_gwl2.yaml` (output root `outputs/basel_gwl2_smoke/`,
