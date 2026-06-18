@@ -1,8 +1,12 @@
-# Basel GWL1.5 weather-output batch config (Phase 3).
+# Basel GWL2.5 weather-output batch config (Phase 3).
 #
 # Drives `swfgenerator full`: API fetch (CH2025 deltas + MeteoSwiss observed) ->
 # future candidate pool -> FRY/XMY selection -> reference-based EPW export ->
 # ASHRAE-style design conditions / future DDY. Station-agnostic core; Basel here.
+#
+# NOTE: CH2025 does not provide a GWL4.0 level (per-station DAILY-LOCAL and
+# DAILY-GRIDDED both top out at GWL3.0). GWL2.5 is the additional level that IS
+# published, so the Basel matrix uses 1.5 / 2.0 / 2.5 / 3.0.
 
 station:
   code: bas
@@ -19,7 +23,7 @@ station:
 
 scenario:
   ref_state: ref91-20
-  gwls: [gwl1.5]
+  gwls: [gwl2.5]
   baseline_start_year: 1991
   baseline_end_year: 2020
 
@@ -33,7 +37,7 @@ data_source:
     refresh: false
 
 output:
-  root: outputs/basel_weather_batch/gwl1.5
+  root: outputs/basel_weather_batch/gwl2.5
 
 epw_writer:
   morphed_fields: [dry_bulb_temperature, relative_humidity, global_horizontal_radiation]

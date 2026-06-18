@@ -33,7 +33,7 @@ data_source:
     refresh: false
 
 output:
-  root: outputs/basel_gwl3_0_batch
+  root: outputs/basel_weather_batch/gwl3.0
 
 epw_writer:
   morphed_fields: [dry_bulb_temperature, relative_humidity, global_horizontal_radiation]
