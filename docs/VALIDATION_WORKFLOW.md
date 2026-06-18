@@ -50,17 +50,31 @@ generated Honeybee survivor set   == reference (identical names; 31)
 non-design-day objects            == preserved verbatim (Site:Location, Site:Precipitation, …)
 ```
 
-Only the genuinely computed fields are overwritten — **Maximum Dry-Bulb**, the
-**coincident humidity value**, optionally the **daily dry-bulb range**
-(`--daily-range-policy`), and the **elevation barometric pressure**
-(`--pressure-policy`). Wind speed/direction, tau_b/tau_d, solar model, schedule
-and flag fields, day/month, humidity-condition type, and object & field order are
-**inherited per-object verbatim** from the reference (no default-wind
-placeholder). `09b` flags: `--ddy-mode template|legacy` (default `template`;
-`legacy` is the old reduced builder, used only when no reference DDY is
-available), `--ddy-strictness strict|permissive`. Each run writes a per-field
-**source map** (`<prefix>_ddy_source_map.csv`) labelling every field
-`computed_from_*` vs `inherited_from_reference_ddy` / `template_preserved`.
+The fields overwritten from the computed design-condition summary are
+**Maximum Dry-Bulb** (`computed_from_hourly_pool`), the **coincident humidity
+value** (`computed_from_psychrometrics`), the **daily dry-bulb range** of cooling
+design days (`computed_from_daily_range_statistics`), and the **elevation
+barometric pressure** (`computed_from_elevation_pressure`). The daily-range
+production default is **`compute`** (`--daily-range-policy compute`): the cooling
+design-day temperature profile must reflect the future climate's mean-coincident
+DB range (annual `MCDBR` for annual cooling days, `monthly[m].MCDBR` for monthly
+ones), not the present-day reference range. Heating / humidification days have no
+computed range statistic and keep the reference convention (no invented heating
+daily-range algorithm); heating-wind days are preserved whole (no wind statistic
+is computed).
+
+Wind speed/direction, tau_b/tau_d, solar model, schedule and flag fields,
+day/month, humidity-condition type, and object & field order are **inherited
+per-object verbatim** from the reference (no default-wind placeholder). `09b`
+flags: `--ddy-mode template|legacy` (default `template`; `legacy` is the old
+reduced builder, used only when no reference DDY is available),
+`--ddy-strictness strict|permissive`, `--daily-range-policy compute|inherit`
+(default `compute`), `--pressure-policy compute|inherit` (default `compute`).
+Each run writes a per-field **source map** (`<prefix>_ddy_source_map.csv`)
+labelling every field `computed_from_*` vs `inherited_from_reference_ddy` /
+`template_preserved`. To regenerate a DDY after a template/policy change without
+recomputing the hourly pool, use `legacy/scripts/ddy_from_summary.py` (patches the
+stored `design_conditions` JSON onto the reference template).
 
 Compare any generated DDY against its reference:
 
@@ -73,10 +87,12 @@ python3 legacy/scripts/ddy_compare.py \
 ```
 
 Acceptance: `missing == 0`, `extra == 0`, `name_diffs == 0`, survivors equal and
-identical names, and **zero** wind / tau / daily-range / pressure / solar-model /
-humidity-type differences — the only field differences are Maximum Dry-Bulb and
-the coincident humidity value (the recomputed climate signal). Do **not** accept
-"survivors = 31" alone as success.
+identical names, and **zero** wind / tau / pressure / solar-model /
+humidity-type differences. **Daily dry-bulb range differences for cooling days
+are expected and correct** — they are computed from the future/observed data
+(`computed_from_daily_range_statistics`), not a reproduction failure. The other
+expected field differences are Maximum Dry-Bulb and the coincident humidity value.
+Do **not** accept "survivors = 31" alone as success.
 
 ## Phase 2 — Basel GWL2.0 full pipeline smoke test
 
