@@ -647,19 +647,25 @@ def core_design_conditions(
     # We compute one coincident daily DB range per KIND (percentile-invariant:
     # the reference annual ranges do not vary with the 0.4/1/2% percentile), by
     # averaging the daily DB range over days whose daily-maximum of that variable
-    # is in the warm-season upper tail (>= the variable's 5% annual exceedance,
-    # the same threshold used for MCDBR above). Stored under cooling["MCDBR_<kind>"];
-    # the generic dc["MCDBR"] remains as a labelled fallback.
-    def _kind_daily_db_range(day_col: str, threshold: float) -> float:
-        sel = daily[daily[day_col] >= threshold]
+    # is in the upper tail (>= the 95th percentile of the DAILY-max distribution --
+    # not the hourly distribution, which is exceeded by most warm-season daily peaks
+    # and pulls in moderate shoulder-season days, biasing the range low). The
+    # daily-max 95th selects a broad warm-season pool (~660 days) that reproduces the
+    # reference annual ranges; an in-month-only tail (~58 hottest days) overshoots.
+    # Stored under cooling["MCDBR_<kind>"]; the generic dc["MCDBR"] is a fallback.
+    # Enthalpy days inherit the DP-family range in the writer (the reference DDY pins
+    # the Enth=>MDB day to the DP range, not a separate enthalpy-coincident range).
+    def _kind_daily_db_range(day_col: str, q: float = 0.95) -> float:
+        thr = float(np.quantile(daily[day_col], q))   # 95th percentile of the DAILY-max distribution
+        sel = daily[daily[day_col] >= thr]            # full-record pool (not in-month only)
         if sel.empty:
-            sel = hot_days
+            sel = daily
         return round(float(sel["range"].mean()), 2)
 
-    cooling["MCDBR_DB"] = _kind_daily_db_range("Tmax", value_exceeded(db, 5.0))
-    cooling["MCDBR_WB"] = _kind_daily_db_range("WBmax", value_exceeded(wb, 5.0))
-    cooling["MCDBR_DP"] = _kind_daily_db_range("DPmax", value_exceeded(dp, 5.0))
-    cooling["MCDBR_Enth"] = _kind_daily_db_range("ENTHmax", value_exceeded(enth, 5.0))
+    cooling["MCDBR_DB"] = _kind_daily_db_range("Tmax")
+    cooling["MCDBR_WB"] = _kind_daily_db_range("WBmax")
+    cooling["MCDBR_DP"] = _kind_daily_db_range("DPmax")
+    cooling["MCDBR_Enth"] = _kind_daily_db_range("ENTHmax")
 
     # --- Degree-days (SPEC s8 / Eqs. 2-3) -----------------------------------
     dd = {}
@@ -1074,12 +1080,15 @@ def build_design_days(
     ))
 
     # --- Annual cooling (ASHRAETau2017, July tau) — surviving (.4%) --------
+    # Each cooling design day carries the daily DB range coincident with ITS OWN
+    # primary variable (humid days swing less than hot-dry days); fall back to the
+    # generic dc["MCDBR"] only if a kind-specific value is unavailable.
     mcdbr = float(dc["MCDBR"])
     db04 = cooling["DB_0.4"]
     days.append(DesignDay(
         name=f"{station} Ann Clg .4% Condns DB=>MWB",
         month=hottest, day=21, day_type="SummerDesignDay",
-        max_db=db04, daily_range=mcdbr,
+        max_db=db04, daily_range=float(cooling.get("MCDBR_DB", mcdbr)),
         humidity_type="Wetbulb", humidity_value=cooling["DB_0.4_MCWB"],
         pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
         solar_model="ASHRAETau2017", taub=july_b, taud=july_d,
@@ -1087,7 +1096,7 @@ def build_design_days(
     days.append(DesignDay(
         name=f"{station} Ann Clg .4% Condns WB=>MDB",
         month=hottest, day=21, day_type="SummerDesignDay",
-        max_db=cooling["WB_0.4_MCDB"], daily_range=mcdbr,
+        max_db=cooling["WB_0.4_MCDB"], daily_range=float(cooling.get("MCDBR_WB", mcdbr)),
         humidity_type="Wetbulb", humidity_value=cooling["WB_0.4"],
         pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
         solar_model="ASHRAETau2017", taub=july_b, taud=july_d,
@@ -1095,7 +1104,7 @@ def build_design_days(
     days.append(DesignDay(
         name=f"{station} Ann Clg .4% Condns DP=>MDB",
         month=hottest, day=21, day_type="SummerDesignDay",
-        max_db=cooling["DP_0.4_MCDB"], daily_range=mcdbr,
+        max_db=cooling["DP_0.4_MCDB"], daily_range=float(cooling.get("MCDBR_DP", mcdbr)),
         humidity_type="Dewpoint", humidity_value=cooling["DP_0.4"],
         pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
         solar_model="ASHRAETau2017", taub=july_b, taud=july_d,
@@ -1104,17 +1113,19 @@ def build_design_days(
     days.append(DesignDay(
         name=f"{station} Ann Clg .4% Condns Enth=>MDB",
         month=hottest, day=21, day_type="SummerDesignDay",
-        max_db=cooling["Enth_0.4_MDB"], daily_range=mcdbr,
+        # Reference DDY pins the Enth day to the DP-family range, not a separate
+        # enthalpy-coincident range (which runs ~WB-wide and overshoots).
+        max_db=cooling["Enth_0.4_MDB"], daily_range=float(cooling.get("MCDBR_DP", mcdbr)),
         humidity_type="Enthalpy", humidity_value=enth_val * 1000.0,  # kJ/kg->J/kg slot
         pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
         solar_model="ASHRAETau2017", taub=july_b, taud=july_d,
     ))
-    # Non-surviving annual cooling 1% / 2% DB=>MCWB
+    # Non-surviving annual cooling 1% / 2% DB=>MCWB (DB-kind range)
     for pctl in (1.0, 2.0):
         days.append(DesignDay(
             name=f"{station} Ann Clg {pctl:g}% Condns DB=>MCWB",
             month=hottest, day=21, day_type="SummerDesignDay",
-            max_db=cooling[f"DB_{pctl}"], daily_range=mcdbr,
+            max_db=cooling[f"DB_{pctl}"], daily_range=float(cooling.get("MCDBR_DB", mcdbr)),
             humidity_type="Wetbulb", humidity_value=cooling[f"DB_{pctl}_MCWB"],
             pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
             solar_model="ASHRAETau2017", taub=july_b, taud=july_d,
@@ -1127,11 +1138,13 @@ def build_design_days(
             continue
         tb, td = tau_table.get(m, BASEL_REFERENCE_TAU[m])
         mcdbr_m = float(entry["MCDBR"])
+        mcdbr_m_db = float(entry.get("MCDBR_DB", mcdbr_m))
+        mcdbr_m_wb = float(entry.get("MCDBR_WB", mcdbr_m))
         # Surviving: .4% DB=>MCWB
         days.append(DesignDay(
             name=f"{station} {MONTH_ABBR[m]} .4% Condns DB=>MCWB",
             month=m, day=21, day_type="SummerDesignDay",
-            max_db=entry["DB_0.4"], daily_range=mcdbr_m,
+            max_db=entry["DB_0.4"], daily_range=mcdbr_m_db,
             humidity_type="Wetbulb", humidity_value=entry["DB_0.4_MCWB"],
             pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
             solar_model="ASHRAETau2017", taub=tb, taud=td,
@@ -1140,7 +1153,7 @@ def build_design_days(
         days.append(DesignDay(
             name=f"{station} {MONTH_ABBR[m]} .4% Condns WB=>MCDB",
             month=m, day=21, day_type="SummerDesignDay",
-            max_db=entry["WB_0.4_MCDB"], daily_range=mcdbr_m,
+            max_db=entry["WB_0.4_MCDB"], daily_range=mcdbr_m_wb,
             humidity_type="Wetbulb", humidity_value=entry["WB_0.4"],
             pressure_pa=pres, wind_speed=wind["clg_ws"], wind_dir=wind["clg_wd"],
             solar_model="ASHRAETau2017", taub=tb, taud=td,

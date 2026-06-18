@@ -256,7 +256,10 @@ def computed_values(fam: Family, dc: Dict[str, Any]) -> Dict[str, Any]:
 # is coincident with the design's primary variable (a humid WB/DP/Enth design day
 # has a smaller DB swing than a hot DB day); the reference DDY encodes this per
 # family. classify() yields annual kinds DB/Wb/Dp/Enth and monthly kinds DB/WB.
-_ANNUAL_RANGE_KEY = {"DB": "MCDBR_DB", "Wb": "MCDBR_WB", "Dp": "MCDBR_DP", "Enth": "MCDBR_Enth"}
+# Enth reuses the DP-family range: the reference DDY pins the Enth=>MDB day to the
+# DP range, not a separate enthalpy-coincident range (which runs ~WB-wide and
+# overshoots the reference ~10.4 K by ~2 K).
+_ANNUAL_RANGE_KEY = {"DB": "MCDBR_DB", "Wb": "MCDBR_WB", "Dp": "MCDBR_DP", "Enth": "MCDBR_DP"}
 _MONTHLY_RANGE_KEY = {"DB": "MCDBR_DB", "WB": "MCDBR_WB"}
 
 
